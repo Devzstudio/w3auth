@@ -1,0 +1,45 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model custom_fields {
+  option_id String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name      String?
+  label     String?
+  required  Boolean? @default(false)
+}
+
+model user_address {
+  user_address_id String  @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  user_ud         String? @db.Uuid
+  wallet_address  String?
+  chain           String?
+}
+
+model user_custom_field {
+  field_id  String  @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  option_id String? @db.Uuid
+  value     String?
+}
+
+model user_logins {
+  user_login_id String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  user_id       String?
+  browser       String?
+  ip            String?
+  country       String?
+  created_at    DateTime? @db.Timestamptz(6)
+}
+
+model users {
+  id         String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name       String?
+  nounce     Decimal?  @db.Decimal
+  created_at DateTime? @default(now()) @db.Timestamptz(6)
+  email      String?
+}
