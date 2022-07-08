@@ -1,6 +1,3 @@
-import Head from 'next/head';
-import Image from 'next/image';
-
 export default function Home() {
-	return <section>cooking</section>;
+	return <section>home </section>;
 }
