@@ -1,15 +1,14 @@
 import SettingsWrapper from 'components/settings/SettingsWrapper';
+import { TextInput } from '@mantine/core';
 import PageHeader from 'components/PageHeader';
 
 const Settings = () => {
 	return (
 		<SettingsWrapper>
-			<PageHeader title="Custom Fields" />
+			<PageHeader title="NFT Gating" />
 
 			<div className="space-y-5">
-				custom profile fields. two modes: let user fill profile along with registeration process. || login and
-				fill profile details later.
-				<p>custom fields are shown here.</p>
+				Token gating. Does the user contains x amount of Y token? . Allow the user to login.
 			</div>
 		</SettingsWrapper>
 	);

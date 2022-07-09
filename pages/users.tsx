@@ -14,6 +14,8 @@ const Users = () => {
 						<th>Address</th>
 						<th>Name</th>
 						<th>Email</th>
+						<th>Created at</th>
+						<th>Last Active</th>
 						<th></th>
 					</tr>
 				</thead>
@@ -22,11 +24,15 @@ const Users = () => {
 						<td>0x....e1dc</td>
 						<td>Jijin</td>
 						<td>jijin@devzstudio.com</td>
+						<td>1st July 2022</td>
+						<td>15 July 2022</td>
 						<td className="space-x-5">
-							<a className="cursor-pointer text-gray-500 hover:text-gray-100">Details</a>
-
 							<Link as="/users/logs/123" href="/users/logs/123">
 								<a className="cursor-pointer text-gray-500 hover:text-gray-100">Logs</a>
+							</Link>
+
+							<Link as="/users/details/123" href="/users/details/123">
+								<a className="cursor-pointer text-gray-500 hover:text-gray-100">Details</a>
 							</Link>
 
 							<a className="cursor-pointer text-gray-500 hover:text-gray-100">Block</a>

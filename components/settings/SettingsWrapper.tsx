@@ -14,6 +14,10 @@ const NavigationLinks = [
 		link: '/settings/nft_gating',
 	},
 	{
+		name: 'Token Gating',
+		link: '/settings/token_gating',
+	},
+	{
 		name: 'Custom fields',
 		link: '/settings/custom_fields',
 	},
