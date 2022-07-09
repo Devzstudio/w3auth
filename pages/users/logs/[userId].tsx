@@ -4,23 +4,23 @@ import PageHeader from 'components/PageHeader';
 
 const Users = () => {
 	return (
-		<CardWrapper label="Allowlist">
-			<PageHeader title="Allowlist" />
+		<CardWrapper label="Login logs">
+			<PageHeader title="Login logs" />
 
 			<Table striped highlightOnHover>
 				<thead>
 					<tr>
-						<th>Address</th>
-						<th>Name</th>
-						<th>Email</th>
+						<th>Browser</th>
+						<th>IP</th>
+						<th>Country</th>
 						<th></th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<td>0x....e1dc</td>
-						<td>Jijin</td>
-						<td>jijin@devzstudio.com</td>
+						<td>Chrome</td>
+						<td>124.0.01</td>
+						<td>India</td>
 						<td></td>
 					</tr>
 				</tbody>

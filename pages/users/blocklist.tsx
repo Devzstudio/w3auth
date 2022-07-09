@@ -1,9 +1,12 @@
 import { Table } from '@mantine/core';
 import CardWrapper from 'components/card/CardWrapper';
+import PageHeader from 'components/PageHeader';
 
 const Users = () => {
 	return (
 		<CardWrapper label="Blocklist">
+			<PageHeader title="Blocklist" />
+
 			<Table striped highlightOnHover>
 				<thead>
 					<tr>

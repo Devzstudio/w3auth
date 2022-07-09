@@ -1,5 +1,6 @@
 import SettingsWrapper from 'components/settings/SettingsWrapper';
 import { Switch } from '@mantine/core';
+import PageHeader from 'components/PageHeader';
 
 const ChainCard = ({ label }) => {
 	return (
@@ -18,6 +19,8 @@ const ChainCard = ({ label }) => {
 const Settings = () => {
 	return (
 		<SettingsWrapper>
+			<PageHeader title="Chains Settings" />
+
 			<div className="grid grid-cols-12 gap-5">
 				<ChainCard label="ETH" />
 				<ChainCard label="BNB" />

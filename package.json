@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@heroicons/react": "^1.0.6",
     "@mantine/core": "^4.2.12",
     "@mantine/hooks": "^4.2.12",
     "@prisma/client": "^4.0.0",

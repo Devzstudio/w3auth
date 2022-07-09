@@ -13,6 +13,10 @@ const NavigationLinks = [
 		name: 'NFT Gating',
 		link: '/settings/nft_gating',
 	},
+	{
+		name: 'Custom fields',
+		link: '/settings/custom_fields',
+	},
 ];
 
 const SettingsWrapper = ({ children }) => {

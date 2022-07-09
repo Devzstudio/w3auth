@@ -1,5 +1,6 @@
 import SettingsWrapper from 'components/settings/SettingsWrapper';
 import { TextInput } from '@mantine/core';
+import PageHeader from 'components/PageHeader';
 
 const ChainCard = ({ label }) => {
 	return (
@@ -20,6 +21,8 @@ const ChainCard = ({ label }) => {
 const Settings = () => {
 	return (
 		<SettingsWrapper>
+			<PageHeader title="NFT Gating" />
+
 			<div className="space-y-5">
 				<ChainCard label="ETH" />
 				<ChainCard label="BNB" />
