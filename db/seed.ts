@@ -39,6 +39,15 @@ async function main() {
     })
 
     await prisma.settings.upsert({
+        where: { name: 'block_chainabuse_address' },
+        update: {},
+        create: {
+            name: 'block_chainabuse_address',
+            value: 'false',
+        },
+    })
+
+    await prisma.settings.upsert({
         where: { name: 'enable_eth' },
         update: {},
         create: {
