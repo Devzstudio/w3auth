@@ -37,12 +37,15 @@ model user_logins {
 }
 
 model users {
-  id           String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  name         String?
-  nounce       String?
-  created_at   DateTime? @default(now()) @db.Timestamptz(6)
-  email        String?
-  kyc_verified Boolean?  @default(false)
+  id                String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name              String?
+  nounce            String?
+  created_at        DateTime? @default(now()) @db.Timestamptz(6)
+  email             String?
+  kyc_verified      Boolean?  @default(false)
+  discord_username  String?
+  telegram_username String?
+  twitter_username  String?
 }
 
 model settings {
@@ -53,7 +56,21 @@ model settings {
 model admins {
   id             BigInt    @id @default(autoincrement())
   wallet_address String?
-  nounce         String?
   created_at     DateTime? @default(now()) @db.Timestamptz(6)
   last_login     DateTime? @db.Timestamptz(6)
+  nounce         String?
+}
+
+model allowlist {
+  allowlist_id String    @id @db.Uuid
+  address      String?
+  label        String?
+  created_at   DateTime? @default(now()) @db.Timestamptz(6)
+}
+
+model blocklist {
+  blocklist_id BigInt    @id @default(autoincrement())
+  address      String?
+  note         String?
+  created_at   DateTime? @default(now()) @db.Timestamptz(6)
 }

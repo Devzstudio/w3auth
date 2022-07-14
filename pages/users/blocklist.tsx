@@ -11,16 +11,14 @@ const Users = () => {
 				<thead>
 					<tr>
 						<th>Address</th>
-						<th>Name</th>
-						<th>Email</th>
+						<th>Note</th>
 						<th></th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
 						<td>0x....e1dc</td>
-						<td>Jijin</td>
-						<td>jijin@devzstudio.com</td>
+						<td>Jijin blocked</td>
 						<td></td>
 					</tr>
 				</tbody>
