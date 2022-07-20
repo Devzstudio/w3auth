@@ -1,3 +1,4 @@
+import RabbitKitConnect from 'components/Rainbowkit/RainbowKit';
 import Link from 'next/link';
 
 const NavigationLinks = [
@@ -35,7 +36,7 @@ const Layout = ({ children }) => {
 							auth
 						</span>
 
-						<a className="text-sm">Connect Wallet</a>
+						<RabbitKitConnect />
 					</nav>
 
 					<div className="my-5 space-x-5">

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { PlusIcon } from '@heroicons/react/outline';
 
 const CardWrapper = ({ children, label, create = null }) => {
 	return (
@@ -8,7 +9,8 @@ const CardWrapper = ({ children, label, create = null }) => {
 
 				{create && (
 					<Link href={create.link} as={create.link}>
-						<a className="text-base dark:hover:bg-gray-800 px-3 py-2 rounded dark:text-gray-500 dark:hover:text-gray-100">
+						<a className="text-base bg-dark-700 dark:hover:bg-gray-800 px-4 py-2 rounded dark:text-gray-500 dark:hover:text-gray-100 flex items-center">
+							<PlusIcon className="w-4 h-4 mr-2" />
 							{create.label ?? 'New Record'}
 						</a>
 					</Link>

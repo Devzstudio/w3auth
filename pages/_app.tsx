@@ -1,6 +1,5 @@
 import Head from 'node_modules/next/head';
 import Layout from '../components/Layout/index';
-import '../styles/globals.css';
 import { Toaster } from 'react-hot-toast';
 
 import { WagmiConfig } from 'wagmi';
@@ -9,6 +8,9 @@ import { chains, wagmiClient } from 'lib/connectors';
 import { MantineProvider } from '@mantine/core';
 import useDarkMode from 'use-dark-mode';
 import ProgressBar from 'components/UI/progressbar';
+import { AuthProvider } from 'context/auth.context';
+import '../styles/globals.css';
+import '@rainbow-me/rainbowkit/styles.css';
 
 function MyApp({ Component, pageProps }) {
 	const darkMode = useDarkMode(true, {
@@ -16,7 +18,7 @@ function MyApp({ Component, pageProps }) {
 	});
 
 	return (
-		<Layout>
+		<>
 			<Head>
 				<link rel="preconnect" href="https://fonts.googleapis.com" />
 				<link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
@@ -26,20 +28,24 @@ function MyApp({ Component, pageProps }) {
 				/>
 			</Head>
 			<WagmiConfig client={wagmiClient}>
-				<RainbowKitProvider chains={chains} theme={darkMode.value ? darkTheme() : lightTheme()}>
-					<MantineProvider
-						theme={{
-							// colorScheme: darkMode.value ? 'dark' : 'light',
-							colorScheme: 'dark',
-						}}
-					>
-						<Component {...pageProps} />
-					</MantineProvider>
-				</RainbowKitProvider>
+				<AuthProvider>
+					<RainbowKitProvider chains={chains} theme={darkMode.value ? darkTheme() : lightTheme()}>
+						<Layout>
+							<MantineProvider
+								theme={{
+									// colorScheme: darkMode.value ? 'dark' : 'light',
+									colorScheme: 'dark',
+								}}
+							>
+								<Component {...pageProps} />
+							</MantineProvider>
+						</Layout>
+					</RainbowKitProvider>
+				</AuthProvider>
 			</WagmiConfig>
 			<Toaster />
 			<ProgressBar color="#e93dd0" />
-		</Layout>
+		</>
 	);
 }
 

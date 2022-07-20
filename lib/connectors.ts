@@ -133,6 +133,7 @@ const moonriverChain = {
 };
 
 
+// [infuraProvider({ infuraId: process.env.INFURA_ID })],
 
 export const { chains, provider } = configureChains(
     [
