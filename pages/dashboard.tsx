@@ -1,19 +1,50 @@
 import { Table } from '@mantine/core';
-import CardWrapper from 'components/card/CardWrapper';
+import CardWrapper from 'components/UI/card/CardWrapper';
+import StatsCard from 'components/Dashboard/StatsCard';
 import PageHeader from 'components/PageHeader';
+import prisma from 'lib/prisma';
+import { GetStaticProps } from 'next';
+import Link from 'next/link';
 
-const StatsCard = ({ label, value }) => {
-	return (
-		<div className="bg-dark-900 rounded p-5 col-span-3">
-			<div className="flex justify-between items-center">
-				<span className="mr-2 text-xl">{value}</span>
-				<h4 className="flex items-center text-gray-400">{label}</h4>
-			</div>
-		</div>
-	);
+export const getServerSideProps: GetStaticProps = async (context) => {
+	const newUsers = await prisma.users.findMany({
+		orderBy: {
+			created_at: 'desc',
+		},
+		take: 10,
+	});
+
+	const lastLoginUsers = await prisma.users.findMany({
+		orderBy: {
+			last_login: 'desc',
+		},
+		take: 10,
+	});
+
+	const userCount = await prisma.users.count({});
+
+	const todaysUsers = await prisma.users.count({
+		where: {
+			created_at: {
+				gt: new Date(),
+			},
+		},
+	});
+
+	return {
+		props: {
+			newUsers: JSON.stringify(newUsers),
+			lastLoginUsers: JSON.stringify(lastLoginUsers),
+			userCount,
+			todaysUsers,
+		},
+	};
 };
 
-export default function Dashboard() {
+export default function Dashboard({ newUsers, userCount, todaysUsers, lastLoginUsers }) {
+	const new_users = JSON.parse(newUsers);
+	const last_login_users = JSON.parse(lastLoginUsers);
+
 	return (
 		<section>
 			<PageHeader title="Dashboard" />
@@ -21,8 +52,8 @@ export default function Dashboard() {
 			<CardWrapper label="Dashboard">
 				<div className="px-4">
 					<div className="flex space-x-5">
-						<StatsCard value={4} label="Total Users" />
-						<StatsCard value={14} label="New users today" />
+						<StatsCard value={userCount} label="Total Users" />
+						<StatsCard value={todaysUsers} label="New users today" />
 					</div>
 				</div>
 
@@ -39,12 +70,25 @@ export default function Dashboard() {
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>0x....e1dc</td>
-									<td>Jijin</td>
-									<td>jijin@devzstudio.com</td>
-									<td></td>
-								</tr>
+								{new_users.map((user) => {
+									return (
+										<tr key={user.id}>
+											<td>0x </td>
+											<td>{user.name}</td>
+											<td>{user.email}</td>
+											<td className="space-x-5">
+												<Link
+													as={`/users/details/${user.id}`}
+													href={`/users/details/${user.id}`}
+												>
+													<a className="cursor-pointer text-gray-500 hover:text-gray-100">
+														Details
+													</a>
+												</Link>
+											</td>
+										</tr>
+									);
+								})}
 							</tbody>
 						</Table>
 					</section>
@@ -60,12 +104,25 @@ export default function Dashboard() {
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>0x....e1dc</td>
-									<td>Jijin</td>
-									<td>jijin@devzstudio.com</td>
-									<td></td>
-								</tr>
+								{last_login_users.map((user) => {
+									return (
+										<tr key={user.id}>
+											<td>0x </td>
+											<td>{user.name}</td>
+											<td>{user.email}</td>
+											<td className="space-x-5">
+												<Link
+													as={`/users/details/${user.id}`}
+													href={`/users/details/${user.id}`}
+												>
+													<a className="cursor-pointer text-gray-500 hover:text-gray-100">
+														Details
+													</a>
+												</Link>
+											</td>
+										</tr>
+									);
+								})}
 							</tbody>
 						</Table>
 					</section>

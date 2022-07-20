@@ -46,6 +46,7 @@ model users {
   discord_username  String?
   telegram_username String?
   twitter_username  String?
+  last_login        DateTime? @db.Timetz(6)
 }
 
 model settings {

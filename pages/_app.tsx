@@ -1,5 +1,5 @@
 import Head from 'node_modules/next/head';
-import Layout from '../components/layout/index';
+import Layout from '../components/Layout/index';
 import '../styles/globals.css';
 import { Toaster } from 'react-hot-toast';
 
@@ -8,7 +8,7 @@ import { darkTheme, lightTheme, RainbowKitProvider } from '@rainbow-me/rainbowki
 import { chains, wagmiClient } from 'lib/connectors';
 import { MantineProvider } from '@mantine/core';
 import useDarkMode from 'use-dark-mode';
-import ProgressBar from 'components/progressbar';
+import ProgressBar from 'components/UI/progressbar';
 
 function MyApp({ Component, pageProps }) {
 	const darkMode = useDarkMode(true, {
@@ -29,7 +29,8 @@ function MyApp({ Component, pageProps }) {
 				<RainbowKitProvider chains={chains} theme={darkMode.value ? darkTheme() : lightTheme()}>
 					<MantineProvider
 						theme={{
-							colorScheme: darkMode.value ? 'dark' : 'light',
+							// colorScheme: darkMode.value ? 'dark' : 'light',
+							colorScheme: 'dark',
 						}}
 					>
 						<Component {...pageProps} />

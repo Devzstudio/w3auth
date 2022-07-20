@@ -1,8 +1,36 @@
 import { Table } from '@mantine/core';
-import CardWrapper from 'components/card/CardWrapper';
+import CardWrapper from 'components/UI/card/CardWrapper';
 import PageHeader from 'components/PageHeader';
+import dayjs from 'dayjs';
+import Config from 'lib/config';
+import { isEmpty } from 'lib/helpers';
+import prisma from 'lib/prisma';
+import { GetStaticProps } from 'next';
+import Pagination from 'components/UI/pagination/Pagination';
 
-const Users = () => {
+export const getServerSideProps: GetStaticProps = async (params: any) => {
+	let page;
+
+	if (!params.query) page = 0;
+	else {
+		if (params?.query?.page) page = params?.query?.page - 1;
+	}
+
+	const records = await prisma.user_logins.findMany({
+		skip: page ? page * Config.ItemsPerPage : 0,
+		take: Config.ItemsPerPage,
+	});
+
+	const total = await prisma.user_logins.count({});
+
+	return {
+		props: { records: JSON.stringify(records), total },
+	};
+};
+
+const LogsActivity = ({ records, total }) => {
+	const logs = JSON.parse(records);
+
 	return (
 		<CardWrapper label="Login logs">
 			<PageHeader title="Login logs" />
@@ -13,20 +41,31 @@ const Users = () => {
 						<th>Browser</th>
 						<th>IP</th>
 						<th>Country</th>
-						<th></th>
+						<th>Created at</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>Chrome</td>
-						<td>124.0.01</td>
-						<td>India</td>
-						<td></td>
-					</tr>
+					{logs.map((record) => {
+						return (
+							<tr key={record.id}>
+								<td>{record.browser} </td>
+								<td>{record.ip} </td>
+								<td>{record.country} </td>
+								<td>{dayjs(record.created_at).format('DD MMM YYYY')}</td>
+							</tr>
+						);
+					})}
+
+					{isEmpty(logs) && (
+						<tr>
+							<td colSpan={4}>There are no records.</td>
+						</tr>
+					)}
 				</tbody>
 			</Table>
+			<Pagination total={total} />
 		</CardWrapper>
 	);
 };
 
-export default Users;
+export default LogsActivity;

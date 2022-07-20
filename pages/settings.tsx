@@ -1,6 +1,6 @@
-import SettingsWrapper from 'components/settings/SettingsWrapper';
+import SettingsWrapper from 'components/Settings/SettingsWrapper';
 import { Button, Switch } from '@mantine/core';
-import CardWrapper from 'components/card/CardWrapper';
+import CardWrapper from 'components/UI/card/CardWrapper';
 import PageHeader from 'components/PageHeader';
 
 const Settings = () => {

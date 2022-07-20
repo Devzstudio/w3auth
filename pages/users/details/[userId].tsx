@@ -1,5 +1,5 @@
 import { Table } from '@mantine/core';
-import CardWrapper from 'components/card/CardWrapper';
+import CardWrapper from 'components/UI/card/CardWrapper';
 import PageHeader from 'components/PageHeader';
 
 const Users = () => {

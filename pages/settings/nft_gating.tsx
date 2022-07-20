@@ -1,4 +1,4 @@
-import SettingsWrapper from 'components/settings/SettingsWrapper';
+import SettingsWrapper from 'components/Settings/SettingsWrapper';
 import { TextInput } from '@mantine/core';
 import PageHeader from 'components/PageHeader';
 
