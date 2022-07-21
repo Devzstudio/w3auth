@@ -1,4 +1,4 @@
-import { Table } from '@mantine/core';
+import { Button, Table } from '@mantine/core';
 import CardWrapper from 'components/UI/card/CardWrapper';
 import PageHeader from 'components/PageHeader';
 import Config from 'lib/config';
@@ -7,6 +7,10 @@ import prisma from 'lib/prisma';
 import dayjs from 'dayjs';
 import { isEmpty } from 'lib/helpers';
 import Pagination from 'components/UI/pagination/Pagination';
+import { useRouter } from 'next/router';
+import useRequest from 'hooks/useRequests';
+import { useEffect } from 'react';
+import toast from 'react-hot-toast';
 
 export const getServerSideProps: GetStaticProps = async (params: any) => {
 	let page;
@@ -31,6 +35,23 @@ export const getServerSideProps: GetStaticProps = async (params: any) => {
 const BlockList = ({ records, total }) => {
 	const users_list = JSON.parse(records);
 
+	const router = useRouter();
+
+	const { loading, response, post } = useRequest({ url: '/api/console/users/remove_blocklist' });
+
+	const removeItem = (id) => {
+		post({
+			id: id,
+		});
+	};
+
+	useEffect(() => {
+		if (response?.success) {
+			toast.success('Removed from blocklist');
+			router.replace(router.asPath);
+		}
+	}, [response]);
+
 	return (
 		<CardWrapper
 			label="Blocklist"
@@ -45,7 +66,7 @@ const BlockList = ({ records, total }) => {
 				<thead>
 					<tr>
 						<th>Address</th>
-						<th>Label</th>
+						<th>Note</th>
 						<th>Created at</th>
 						<th></th>
 					</tr>
@@ -53,14 +74,22 @@ const BlockList = ({ records, total }) => {
 				<tbody>
 					{users_list.map((user) => {
 						return (
-							<tr key={user.id}>
+							<tr key={user.blocklist_id}>
 								<td>{user.address} </td>
 								<td>{user.note}</td>
 
 								<td>{dayjs(user.created_at).format('DD MMM YYYY')}</td>
 
 								<td className="space-x-5">
-									<a className="cursor-pointer text-gray-500 hover:text-gray-100">Remove</a>
+									<Button
+										size="xs"
+										loading={loading}
+										variant="subtle"
+										onClick={() => removeItem(user.blocklist_id)}
+										className="cursor-pointer text-gray-500 hover:text-gray-100"
+									>
+										Remove
+									</Button>{' '}
 								</td>
 							</tr>
 						);

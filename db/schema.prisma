@@ -65,11 +65,11 @@ model settings {
 }
 
 model admins {
-  id             BigInt    @id @default(autoincrement())
   wallet_address String?
   created_at     DateTime? @default(now()) @db.Timestamptz(6)
   last_login     DateTime? @db.Timestamptz(6)
   nounce         String?
+  admin_id       String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
 }
 
 model allowlist {
@@ -80,8 +80,8 @@ model allowlist {
 }
 
 model blocklist {
-  blocklist_id BigInt    @id @default(autoincrement())
   address      String?
   note         String?
   created_at   DateTime? @default(now()) @db.Timestamptz(6)
+  blocklist_id String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
 }

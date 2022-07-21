@@ -28,7 +28,7 @@
   },
   "prisma": {
     "schema": "db/schema.prisma",
-    "seed": "ts-node db/seed.ts"
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"}  db/seed.ts"
   },
   "devDependencies": {
     "@types/node": "^18.0.1",

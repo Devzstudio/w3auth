@@ -6,9 +6,9 @@ export default async (req, res) => {
 
     const { id } = req.body;
 
-    await prisma.allowlist.delete({
+    await prisma.blocklist.delete({
         where: {
-            allowlist_id: id
+            blocklist_id: id
         }
     })
 

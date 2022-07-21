@@ -1,4 +1,4 @@
-import { Table } from '@mantine/core';
+import { Button, Table } from '@mantine/core';
 import CardWrapper from 'components/UI/card/CardWrapper';
 import PageHeader from 'components/PageHeader';
 import { useRouter } from 'next/router';
@@ -8,6 +8,10 @@ import prisma from 'lib/prisma';
 import dayjs from 'dayjs';
 import { isEmpty } from 'lib/helpers';
 import Pagination from 'components/UI/pagination/Pagination';
+import { req } from 'lib/request';
+import useRequest from 'hooks/useRequests';
+import { useEffect } from 'react';
+import toast from 'react-hot-toast';
 
 export const getServerSideProps: GetStaticProps = async (params: any) => {
 	let page;
@@ -31,6 +35,22 @@ export const getServerSideProps: GetStaticProps = async (params: any) => {
 
 const Allowlist = ({ records, total }) => {
 	const users_list = JSON.parse(records);
+	const router = useRouter();
+
+	const { loading, response, post } = useRequest({ url: '/api/console/users/remove_allowlist' });
+
+	const removeItem = (id) => {
+		post({
+			id: id,
+		});
+	};
+
+	useEffect(() => {
+		if (response?.success) {
+			toast.success('Removed from allowlist');
+			router.replace(router.asPath);
+		}
+	}, [response]);
 
 	return (
 		<CardWrapper
@@ -54,14 +74,22 @@ const Allowlist = ({ records, total }) => {
 				<tbody>
 					{users_list.map((user) => {
 						return (
-							<tr key={user.id}>
+							<tr key={user.allowlist_id}>
 								<td>{user.address}</td>
 								<td>{user.label}</td>
 
 								<td>{dayjs(user.created_at).format('DD MMM YYYY')}</td>
 
 								<td className="space-x-5">
-									<a className="cursor-pointer text-gray-500 hover:text-gray-100">Remove</a>
+									<Button
+										size="xs"
+										loading={loading}
+										variant="subtle"
+										onClick={() => removeItem(user.allowlist_id)}
+										className="cursor-pointer text-gray-500 hover:text-gray-100"
+									>
+										Remove
+									</Button>
 								</td>
 							</tr>
 						);
