@@ -58,7 +58,7 @@ const Settings = ({ records, total }) => {
 					<tbody>
 						{fields.map((record) => {
 							return (
-								<tr key={record.id}>
+								<tr key={record.option_id}>
 									<td>{record.label}</td>
 									<td>{record.name} </td>
 									<td>{record.required ? 'Yes' : '-'}</td>

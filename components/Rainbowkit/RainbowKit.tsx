@@ -5,6 +5,9 @@ import { shortenAddress } from 'lib/helpers';
 import React, { useEffect } from 'react';
 
 const ConnectOptionsHandler = ({ account, chain, openAccountModal, openChainModal, openConnectModal, mounted }) => {
+	console.log('RENDER: CONNECTED OPTIONS HANDLER');
+	console.log({ account, chain, openAccountModal, openChainModal, openConnectModal, mounted });
+
 	return (
 		<div
 			{...(!mounted && {
@@ -63,6 +66,8 @@ const ConnectOptionsHandler = ({ account, chain, openAccountModal, openChainModa
 };
 
 const ConnectedAddress = ({ chain, openChainModal, openAccountModal, account }) => {
+	console.log('RENDER: CONNECTED ADDRESS');
+
 	useNounceHandler({
 		account,
 	});

@@ -1,4 +1,4 @@
-import { AuthActionTypes, useAuth } from 'context/auth.context';
+
 import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 
@@ -7,6 +7,7 @@ import { useSignMessage, useDisconnect } from 'wagmi';
 import { verifyMessage } from 'ethers/lib/utils';
 import { useCallback, useEffect, useState } from 'react';
 import React from 'react';
+import { AuthActionTypes, useAuth } from 'context/auth.context';
 
 const useNounceHandler = ({ account }) => {
     const recoveredAddress = React.useRef<string>();
@@ -23,7 +24,7 @@ const useNounceHandler = ({ account }) => {
             recoveredAddress.current = address;
 
             if (data != '') {
-                const verifyCall = await fetch('/console/auth/verify_sig', {
+                const verifyCall = await fetch('/api/console/auth/verify', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ signature: data, signed_message: variables.message }),
@@ -62,7 +63,7 @@ const useNounceHandler = ({ account }) => {
         if (!loading && account?.address && auth.token == '') {
             setLoading(true);
 
-            const nounceCall = await fetch('/console/auth/nounce', {
+            const nounceCall = await fetch('/api/console/auth/nounce', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ public_address: account.address }),
@@ -81,7 +82,7 @@ const useNounceHandler = ({ account }) => {
     const processDisconnect = useCallback(async () => {
         const refreshToken = window.localStorage.getItem('refresh_token');
 
-        await fetch('/console/auth/logout', {
+        await fetch('/api/console/auth/logout', {
             method: 'POST',
             credentials: 'include',
             headers: {
@@ -107,7 +108,7 @@ const useNounceHandler = ({ account }) => {
             const refreshToken = window.localStorage.getItem('refresh_token');
 
             if (refreshToken) {
-                const refreshCall = await fetch('/console/auth/refresh', {
+                const refreshCall = await fetch('/api/console/auth/refresh', {
                     method: 'POST',
                     credentials: 'include',
                     headers: {
@@ -135,12 +136,15 @@ const useNounceHandler = ({ account }) => {
 
     useEffect(() => {
         if (auth.token == '' && account?.address) {
+            console.log("nounce")
+
             handleSignature();
         }
     }, []);
 
     useEffect(() => {
         if (userResponse) {
+
             authDispatch({
                 type: AuthActionTypes.SET_USER,
                 payload: userResponse,
@@ -148,8 +152,7 @@ const useNounceHandler = ({ account }) => {
         }
     }, [userResponse, authDispatch]);
 
-    return;
-    {
+    return {
     }
 };
 

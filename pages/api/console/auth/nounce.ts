@@ -3,7 +3,7 @@ import prisma from "lib/prisma";
 
 export default async (req, res) => {
 
-    const { wallet_address } = req.body;
+    const { public_address: wallet_address } = req.body;
 
     if (!wallet_address) {
         return res.json({
@@ -27,10 +27,10 @@ export default async (req, res) => {
 
     await prisma.admins.update({
         where: {
-            id: user.id
+            admin_id: user.admin_id
         },
         data: {
-            nounce
+            nounce: String(nounce)
         }
     });
 
