@@ -21,6 +21,10 @@ const NavigationLinks = [
 		name: 'Custom fields',
 		link: '/settings/custom_fields',
 	},
+	{
+		name: 'Team',
+		link: '/settings/team',
+	},
 ];
 
 const SettingsWrapper = ({ children }) => {
