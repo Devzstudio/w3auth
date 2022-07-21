@@ -1,5 +1,5 @@
 const Config = {
-    ItemsPerPage: 1
+    ItemsPerPage: 10
 }
 
 export default Config;

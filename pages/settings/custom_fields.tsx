@@ -38,8 +38,6 @@ const Settings = ({ records, total }) => {
 			<PageHeader title="Custom Fields" />
 
 			<div className="space-y-5">
-				custom profile fields. two modes: let user fill profile along with registeration process. || login and
-				fill profile details later.
 				<div className="grid place-items-end">
 					<Link href={'/settings/custom_fields/create'} as={'/settings/custom_fields/create'}>
 						<a className="text-base bg-dark-700 dark:hover:bg-gray-800 px-4 py-2 rounded dark:text-gray-500 dark:hover:text-gray-100 flex items-center">

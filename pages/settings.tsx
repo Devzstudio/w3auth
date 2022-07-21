@@ -14,7 +14,12 @@ export const getServerSideProps: GetStaticProps = async (params: any) => {
 	const records = await prisma.settings.findMany({
 		where: {
 			name: {
-				in: ['access_allowlist_only', 'accept_custom_fields_on_registeration'],
+				in: [
+					'access_allowlist_only',
+					'enable_nft_gating',
+					'enable_token_gating',
+					'accept_custom_fields_on_registeration',
+				],
 			},
 		},
 	});
@@ -36,6 +41,8 @@ const SettingsPage = ({ records }) => {
 	const form = useForm({
 		initialValues: {
 			access_allowlist_only: settings.access_allowlist_only,
+			enable_nft_gating: settings.enable_nft_gating,
+			enable_token_gating: settings.enable_token_gating,
 			accept_custom_fields_on_registeration: settings.accept_custom_fields_on_registeration,
 		},
 	});
@@ -61,6 +68,20 @@ const SettingsPage = ({ records }) => {
 					}}
 				>
 					<div className="px-6 py-4 space-y-5">
+						<Switch
+							color={'violet'}
+							label="Allow only allowlist users"
+							checked={form.values.access_allowlist_only}
+							onChange={() =>
+								form.setFieldValue('access_allowlist_only', !form.values.access_allowlist_only)
+							}
+						/>
+						<Switch
+							color={'violet'}
+							label="Enable NFT Gating"
+							checked={form.values.enable_nft_gating}
+							onChange={() => form.setFieldValue('enable_nft_gating', !form.values.enable_nft_gating)}
+						/>
 						<Switch
 							color={'violet'}
 							label="Allow only allowlist users"

@@ -70,6 +70,7 @@ model admins {
   last_login     DateTime? @db.Timestamptz(6)
   nounce         String?
   admin_id       String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name           String?
 }
 
 model allowlist {

@@ -8,6 +8,9 @@ import NFTCard from 'components/Settings/NFTCard';
 import { GetStaticProps } from 'next';
 import prisma from 'lib/prisma';
 import Config from 'lib/config';
+import Link from 'next/link';
+import { PlusIcon } from '@heroicons/react/outline';
+import Pagination from 'components/UI/pagination/Pagination';
 
 export const getServerSideProps: GetStaticProps = async (params: any) => {
 	let page;
@@ -29,10 +32,9 @@ export const getServerSideProps: GetStaticProps = async (params: any) => {
 	};
 };
 
-const Settings = ({ records }) => {
-	const settings = getSettings(JSON.parse(records));
+const Settings = ({ records, total }) => {
+	const settings = JSON.parse(records);
 
-	console.log(settings);
 	const { loading, response, post } = useRequest({ url: '/api/console/settings/update_settings' });
 
 	useEffect(() => {
@@ -46,15 +48,29 @@ const Settings = ({ records }) => {
 			<PageHeader title="NFT Gating" />
 
 			<div className="space-y-5">
-				<form
-					onSubmit={() => {
-						console.log(1);
-					}}
-				>
-					{/* {settings.map((chain) => {
-						return <NFTCard label={chain.chain} contract={chain.contract_address} icon={chain.icon} />;
-					})} */}
-				</form>
+				<div className="grid place-items-end">
+					<Link href={'/settings/nft_gating/create'} as={'/settings/nft_gating/create'}>
+						<a className="text-base bg-dark-700 dark:hover:bg-gray-800 px-4 py-2 rounded dark:text-gray-500 dark:hover:text-gray-100 flex items-center">
+							<PlusIcon className="w-4 h-4 mr-2" />
+							New Record
+						</a>
+					</Link>
+				</div>
+
+				{settings.map((chain) => {
+					return (
+						<NFTCard
+							key={chain.id}
+							label={chain.label}
+							chain={chain.chain}
+							contract={chain.contract_address}
+							icon={chain.icon}
+							id={chain.id}
+						/>
+					);
+				})}
+
+				<Pagination total={total} />
 			</div>
 		</SettingsWrapper>
 	);
