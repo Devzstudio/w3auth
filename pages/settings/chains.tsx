@@ -1,34 +1,97 @@
 import SettingsWrapper from 'components/Settings/SettingsWrapper';
-import { Switch } from '@mantine/core';
 import PageHeader from 'components/PageHeader';
+import ChainCard from 'components/Settings/ChainCard';
+import { GetStaticProps } from 'next';
+import prisma from 'lib/prisma';
+import { getSettings } from 'lib/helpers';
+import useRequest from 'hooks/useRequests';
+import { useForm } from '@mantine/hooks';
+import { useEffect } from 'react';
+import toast from 'react-hot-toast';
+import { Button } from '@mantine/core';
+import ConfigChains from 'lib/chains';
 
-const ChainCard = ({ label }) => {
-	return (
-		<div className="bg-dark-800 rounded p-5 col-span-3">
-			<div className="flex justify-between items-center">
-				<h4 className="flex items-center text-gray-400">
-					<img className="w-4 h-4 mr-2" src={`/assets/crypto_icons/${label.toLocaleLowerCase()}.svg`} />
-					{label}
-				</h4>
-				<Switch label="" />
-			</div>
-		</div>
-	);
+export const getServerSideProps: GetStaticProps = async () => {
+	const records = await prisma.settings.findMany({
+		where: {
+			name: {
+				in: [
+					'enable_eth',
+					'enable_bnb',
+					'enable_matic',
+					'enable_glmr',
+					'enable_ftm',
+					'enable_movr',
+					'enable_avax',
+					'enable_sol',
+				],
+			},
+		},
+	});
+
+	return {
+		props: { records: JSON.stringify(records) },
+	};
 };
 
-const Settings = () => {
+const Settings = ({ records }) => {
+	const settings = getSettings(JSON.parse(records));
+	const { loading, response, post } = useRequest({ url: '/api/console/settings/update_settings' });
+
+	const form = useForm({
+		initialValues: {
+			enable_eth: settings.enable_eth,
+			enable_bnb: settings.enable_bnb,
+			enable_matic: settings.enable_matic,
+			enable_glmr: settings.enable_glmr,
+			enable_ftm: settings.enable_ftm,
+			enable_movr: settings.enable_movr,
+			enable_avax: settings.enable_avax,
+			enable_sol: settings.enable_sol,
+		},
+	});
+
+	useEffect(() => {
+		if (response?.success) {
+			toast.success('Updated settings');
+		}
+	}, [response]);
+
 	return (
 		<SettingsWrapper>
 			<PageHeader title="Chains Settings" />
+			<form
+				onSubmit={(e) => {
+					e.preventDefault();
 
-			<div className="grid grid-cols-12 gap-5">
-				<ChainCard label="ETH" />
-				<ChainCard label="BNB" />
-				<ChainCard label="FTM" />
-				<ChainCard label="MATIC" />
-				<ChainCard label="SOL" />
-				<ChainCard label="GLMR" />
-			</div>
+					post({
+						settings: form.values,
+					});
+				}}
+			>
+				<div className="grid grid-cols-12 gap-5">
+					{ConfigChains.map((chain) => {
+						return (
+							<ChainCard
+								label={chain.symbol}
+								icon={chain.icon}
+								checked={form.values[`enable_${chain.symbol.toLocaleLowerCase()}`]}
+								onChange={() =>
+									form.setFieldValue(
+										`enable_${chain.symbol.toLocaleLowerCase()}`,
+										!form.values[`enable_${chain.symbol.toLocaleLowerCase()}`]
+									)
+								}
+							/>
+						);
+					})}
+				</div>
+				<div className="mt-5 mb-5">
+					<Button variant="outline" color="violet" type="submit" loading={loading}>
+						Save
+					</Button>
+				</div>
+			</form>
 		</SettingsWrapper>
 	);
 };

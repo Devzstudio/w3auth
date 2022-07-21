@@ -1,4 +1,4 @@
-import { Button, TextInput } from '@mantine/core';
+import { Button, Switch, TextInput } from '@mantine/core';
 import CardWrapper from 'components/UI/card/CardWrapper';
 import PageHeader from 'components/PageHeader';
 import useRequest from 'hooks/useRequests';
@@ -11,23 +11,24 @@ const Create = () => {
 	const form = useForm({
 		initialValues: {
 			label: '',
-			address: '',
+			name: '',
+			required: false,
 		},
 	});
 	const router = useRouter();
 
-	const { loading, response, post } = useRequest({ url: '/api/console/users/create_allowlist' });
+	const { loading, response, post } = useRequest({ url: '/api/console/settings/create_custom_field' });
 
 	useEffect(() => {
 		if (response?.success) {
-			toast.success('Added to allowlist');
-			router.push('/users/allowlist');
+			toast.success('Custom field added successfully');
+			router.push('/settings/custom_fields');
 		}
 	}, [response]);
 
 	return (
-		<CardWrapper label="Create Allowlist">
-			<PageHeader title="Create Allowlist" />
+		<CardWrapper label="Create Custom Field">
+			<PageHeader title="Create Custom Field" />
 
 			<div className="px-3 pb-5">
 				<form
@@ -46,9 +47,17 @@ const Create = () => {
 						onChange={(e) => form.setFieldValue('label', e.target.value)}
 					/>
 					<TextInput
-						label="Address"
-						value={form.values.address}
-						onChange={(e) => form.setFieldValue('address', e.target.value)}
+						label="Name"
+						placeholder="phone_number"
+						value={form.values.name}
+						onChange={(e) => form.setFieldValue('name', e.target.value)}
+					/>
+
+					<Switch
+						color={'violet'}
+						label="Required Field"
+						checked={form.values.required}
+						onChange={() => form.setFieldValue('required', !form.values.required)}
 					/>
 					<Button loading={loading} variant="outline" color="violet" type="submit">
 						Submit

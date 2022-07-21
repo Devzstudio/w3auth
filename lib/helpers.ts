@@ -32,10 +32,13 @@ export const ucwords = (string: string): string => {
 };
 
 
-export const updateSettings = (set: any) => {
-    const data: any = [];
-    Object.keys(set).map((val) => {
-        data.push({ name: val, value: `${set[val]}` });
+export const getSettings = (set: any) => {
+    const data: any = {};
+    set.map((val) => {
+        if (val.value == "true" || val.value == "false")
+            data[val.name] = val.value == "true" ? true : false
+        else
+            data[val.name] = val.value
     });
     return data;
 };

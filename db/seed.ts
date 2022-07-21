@@ -12,6 +12,15 @@ async function main() {
     })
 
     await prisma.settings.upsert({
+        where: { name: 'accept_custom_fields_on_registeration' },
+        update: {},
+        create: {
+            name: 'accept_custom_fields_on_registeration',
+            value: 'false',
+        },
+    })
+
+    await prisma.settings.upsert({
         where: { name: 'nft_access_only' },
         update: {},
         create: {
@@ -106,6 +115,15 @@ async function main() {
         update: {},
         create: {
             name: 'enable_avax',
+            value: 'false',
+        },
+    })
+
+    await prisma.settings.upsert({
+        where: { name: 'enable_sol' },
+        update: {},
+        create: {
+            name: 'enable_sol',
             value: 'false',
         },
     })

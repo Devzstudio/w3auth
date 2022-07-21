@@ -31,7 +31,7 @@ const Create = () => {
 
 			<div className="px-3 pb-5">
 				<form
-					className="space-y-5 md:w-1/2"
+					className="space-y-5"
 					onSubmit={(e) => {
 						e.preventDefault();
 

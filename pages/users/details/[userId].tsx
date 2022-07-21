@@ -43,8 +43,6 @@ const Users = ({ record, customFields }) => {
 	const user = JSON.parse(record);
 	const custom_fields = JSON.parse(customFields);
 
-	console.log(custom_fields);
-
 	return (
 		<CardWrapper label={user.name}>
 			<PageHeader title={user.name} />

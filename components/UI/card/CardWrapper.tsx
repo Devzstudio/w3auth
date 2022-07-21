@@ -3,7 +3,11 @@ import { PlusIcon } from '@heroicons/react/outline';
 
 const CardWrapper = ({ children, label, create = null }) => {
 	return (
-		<div className="bg-dark-800 rounded pt-5">
+		<div
+			className={`bg-dark-800 rounded pt-5 ${
+				label.includes('Create') || label.includes('Edit') ? 'md:w-1/2' : ''
+			}`}
+		>
 			<div className="flex justify-between items-center pr-5">
 				<h4 className="pl-3 text-xl mb-5">{label}</h4>
 
