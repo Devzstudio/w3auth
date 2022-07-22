@@ -23,3 +23,7 @@ a {
   background: #e93dd036;
     color: #e93dd0;
 }
+
+.documentation_link {
+  margin-left: auto !important;
+}

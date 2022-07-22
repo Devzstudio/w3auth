@@ -19,9 +19,9 @@ export const getServerSideProps: GetStaticProps = async (context: any) => {
 					in: [
 						'access_allowlist_only',
 						'enable_nft_gating',
-						'custom_jwt_claim',
 						'enable_token_gating',
 						'accept_custom_fields_on_registeration',
+						'custom_jwt_claim',
 					],
 				},
 			},
@@ -89,11 +89,9 @@ const SettingsPage = ({ records }) => {
 						/>
 						<Switch
 							color={'violet'}
-							label="Allow only allowlist users"
-							checked={form.values.access_allowlist_only}
-							onChange={() =>
-								form.setFieldValue('access_allowlist_only', !form.values.access_allowlist_only)
-							}
+							label="Enable Token Gating"
+							checked={form.values.enable_token_gating}
+							onChange={() => form.setFieldValue('enable_token_gating', !form.values.enable_token_gating)}
 						/>
 						<Switch
 							label="Accept custom fields on registeration"

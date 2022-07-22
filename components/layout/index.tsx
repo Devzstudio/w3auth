@@ -1,4 +1,11 @@
-import { BanIcon, ClipboardCheckIcon, CogIcon, HomeIcon, UsersIcon } from '@heroicons/react/outline';
+import {
+	BanIcon,
+	ClipboardCheckIcon,
+	CogIcon,
+	HomeIcon,
+	InformationCircleIcon,
+	UsersIcon,
+} from '@heroicons/react/outline';
 import RabbitKitConnect from 'components/Rainbowkit/RainbowKit';
 import { useAuth } from 'context/auth.context';
 import useIsAuthenticated from 'hooks/auth/useIsAuthenticated';
@@ -53,21 +60,32 @@ const Layout = ({ children }) => {
 					</nav>
 
 					{auth.token && (
-						<div className="my-5 space-x-5 flex items-center">
+						<div className="my-5 space-x-5 flex items-center w-full">
 							{NavigationLinks.map((nav) => (
 								<Link as={nav.link} href={nav.link} key={nav.link}>
 									<a
-										className={`
-									text-sm text-gray-500 hover:text-gray-100 hover:bg-dark-700 px-3 py-1.5 rounded cursor-pointer flex items-center
-								${router.asPath == nav.link ? 'text-purple-500' : ''}
-								${nav.link === '/settings' && router.asPath.includes('settings') ? 'text-purple-500' : ''}
-
-									`}
+										className={`text-sm text-gray-500 hover:text-gray-100 hover:bg-dark-700 px-3 py-1.5 rounded cursor-pointer flex items-center ${
+											router.asPath == nav.link ? 'text-purple-500' : ''
+										} ${
+											nav.link === '/settings' && router.asPath.includes('settings')
+												? 'text-purple-500'
+												: ''
+										}`}
 									>
 										{nav.icon} {nav.name}
 									</a>
 								</Link>
 							))}
+
+							<a
+								target="_BLANK"
+								rel="noreferrer noopener"
+								href="https://w3auth.devzstudio.com"
+								className={`text-sm text-gray-500 hover:text-gray-100 hover:bg-dark-700 px-3 py-1.5 rounded cursor-pointer flex items-center documentation_link`}
+							>
+								<InformationCircleIcon className="w-4 h-4 mr-2" />
+								Documentation
+							</a>
 						</div>
 					)}
 				</div>

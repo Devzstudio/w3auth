@@ -6,7 +6,7 @@ import { ok, oops } from "lib/response";
 
 export default async (req, res) => {
 
-    corsMiddleware(req, res, null)
+    corsMiddleware(req, res)
 
     const refreshToken = getAppCookies(req)['refresh_token']
 

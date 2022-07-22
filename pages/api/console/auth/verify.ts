@@ -64,7 +64,6 @@ export default async (req, res) => {
         success: "OK",
         token: output.token,
         name: user.name,
-        email: user.email,
         user_id: user.id
     });
 
