@@ -1,33 +1,41 @@
+import { BanIcon, ClipboardCheckIcon, CogIcon, HomeIcon, UsersIcon } from '@heroicons/react/outline';
 import RabbitKitConnect from 'components/Rainbowkit/RainbowKit';
 import { useAuth } from 'context/auth.context';
 import useIsAuthenticated from 'hooks/auth/useIsAuthenticated';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const NavigationLinks = [
 	{
 		name: 'Dashboard',
 		link: '/dashboard',
+		icon: <HomeIcon className="w-4 h-4 mr-2" />,
 	},
 	{
 		name: 'Users',
 		link: '/users',
+		icon: <UsersIcon className="w-4 h-4 mr-2" />,
 	},
 	{
 		name: 'Allowlist',
 		link: '/users/allowlist',
+		icon: <ClipboardCheckIcon className="w-4 h-4 mr-2" />,
 	},
 	{
 		name: 'Blocklist',
 		link: '/users/blocklist',
+		icon: <BanIcon className="w-4 h-4 mr-2" />,
 	},
 	{
 		name: 'Settings',
 		link: '/settings',
+		icon: <CogIcon className="w-4 h-4 mr-2" />,
 	},
 ];
 
 const Layout = ({ children }) => {
 	const { auth } = useAuth();
+	const router = useRouter();
 	useIsAuthenticated();
 
 	return (
@@ -45,11 +53,18 @@ const Layout = ({ children }) => {
 					</nav>
 
 					{auth.token && (
-						<div className="my-5 space-x-5 ">
+						<div className="my-5 space-x-5 flex items-center">
 							{NavigationLinks.map((nav) => (
 								<Link as={nav.link} href={nav.link} key={nav.link}>
-									<a className="text-sm text-gray-500 hover:text-gray-100 hover:bg-dark-700 px-3 py-1.5 rounded cursor-pointer">
-										{nav.name}
+									<a
+										className={`
+									text-sm text-gray-500 hover:text-gray-100 hover:bg-dark-700 px-3 py-1.5 rounded cursor-pointer flex items-center
+								${router.asPath == nav.link ? 'text-purple-500' : ''}
+								${nav.link === '/settings' && router.asPath.includes('settings') ? 'text-purple-500' : ''}
+
+									`}
+									>
+										{nav.icon} {nav.name}
 									</a>
 								</Link>
 							))}

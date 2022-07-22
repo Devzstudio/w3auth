@@ -9,8 +9,10 @@ import { MantineProvider } from '@mantine/core';
 import useDarkMode from 'use-dark-mode';
 import ProgressBar from 'components/UI/progressbar';
 import { AuthProvider } from 'context/auth.context';
-import '../styles/globals.css';
+
 import '@rainbow-me/rainbowkit/styles.css';
+import '../styles/globals.css';
+import 'react-tippy/dist/tippy.css';
 
 function MyApp({ Component, pageProps }) {
 	const darkMode = useDarkMode(true, {

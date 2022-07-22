@@ -11,6 +11,7 @@ import toast from 'react-hot-toast';
 import { Button } from '@mantine/core';
 import ConfigChains from 'lib/chains';
 import { validateCookie } from 'lib/cookie';
+import Heading from 'components/UI/Heading';
 
 export const getServerSideProps: GetStaticProps = async (context: any) => {
 	return validateCookie(context, async () => {
@@ -63,6 +64,12 @@ const Settings = ({ records }) => {
 	return (
 		<SettingsWrapper>
 			<PageHeader title="Chains Settings" />
+
+			<Heading
+				heading="Chains"
+				sub_heading="Chains can be enabled and obtained via API calls. On the basis of that, you can customize the options at the front end."
+			/>
+
 			<form
 				onSubmit={(e) => {
 					e.preventDefault();

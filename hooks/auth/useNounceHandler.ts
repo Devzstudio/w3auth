@@ -151,7 +151,7 @@ const useNounceHandler = ({ account }) => {
 
     useEffect(() => {
         handleRefreshToken();
-    }, [account]);
+    }, [handleRefreshToken]);
 
     useEffect(() => {
         if (error) {

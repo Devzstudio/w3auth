@@ -29,23 +29,6 @@ async function main() {
         },
     })
 
-    await prisma.settings.upsert({
-        where: { name: 'token_gating_contract_address' },
-        update: {},
-        create: {
-            name: 'token_gating_contract_address',
-            value: '',
-        },
-    })
-
-    await prisma.settings.upsert({
-        where: { name: 'token_gating_amount_required' },
-        update: {},
-        create: {
-            name: 'token_gating_amount_required',
-            value: '',
-        },
-    })
 
     await prisma.settings.upsert({
         where: { name: 'accept_custom_fields_on_registeration' },

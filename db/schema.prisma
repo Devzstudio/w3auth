@@ -98,3 +98,10 @@ model refresh_token {
   id      String  @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   user_id String? @db.Uuid
 }
+
+model token_gating {
+  id               String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  contract_address String?
+  chain            String?
+  value            Decimal? @db.Decimal
+}

@@ -14,11 +14,13 @@
 
 # Phase 2
 
+-   remove all allowlist
+-   remove all blocklist
 -   remove team member
 -   remove custom fields (delete the stored values )
 -   enable , disable custom fields
 -   search field on users, allowlist, blocklist
--   edit user details
+-   edit user details (name,email,twitter username, discord username, telegram username)
 -   kyc platform integrations
 -   clear user login logs
 -   breadcrump on edit / create pages

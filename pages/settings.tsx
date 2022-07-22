@@ -34,7 +34,7 @@ export const getServerSideProps: GetStaticProps = async (context: any) => {
 };
 
 const example = {
-	'user-id': '[USER_ID]',
+	user_id: '[USER_ID]',
 	email: '[USER_EMAIL]',
 };
 
@@ -107,16 +107,17 @@ const SettingsPage = ({ records }) => {
 							}
 						/>
 
-						<div>
+						<div className="grid md:grid-cols-2 gap-5">
 							<Textarea
+								minRows={5}
 								label="Custom JWT Claim"
 								value={form.values.custom_jwt_claim}
 								onChange={(val) => form.setFieldValue('custom_jwt_claim', val)}
 							/>
-							<div className="md:w-1/2 text-gray-500">
-								<p className="text-sm mt-5 mb-2 block">Example</p>
+							<div className=" text-gray-500">
+								<p className="text-sm mb-2 block">Example</p>
 								<Code block>{JSON.stringify(example, null, 2)}</Code>
-								<p className="text-sm text-gray-500 block mt-1">
+								<p className="text-xs text-gray-500 block mt-1">
 									User values are substituted for these variables
 								</p>
 							</div>

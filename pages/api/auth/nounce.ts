@@ -12,12 +12,6 @@ import {
 import { createAlchemyWeb3 } from "@alch/alchemy-web3";
 
 
-// 1. ----allowlist enabled? check address on allowlist addresses
-// 2. ----user blocked?
-// 3. ----address exist on blocklist. block it
-// 4. ----nft gating enabled? does the wallet contains the nft?
-// 5. ----token gating enabled? does the wallet contains tokens
-
 export default async (req, res) => {
 
     const { wallet_address, profile } = req.body;
@@ -28,7 +22,7 @@ export default async (req, res) => {
         })
     }
 
-    let chain = "eth"; // ability to use solana address / pass chain from frontend app
+    let chain = "eth"; // [Feat] ability to use solana address / pass chain from frontend app
 
     const settingsData = await prisma.settings.findMany({})
     const settings = getSettings(settingsData);
@@ -78,6 +72,8 @@ export default async (req, res) => {
         *   NFT Validation from alchemy api
         */
 
+        // [Feat] Support for other chains
+
         if (chain == "eth") {
             const settings = {
                 apiKey: process.env.ALCHEMY_API,
@@ -110,6 +106,8 @@ export default async (req, res) => {
     */
     if (settings.token_gated_access_only) {
 
+        // [Feat] Support for other chains
+
         if (chain == "eth") {
             const web3 = createAlchemyWeb3(
                 `https://eth-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API}`,
@@ -119,9 +117,10 @@ export default async (req, res) => {
 
             const balance = ethers.BigNumber.from(tokenBalance.tokenBalances[0].tokenBalance)
 
-            if (balance < settings.token_gating_amount_required) {
-                return oops(res, "You dont have enough token balance to access.");
-            }
+            // Modified token gating table
+            // if (balance < settings.token_gating_amount_required) {
+            //     return oops(res, "You dont have enough token balance to access.");
+            // }
         }
 
     }

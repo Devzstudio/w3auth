@@ -1,9 +1,5 @@
 # w3auth
 
-# Plan
+# Features
 
--   generate jwt, nounce
--   set user field, content on the jwt token
--   nft gated access
--   token gated access
--   allowlist verify login
+# Contribution

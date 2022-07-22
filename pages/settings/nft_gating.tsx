@@ -11,6 +11,10 @@ import Link from 'next/link';
 import { PlusIcon } from '@heroicons/react/outline';
 import Pagination from 'components/UI/pagination/Pagination';
 import { validateCookie } from 'lib/cookie';
+import Heading from 'components/UI/Heading';
+import { getSettings } from 'lib/helpers';
+import { Tooltip } from '@mantine/core';
+import GatingStatus from 'components/UI/GatingStatus';
 
 export const getServerSideProps: GetStaticProps = async (context: any) => {
 	return validateCookie(context, async () => {
@@ -21,6 +25,14 @@ export const getServerSideProps: GetStaticProps = async (context: any) => {
 			if (context?.query?.page) page = context?.query?.page - 1;
 		}
 
+		const settings = await prisma.settings.findMany({
+			where: {
+				name: {
+					in: ['enable_nft_gating'],
+				},
+			},
+		});
+
 		const records = await prisma.nft_gating.findMany({
 			skip: page ? page * Config.ItemsPerPage : 0,
 			take: Config.ItemsPerPage,
@@ -29,13 +41,14 @@ export const getServerSideProps: GetStaticProps = async (context: any) => {
 		const total = await prisma.nft_gating.count({});
 
 		return {
-			props: { records: JSON.stringify(records), total },
+			props: { records: JSON.stringify(records), total, settings },
 		};
 	});
 };
 
-const Settings = ({ records, total }) => {
-	const settings = JSON.parse(records);
+const Settings = ({ records, total, settings }) => {
+	const getRecords = JSON.parse(records);
+	const setting = getSettings(settings);
 
 	const { loading, response, post } = useRequest({ url: '/api/console/settings/update_settings' });
 
@@ -49,6 +62,17 @@ const Settings = ({ records, total }) => {
 		<SettingsWrapper>
 			<PageHeader title="NFT Gating" />
 
+			<Heading
+				heading="NFT Gating"
+				sub_heading="Users who possess any of the designated NFT items will be permitted access to the website if you activate NFT Gating."
+			/>
+
+			{setting.enable_nft_gating ? (
+				<GatingStatus status={setting.enable_nft_gating} label="NFT Gating" />
+			) : (
+				<GatingStatus status={setting.enable_nft_gating} label="NFT Gating" />
+			)}
+
 			<div className="space-y-5">
 				<div className="grid place-items-end">
 					<Link href={'/settings/nft_gating/create'} as={'/settings/nft_gating/create'}>
@@ -59,7 +83,7 @@ const Settings = ({ records, total }) => {
 					</Link>
 				</div>
 
-				{settings.map((chain) => {
+				{getRecords.map((chain) => {
 					return (
 						<NFTCard
 							key={chain.id}
