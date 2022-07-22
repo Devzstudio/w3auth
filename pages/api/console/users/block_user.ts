@@ -2,13 +2,12 @@ import { ok, oops } from 'lib/response';
 import prisma from "lib/prisma"
 import checkAuth from '../middlerware/checkAuth';
 
-const BlockUser = (async (req, res) => {
+const BlockUser = checkAuth(async (req, res) => {
 
-    const { user_id, is_blocked } = req.body;
-    console.log(res.body)
+    const { user_id, is_blocked } = (req.body);
 
-    try {
 
+    if (user_id != undefined) {
 
         await prisma.users.update({
             where: {
@@ -22,8 +21,7 @@ const BlockUser = (async (req, res) => {
 
         return ok(res);
     }
-    catch (e) {
-        console.log(e)
+    else {
         return oops(res);
     }
 

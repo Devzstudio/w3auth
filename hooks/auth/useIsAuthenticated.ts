@@ -7,11 +7,11 @@ const useIsAuthenticated = () => {
     const { auth } = useAuth()
     const router = useRouter();
 
-    useEffect(() => {
-        if (!auth.token && router.asPath !== "/") {
-            router.push('/')
-        }
-    }, [auth])
+    // useEffect(() => {
+    //     if (!auth.token && router.asPath !== "/") {
+    //         router.push('/')
+    //     }
+    // }, [auth])
 
     return {}
 

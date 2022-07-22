@@ -15,7 +15,6 @@ const useNounceHandler = ({ account }) => {
 
     const [userResponse, setUserReponse] = useState(null);
     const [refreshFailed, setRefreshFailed] = useState(false);
-    const [loading, setLoading] = useState(false);
 
     const { disconnect } = useDisconnect();
 
@@ -62,8 +61,9 @@ const useNounceHandler = ({ account }) => {
      */
 
     const handleSignature = useCallback(async () => {
-        if (!loading && account?.address && auth.token == '' && refreshFailed) {
-            setLoading(true);
+
+
+        if (account?.address && auth.token == '' && refreshFailed) {
 
             const nounceCall = await fetch('/api/console/auth/nounce', {
                 method: 'POST',
@@ -79,10 +79,9 @@ const useNounceHandler = ({ account }) => {
                 await signMessage({ message });
             }
         }
-    }, [account, auth, loading, signMessage]);
+    }, [account, auth, signMessage]);
 
     const processDisconnect = useCallback(async () => {
-        const refreshToken = window.localStorage.getItem('refresh_token');
 
         await fetch('/api/console/auth/logout', {
             method: 'POST',
@@ -91,12 +90,14 @@ const useNounceHandler = ({ account }) => {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ refresh_token: refreshToken }),
+            body: '',
         });
 
         authDispatch({
             type: AuthActionTypes.LOGOUT,
         });
+
+        window.localStorage.removeItem('refresh_token');
 
         disconnect();
     }, [authDispatch, disconnect]);
@@ -107,7 +108,7 @@ const useNounceHandler = ({ account }) => {
 
     const handleRefreshToken = useCallback(async () => {
 
-        console.log("refresgin token")
+
         if (auth.token == '') {
             const refreshToken = window.localStorage.getItem('refresh_token');
 
@@ -133,19 +134,24 @@ const useNounceHandler = ({ account }) => {
 
                     setUserReponse(user_response);
 
-                    if (router.query.redirect_to) {
-                        router.push(router.query.redirect_to as string);
-                    } else {
-                        router.push('/dashboard');
-                    }
+                    // if (router.query.redirect_to) {
+                    //     router.push(router.query.redirect_to as string);
+                    // } else {
+                    //     router.push('/dashboard');
+                    // }
                 }
+            }
+            else {
+
+                setRefreshFailed(true)
+
             }
         }
     }, [auth]);
 
     useEffect(() => {
         handleRefreshToken();
-    }, [handleRefreshToken]);
+    }, [account]);
 
     useEffect(() => {
         if (error) {
@@ -158,7 +164,7 @@ const useNounceHandler = ({ account }) => {
         if (auth.token == '' && account?.address) {
             handleSignature();
         }
-    }, []);
+    }, [refreshFailed]);
 
     useEffect(() => {
         if (userResponse) {

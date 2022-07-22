@@ -6,6 +6,7 @@ import prisma from 'lib/prisma';
 import dayjs from 'dayjs';
 import { isEmpty } from 'lib/helpers';
 import { validateCookie } from 'lib/cookie';
+import { ChainLogo } from 'lib/chains';
 
 export const getServerSideProps: GetStaticProps = async (context: any) => {
 	return validateCookie(context, async () => {
@@ -96,11 +97,16 @@ const Users = ({ record, customFields }) => {
 							<tbody>
 								{user.user_address.map((wallet) => {
 									return (
-										<TableField
-											label={wallet.chain.toUpperCase()}
-											value={wallet.wallet_address}
-											key={wallet.wallet_address}
-										/>
+										<tr key={wallet.wallet_address}>
+											<td className="flex items-center">
+												<img
+													src={ChainLogo[wallet.chain.toUpperCase()]}
+													className="w-4 h-4 mr-2"
+												/>
+												{wallet.chain.toUpperCase()}
+											</td>
+											<td>{wallet.wallet_address}</td>
+										</tr>
 									);
 								})}
 

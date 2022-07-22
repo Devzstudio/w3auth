@@ -9,7 +9,10 @@ const Pagination = ({ total }) => {
 
 	return (
 		<div className="grid place-items-center mt-5 pb-5">
-			<PaginationComponent total={total} onChange={(c) => router.push(`?page=${c}`)} />
+			<PaginationComponent
+				total={Math.ceil(total / Config.ItemsPerPage)}
+				onChange={(c) => router.push(`?page=${c}`)}
+			/>
 		</div>
 	);
 };

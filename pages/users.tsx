@@ -15,6 +15,7 @@ import useRequest from 'hooks/useRequests';
 import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { validateCookie } from 'lib/cookie';
+import WalletAddress from 'components/UI/WalletAddress';
 
 export const getServerSideProps: GetStaticProps = async (context: any) => {
 	return validateCookie(context, async () => {
@@ -28,6 +29,9 @@ export const getServerSideProps: GetStaticProps = async (context: any) => {
 		const records = await prisma.users.findMany({
 			skip: page ? page * Config.ItemsPerPage : 0,
 			take: Config.ItemsPerPage,
+			include: {
+				user_address: true,
+			},
 		});
 
 		const total = await prisma.users.count({});
@@ -45,7 +49,7 @@ const Users = ({ records, total }) => {
 
 	useEffect(() => {
 		if (response?.success) {
-			toast.success('Updated profile');
+			toast.success('Updated user.');
 			router.replace(router.asPath);
 		}
 	}, [response]);
@@ -76,12 +80,21 @@ const Users = ({ records, total }) => {
 					{users_list.map((user) => {
 						return (
 							<tr key={user.id}>
-								<td>0x_bug </td>
+								<td>
+									{user.user_address[0]?.wallet_address ? (
+										<WalletAddress
+											chain={user.user_address[0]?.chain}
+											address={user.user_address[0]?.wallet_address}
+										/>
+									) : (
+										'-'
+									)}
+								</td>
 
 								<td>{user.name}</td>
 								<td>{user.email}</td>
 								<td>{dayjs(user.created_at).format('DD MMM YYYY')}</td>
-								<td>15 July 2022</td>
+								<td>{user.last_login ? dayjs(user.last_login).format('DD MMM YYYY') : '-'}</td>
 								<td className="space-x-5">
 									<Link as={`/users/logs/${user.id}`} href={`/users/logs/${user.id}`}>
 										<a className="cursor-pointer text-gray-500 hover:text-gray-100">Logs</a>

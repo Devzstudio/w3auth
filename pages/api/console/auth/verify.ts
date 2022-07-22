@@ -42,7 +42,15 @@ export default async (req, res) => {
         })
     }
 
-    console.log("reached token generation")
+    await prisma.admins.update({
+        where: {
+            admin_id: user.admin_id
+        },
+        data: {
+            last_login: new Date()
+        }
+    })
+
     const output = await getToken(user, {
         user_id: user.admin_id,
         email: null

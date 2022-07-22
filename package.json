@@ -9,12 +9,15 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@alch/alchemy-sdk": "^1.0.8",
+    "@alch/alchemy-web3": "^1.4.6",
     "@heroicons/react": "^1.0.6",
     "@mantine/core": "^4.2.12",
     "@mantine/hooks": "^4.2.12",
     "@prisma/client": "^4.0.0",
     "@rainbow-me/rainbowkit": "^0.4.4",
     "bs58": "^5.0.0",
+    "cors": "^2.8.5",
     "dayjs": "^1.11.4",
     "ethers": "^5.6.9",
     "jsonwebtoken": "^8.5.1",

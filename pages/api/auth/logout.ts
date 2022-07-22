@@ -1,9 +1,12 @@
+import { corsMiddleware } from "lib/cors";
 import { getAppCookies } from "lib/helpers";
 import prisma from "lib/prisma";
 import { ok, oops } from "lib/response";
 
 
 export default async (req, res) => {
+
+    corsMiddleware(req, res, null)
 
     const refreshToken = getAppCookies(req)['refresh_token']
 
@@ -23,9 +26,9 @@ export default async (req, res) => {
         }
 
 
-        const user = await prisma.admins.findFirst({
+        const user = await prisma.users.findFirst({
             where: {
-                admin_id: rt.user_id
+                id: rt.user_id
             }
         });
 
@@ -35,9 +38,9 @@ export default async (req, res) => {
             })
         }
 
-        await prisma.admins.update({
+        await prisma.users.update({
             where: {
-                admin_id: user.admin_id
+                id: rt.user_id
             },
             data: {
                 nounce: null

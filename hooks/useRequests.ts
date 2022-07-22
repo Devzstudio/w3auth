@@ -10,14 +10,13 @@ const useRequest = ({ url }) => {
     const sendRequest = async (option, options) => {
         setLoading(true);
 
-        console.log(auth)
         const response = await req(url,
             {
                 method: option,
                 body: options
             },
             {
-                'Content-type': 'application/json',
+                Accept: 'application/json',
                 'authorization': `Bearer ${auth.token}`,
             }
         );

@@ -8,6 +8,7 @@ import prisma from 'lib/prisma';
 import { GetStaticProps } from 'next';
 import Pagination from 'components/UI/pagination/Pagination';
 import { validateCookie } from 'lib/cookie';
+import BrowserIcon from 'components/UI/BrowserIcon';
 
 export const getServerSideProps: GetStaticProps = async (context: any) => {
 	return validateCookie(context, async () => {
@@ -51,7 +52,9 @@ const LogsActivity = ({ records, total }) => {
 					{logs.map((record) => {
 						return (
 							<tr key={record.id}>
-								<td>{record.browser} </td>
+								<td>
+									<BrowserIcon name={record.browser} />
+								</td>
 								<td>{record.ip} </td>
 								<td>{record.country} </td>
 								<td>{dayjs(record.created_at).format('DD MMM YYYY')}</td>

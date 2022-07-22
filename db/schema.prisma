@@ -52,8 +52,8 @@ model users {
   discord_username  String?
   telegram_username String?
   twitter_username  String?
-  last_login        DateTime?           @db.Timetz(6)
   is_blocked        Boolean?            @default(false)
+  last_login        DateTime?           @db.Timestamptz(6)
   user_address      user_address[]
   user_custom_field user_custom_field[]
   user_logins       user_logins[]

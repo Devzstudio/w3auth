@@ -6,6 +6,7 @@ import prisma from 'lib/prisma';
 import { GetStaticProps } from 'next';
 import Link from 'next/link';
 import { validateCookie } from 'lib/cookie';
+import WalletAddress from 'components/UI/WalletAddress';
 
 export const getServerSideProps: GetStaticProps = async (context) => {
 	return validateCookie(context, async () => {
@@ -14,6 +15,9 @@ export const getServerSideProps: GetStaticProps = async (context) => {
 				created_at: 'desc',
 			},
 			take: 10,
+			include: {
+				user_address: true,
+			},
 		});
 
 		const lastLoginUsers = await prisma.users.findMany({
@@ -21,6 +25,9 @@ export const getServerSideProps: GetStaticProps = async (context) => {
 				last_login: 'desc',
 			},
 			take: 10,
+			include: {
+				user_address: true,
+			},
 		});
 
 		const userCount = await prisma.users.count({});
@@ -63,71 +70,97 @@ export default function Dashboard({ newUsers, userCount, todaysUsers, lastLoginU
 				<div className="grid md:grid-cols-2 gap-5 px-4 pb-5">
 					<section>
 						<h4 className="text-xl ml-2 mt-5 pb-5">New Users</h4>
-						<Table striped highlightOnHover>
-							<thead>
-								<tr>
-									<th>Address</th>
-									<th>Name</th>
-									<th>Email</th>
-									<th></th>
-								</tr>
-							</thead>
-							<tbody>
-								{new_users.map((user) => {
-									return (
-										<tr key={user.id}>
-											<td>0x </td>
-											<td>{user.name}</td>
-											<td>{user.email}</td>
-											<td className="space-x-5">
-												<Link
-													as={`/users/details/${user.id}`}
-													href={`/users/details/${user.id}`}
-												>
-													<a className="cursor-pointer text-gray-500 hover:text-gray-100">
-														Details
-													</a>
-												</Link>
-											</td>
-										</tr>
-									);
-								})}
-							</tbody>
-						</Table>
+						<div className="overflow-x-scroll">
+							<Table striped highlightOnHover className="overflow-x-scroll">
+								<thead>
+									<tr>
+										<th>Address</th>
+										<th>Name</th>
+										<th>Email</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									{new_users.map((user) => {
+										return (
+											<tr key={user.id}>
+												<td>
+													{user.user_address[0]?.wallet_address ? (
+														<WalletAddress
+															chain={user.user_address[0]?.chain}
+															address={user.user_address[0]?.wallet_address}
+															shortAddress={true}
+														/>
+													) : (
+														'-'
+													)}
+												</td>
+
+												<td>{user.name}</td>
+												<td>{user.email}</td>
+												<td className="space-x-5">
+													<Link
+														as={`/users/details/${user.id}`}
+														href={`/users/details/${user.id}`}
+													>
+														<a className="cursor-pointer text-gray-500 hover:text-gray-100">
+															Details
+														</a>
+													</Link>
+												</td>
+											</tr>
+										);
+									})}
+								</tbody>
+							</Table>
+						</div>
 					</section>
 					<section>
 						<h4 className="text-xl ml-2 mt-5 pb-5">Recent login</h4>
-						<Table striped highlightOnHover>
-							<thead>
-								<tr>
-									<th>Address</th>
-									<th>Name</th>
-									<th>Email</th>
-									<th></th>
-								</tr>
-							</thead>
-							<tbody>
-								{last_login_users.map((user) => {
-									return (
-										<tr key={user.id}>
-											<td>0x </td>
-											<td>{user.name}</td>
-											<td>{user.email}</td>
-											<td className="space-x-5">
-												<Link
-													as={`/users/details/${user.id}`}
-													href={`/users/details/${user.id}`}
-												>
-													<a className="cursor-pointer text-gray-500 hover:text-gray-100">
-														Details
-													</a>
-												</Link>
-											</td>
-										</tr>
-									);
-								})}
-							</tbody>
-						</Table>
+						<div className="overflow-x-scroll">
+							<Table striped highlightOnHover className="overflow-x-scroll">
+								<thead>
+									<tr>
+										<th>Address</th>
+										<th>Name</th>
+										<th>Email</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									{last_login_users.map((user) => {
+										return (
+											<tr key={user.id}>
+												<td>
+													{user.user_address[0]?.wallet_address ? (
+														<WalletAddress
+															chain={user.user_address[0]?.chain}
+															address={user.user_address[0]?.wallet_address}
+															shortAddress={true}
+														/>
+													) : (
+														'-'
+													)}
+												</td>
+
+												<td>{user.name}</td>
+												<td>{user.email}</td>
+												<td className="space-x-5">
+													<Link
+														as={`/users/details/${user.id}`}
+														href={`/users/details/${user.id}`}
+													>
+														<a className="cursor-pointer text-gray-500 hover:text-gray-100">
+															Details
+														</a>
+													</Link>
+												</td>
+											</tr>
+										);
+									})}
+								</tbody>
+							</Table>
+						</div>
 					</section>
 				</div>
 			</CardWrapper>

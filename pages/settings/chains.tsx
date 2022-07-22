@@ -76,6 +76,7 @@ const Settings = ({ records }) => {
 					{ConfigChains.map((chain) => {
 						return (
 							<ChainCard
+								key={chain.symbol}
 								label={chain.symbol}
 								icon={chain.icon}
 								checked={form.values[`enable_${chain.symbol.toLocaleLowerCase()}`]}

@@ -32,8 +32,8 @@ const Layout = ({ children }) => {
 
 	return (
 		<div className="bg-dark-900 text-gray-100 min-h-screen">
-			<header className={`${auth.token ? 'border-b-2' : ''} px-5 pt-5 border-dark-800`}>
-				<div className="mx-auto max-w-screen-xl px-4 sm:px-6 relative">
+			<header className={`${auth.token ? 'border-b-2' : ''} md:px-5 pt-5 border-dark-800`}>
+				<div className="mx-auto max-w-screen-xl md:px-4 sm:px-6 relative">
 					<nav className="flex justify-between">
 						{/* <img src="/logo.svg" /> */}
 						<span className="text-xl font-medium pl-3">
@@ -45,7 +45,7 @@ const Layout = ({ children }) => {
 					</nav>
 
 					{auth.token && (
-						<div className="my-5 space-x-5">
+						<div className="my-5 space-x-5 ">
 							{NavigationLinks.map((nav) => (
 								<Link as={nav.link} href={nav.link} key={nav.link}>
 									<a className="text-sm text-gray-500 hover:text-gray-100 hover:bg-dark-700 px-3 py-1.5 rounded cursor-pointer">

@@ -1,16 +1,19 @@
 const ConfigChains = [
     {
-        symbol: "ETH"
+        symbol: "ETH",
+        icon: "https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@bea1a9722a8c63169dcc06e86182bf2c55a76bbc/svg/color/eth.svg"
     },
     {
-        symbol: "BNB"
+        symbol: "BNB",
+        icon: "https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@bea1a9722a8c63169dcc06e86182bf2c55a76bbc/svg/color/bnb.svg"
     },
     {
         symbol: "FTM",
         icon: "https://s2.coinmarketcap.com/static/img/coins/64x64/3513.png"
     },
     {
-        symbol: "MATIC"
+        symbol: "MATIC",
+        icon: "https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@bea1a9722a8c63169dcc06e86182bf2c55a76bbc/svg/color/matic.svg"
     },
     {
         symbol: "SOL",
@@ -20,8 +23,17 @@ const ConfigChains = [
         symbol: "GLMR",
         icon: "https://s2.coinmarketcap.com/static/img/coins/64x64/6836.png"
     }
-
 ]
+
+
+export const ChainLogo = {
+    "ETH": "https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@bea1a9722a8c63169dcc06e86182bf2c55a76bbc/svg/color/eth.svg",
+    "BNB": "https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@bea1a9722a8c63169dcc06e86182bf2c55a76bbc/svg/color/bnb.svg",
+    "FTM": "https://s2.coinmarketcap.com/static/img/coins/64x64/3513.png",
+    "MATIC": "https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@bea1a9722a8c63169dcc06e86182bf2c55a76bbc/svg/color/matic.svg",
+    "SOL": "https://s2.coinmarketcap.com/static/img/coins/64x64/5426.png",
+    "GLMR": "https://s2.coinmarketcap.com/static/img/coins/64x64/6836.png"
+}
 
 export const ChainSelectList = [
     {

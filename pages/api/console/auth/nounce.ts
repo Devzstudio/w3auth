@@ -11,7 +11,7 @@ export default async (req, res) => {
         })
     }
 
-    const nounce = Math.floor(Math.random() * 1000000);
+    const nounce = Math.random().toString(36).slice(2, 15);
 
     const user = await prisma.admins.findFirst({
         where: {
@@ -30,7 +30,7 @@ export default async (req, res) => {
             admin_id: user.admin_id
         },
         data: {
-            nounce: String(nounce)
+            nounce: nounce
         }
     });
 

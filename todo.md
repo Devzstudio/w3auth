@@ -4,6 +4,7 @@
 -   clear all admin / user nounce at 30min interval. (cron)
 -   clear all refresh tokens (4hr interval)
 -   responsiveness
+-   cors domain allowlist
 
 # Refactor
 
@@ -20,6 +21,8 @@
 -   edit user details
 -   kyc platform integrations
 -   clear user login logs
+-   breadcrump on edit / create pages
+-   heading, subheading on settings page
 
 # Docs
 

@@ -4,7 +4,7 @@ export const ok = (res, message = "ok") => {
     });
 }
 export const oops = (res, message = "Ooops!") => {
-    return res.status(200).json({
+    return res.status(404).json({
         error: message
     });
 }
