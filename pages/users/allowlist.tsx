@@ -6,12 +6,13 @@ import Config from 'lib/config';
 import { GetStaticProps } from 'next';
 import prisma from 'lib/prisma';
 import dayjs from 'dayjs';
-import { isEmpty } from 'lib/helpers';
+import { getSettings, isEmpty } from 'lib/helpers';
 import Pagination from 'components/UI/pagination/Pagination';
 import useRequest from 'hooks/useRequests';
 import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { validateCookie } from 'lib/cookie';
+import GatingStatus from 'components/UI/GatingStatus';
 
 export const getServerSideProps: GetStaticProps = async (context: any) => {
 	return validateCookie(context, async () => {
@@ -29,15 +30,24 @@ export const getServerSideProps: GetStaticProps = async (context: any) => {
 
 		const total = await prisma.allowlist.count({});
 
+		const settings = await prisma.settings.findMany({
+			where: {
+				name: {
+					in: ['access_allowlist_only'],
+				},
+			},
+		});
+
 		return {
-			props: { records: JSON.stringify(records), total },
+			props: { records: JSON.stringify(records), total, settings },
 		};
 	});
 };
 
-const Allowlist = ({ records, total }) => {
+const Allowlist = ({ records, total, settings }) => {
 	const users_list = JSON.parse(records);
 	const router = useRouter();
+	const setting = getSettings(settings);
 
 	const { loading, response, post } = useRequest({ url: '/api/console/users/remove_allowlist' });
 
@@ -63,6 +73,14 @@ const Allowlist = ({ records, total }) => {
 			}}
 		>
 			<PageHeader title="Allowlist" />
+
+			<div className="pl-3 mb-5">
+				{setting.access_allowlist_only ? (
+					<GatingStatus status={setting.access_allowlist_only} label="Allowlist" />
+				) : (
+					<GatingStatus status={setting.access_allowlist_only} label="Allowlist" />
+				)}
+			</div>
 
 			<Table striped highlightOnHover>
 				<thead>
