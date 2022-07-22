@@ -8,11 +8,13 @@ import { verifyMessage } from 'ethers/lib/utils';
 import { useCallback, useEffect, useState } from 'react';
 import React from 'react';
 import { AuthActionTypes, useAuth } from 'context/auth.context';
+import Config from 'lib/config';
 
 const useNounceHandler = ({ account }) => {
     const recoveredAddress = React.useRef<string>();
 
     const [userResponse, setUserReponse] = useState(null);
+    const [refreshFailed, setRefreshFailed] = useState(false);
     const [loading, setLoading] = useState(false);
 
     const { disconnect } = useDisconnect();
@@ -36,7 +38,7 @@ const useNounceHandler = ({ account }) => {
                     toast.error(user_response.error);
                     processDisconnect();
                 } else {
-                    window.localStorage.setItem('refresh_token', user_response.token);
+                    window.localStorage.setItem('refresh_token', "true");
 
                     setUserReponse(user_response);
 
@@ -60,7 +62,7 @@ const useNounceHandler = ({ account }) => {
      */
 
     const handleSignature = useCallback(async () => {
-        if (!loading && account?.address && auth.token == '') {
+        if (!loading && account?.address && auth.token == '' && refreshFailed) {
             setLoading(true);
 
             const nounceCall = await fetch('/api/console/auth/nounce', {
@@ -72,7 +74,7 @@ const useNounceHandler = ({ account }) => {
             const nounceData = await nounceCall.json();
 
             if (nounceData.nounce) {
-                const message = `Welcome to HashMetrics, please sign this message to verify your identity. nounce: ${nounceData.nounce}`;
+                const message = `${Config.SignMessageText} ${nounceData.nounce}`;
 
                 await signMessage({ message });
             }
@@ -104,6 +106,8 @@ const useNounceHandler = ({ account }) => {
      */
 
     const handleRefreshToken = useCallback(async () => {
+
+        console.log("refresgin token")
         if (auth.token == '') {
             const refreshToken = window.localStorage.getItem('refresh_token');
 
@@ -117,8 +121,24 @@ const useNounceHandler = ({ account }) => {
                     },
                     body: JSON.stringify({ refresh_token: refreshToken }),
                 });
+                setRefreshFailed(true)
 
-                await refreshCall.json();
+                const user_response = await refreshCall.json();
+
+                if (user_response.error) {
+                    toast.error(user_response.error);
+                    processDisconnect();
+                } else {
+                    window.localStorage.setItem('refresh_token', "true");
+
+                    setUserReponse(user_response);
+
+                    if (router.query.redirect_to) {
+                        router.push(router.query.redirect_to as string);
+                    } else {
+                        router.push('/dashboard');
+                    }
+                }
             }
         }
     }, [auth]);
@@ -136,8 +156,6 @@ const useNounceHandler = ({ account }) => {
 
     useEffect(() => {
         if (auth.token == '' && account?.address) {
-            console.log("nounce")
-
             handleSignature();
         }
     }, []);

@@ -1,4 +1,6 @@
 import RabbitKitConnect from 'components/Rainbowkit/RainbowKit';
+import { useAuth } from 'context/auth.context';
+import useIsAuthenticated from 'hooks/auth/useIsAuthenticated';
 import Link from 'next/link';
 
 const NavigationLinks = [
@@ -25,9 +27,12 @@ const NavigationLinks = [
 ];
 
 const Layout = ({ children }) => {
+	const { auth } = useAuth();
+	useIsAuthenticated();
+
 	return (
 		<div className="bg-dark-900 text-gray-100 min-h-screen">
-			<header className="border-b-2 px-5 pt-5 border-dark-800">
+			<header className={`${auth.token ? 'border-b-2' : ''} px-5 pt-5 border-dark-800`}>
 				<div className="mx-auto max-w-screen-xl px-4 sm:px-6 relative">
 					<nav className="flex justify-between">
 						{/* <img src="/logo.svg" /> */}
@@ -39,15 +44,17 @@ const Layout = ({ children }) => {
 						<RabbitKitConnect />
 					</nav>
 
-					<div className="my-5 space-x-5">
-						{NavigationLinks.map((nav) => (
-							<Link as={nav.link} href={nav.link} key={nav.link}>
-								<a className="text-sm text-gray-500 hover:text-gray-100 hover:bg-dark-700 px-3 py-1.5 rounded cursor-pointer">
-									{nav.name}
-								</a>
-							</Link>
-						))}
-					</div>
+					{auth.token && (
+						<div className="my-5 space-x-5">
+							{NavigationLinks.map((nav) => (
+								<Link as={nav.link} href={nav.link} key={nav.link}>
+									<a className="text-sm text-gray-500 hover:text-gray-100 hover:bg-dark-700 px-3 py-1.5 rounded cursor-pointer">
+										{nav.name}
+									</a>
+								</Link>
+							))}
+						</div>
+					)}
 				</div>
 			</header>
 			<div className="mx-auto max-w-screen-xl px-4 sm:px-6 relative mt-5">

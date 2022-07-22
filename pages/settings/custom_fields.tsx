@@ -3,31 +3,33 @@ import PageHeader from 'components/PageHeader';
 import { GetStaticProps } from 'next';
 import prisma from 'lib/prisma';
 import Config from 'lib/config';
-import { useRouter } from 'next/router';
 import { Table } from '@mantine/core';
 import Link from 'next/link';
 import { isEmpty } from 'lib/helpers';
 import { PlusIcon } from '@heroicons/react/outline';
 import Pagination from 'components/UI/pagination/Pagination';
+import { validateCookie } from 'lib/cookie';
 
-export const getServerSideProps: GetStaticProps = async (params: any) => {
-	let page;
+export const getServerSideProps: GetStaticProps = async (context: any) => {
+	return validateCookie(context, async () => {
+		let page;
 
-	if (!params.query) page = 0;
-	else {
-		if (params?.query?.page) page = params?.query?.page - 1;
-	}
+		if (!context.query) page = 0;
+		else {
+			if (context?.query?.page) page = context?.query?.page - 1;
+		}
 
-	const records = await prisma.custom_fields.findMany({
-		skip: page ? page * Config.ItemsPerPage : 0,
-		take: Config.ItemsPerPage,
+		const records = await prisma.custom_fields.findMany({
+			skip: page ? page * Config.ItemsPerPage : 0,
+			take: Config.ItemsPerPage,
+		});
+
+		const total = await prisma.custom_fields.count({});
+
+		return {
+			props: { records: JSON.stringify(records), total },
+		};
 	});
-
-	const total = await prisma.custom_fields.count({});
-
-	return {
-		props: { records: JSON.stringify(records), total },
-	};
 };
 
 const Settings = ({ records, total }) => {

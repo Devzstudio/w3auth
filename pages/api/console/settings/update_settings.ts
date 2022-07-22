@@ -1,33 +1,33 @@
 import { ok } from 'lib/response';
 import prisma from "lib/prisma"
+import checkAuth from '../middlerware/checkAuth';
 
-export default async (req, res) => {
-    // middleware validate user authentication
+export default checkAuth(async (req, res) => {
 
     const { settings } = req.body;
 
-
-    Object.keys(settings).forEach(async value => {
-        if (settings[value] == true || settings[value] == false)
-            await prisma.settings.update({
-                where: {
-                    name: value
-                },
-                data: {
-                    value: settings[value] == true ? 'true' : 'false'
-                }
-            })
-        else
-            await prisma.settings.update({
-                where: {
-                    name: value
-                },
-                data: {
-                    value: settings[value]
-                }
-            })
-    })
+    if (settings)
+        Object.keys(settings).forEach(async value => {
+            if (settings[value] == true || settings[value] == false)
+                await prisma.settings.update({
+                    where: {
+                        name: value
+                    },
+                    data: {
+                        value: settings[value] == true ? 'true' : 'false'
+                    }
+                })
+            else
+                await prisma.settings.update({
+                    where: {
+                        name: value
+                    },
+                    data: {
+                        value: settings[value]
+                    }
+                })
+        })
 
 
     return ok(res);
-}
+})

@@ -1,18 +1,20 @@
 import { ok } from 'lib/response';
 import prisma from "lib/prisma"
+import checkAuth from '../middlerware/checkAuth';
 
-export default async (req, res) => {
-    // middleware validate user authentication
+export default checkAuth(async (req, res) => {
 
     const { address, label } = req.body;
 
-    await prisma.allowlist.create({
-        data: {
-            address,
-            label
-        }
-    })
+    if (address) {
+        await prisma.allowlist.create({
+            data: {
+                address,
+                label
+            }
+        })
+    }
 
     return ok(res);
 
-}
+})

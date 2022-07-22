@@ -5,40 +5,43 @@ import PageHeader from 'components/PageHeader';
 import prisma from 'lib/prisma';
 import { GetStaticProps } from 'next';
 import Link from 'next/link';
+import { validateCookie } from 'lib/cookie';
 
 export const getServerSideProps: GetStaticProps = async (context) => {
-	const newUsers = await prisma.users.findMany({
-		orderBy: {
-			created_at: 'desc',
-		},
-		take: 10,
-	});
-
-	const lastLoginUsers = await prisma.users.findMany({
-		orderBy: {
-			last_login: 'desc',
-		},
-		take: 10,
-	});
-
-	const userCount = await prisma.users.count({});
-
-	const todaysUsers = await prisma.users.count({
-		where: {
-			created_at: {
-				gt: new Date(),
+	return validateCookie(context, async () => {
+		const newUsers = await prisma.users.findMany({
+			orderBy: {
+				created_at: 'desc',
 			},
-		},
-	});
+			take: 10,
+		});
 
-	return {
-		props: {
-			newUsers: JSON.stringify(newUsers),
-			lastLoginUsers: JSON.stringify(lastLoginUsers),
-			userCount,
-			todaysUsers,
-		},
-	};
+		const lastLoginUsers = await prisma.users.findMany({
+			orderBy: {
+				last_login: 'desc',
+			},
+			take: 10,
+		});
+
+		const userCount = await prisma.users.count({});
+
+		const todaysUsers = await prisma.users.count({
+			where: {
+				created_at: {
+					gt: new Date(),
+				},
+			},
+		});
+
+		return {
+			props: {
+				newUsers: JSON.stringify(newUsers),
+				lastLoginUsers: JSON.stringify(lastLoginUsers),
+				userCount,
+				todaysUsers,
+			},
+		};
+	});
 };
 
 export default function Dashboard({ newUsers, userCount, todaysUsers, lastLoginUsers }) {

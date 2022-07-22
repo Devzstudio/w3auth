@@ -3,6 +3,7 @@
 -   index tables
 -   clear all admin / user nounce at 30min interval. (cron)
 -   clear all refresh tokens (4hr interval)
+-   responsiveness
 
 # Refactor
 

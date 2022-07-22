@@ -1,6 +1,7 @@
 import prisma from "lib/prisma";
 import { getToken } from "lib/token";
 import { verifySignature } from "lib/verify_signature";
+import { serialize } from "cookie";
 
 
 export default async (req, res) => {
@@ -41,10 +42,15 @@ export default async (req, res) => {
         })
     }
 
+    console.log("reached token generation")
+    const output = await getToken(user, {
+        user_id: user.admin_id,
+        email: null
+    })
 
-    const output = await getToken(user)
 
-    res.cookie('refresh_token', output.refresh_token, { maxAge: 3600000, httpOnly: true });
+    res.setHeader('Set-Cookie', serialize('refresh_token', output.refresh_token, { path: '/', maxAge: 3600000, httpOnly: true }));
+
 
     return res.json({
         success: "OK",
@@ -55,7 +61,5 @@ export default async (req, res) => {
     });
 
 
-    return res.json({
 
-    });
 }

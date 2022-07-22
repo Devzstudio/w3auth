@@ -8,17 +8,20 @@ import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 import prisma from 'lib/prisma';
 import { GetStaticProps } from 'next';
+import { validateCookie } from 'lib/cookie';
 
-export const getServerSideProps: GetStaticProps = async (params: any) => {
-	const records = await prisma.custom_fields.findFirst({
-		where: {
-			option_id: params.query.optionId,
-		},
+export const getServerSideProps: GetStaticProps = async (context: any) => {
+	return validateCookie(context, async () => {
+		const records = await prisma.custom_fields.findFirst({
+			where: {
+				option_id: context.query.optionId,
+			},
+		});
+
+		return {
+			props: { record: JSON.stringify(records) },
+		};
 	});
-
-	return {
-		props: { record: JSON.stringify(records) },
-	};
 };
 
 const EditOption = ({ record }) => {

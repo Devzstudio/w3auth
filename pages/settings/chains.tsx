@@ -10,28 +10,31 @@ import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { Button } from '@mantine/core';
 import ConfigChains from 'lib/chains';
+import { validateCookie } from 'lib/cookie';
 
-export const getServerSideProps: GetStaticProps = async () => {
-	const records = await prisma.settings.findMany({
-		where: {
-			name: {
-				in: [
-					'enable_eth',
-					'enable_bnb',
-					'enable_matic',
-					'enable_glmr',
-					'enable_ftm',
-					'enable_movr',
-					'enable_avax',
-					'enable_sol',
-				],
+export const getServerSideProps: GetStaticProps = async (context: any) => {
+	return validateCookie(context, async () => {
+		const records = await prisma.settings.findMany({
+			where: {
+				name: {
+					in: [
+						'enable_eth',
+						'enable_bnb',
+						'enable_matic',
+						'enable_glmr',
+						'enable_ftm',
+						'enable_movr',
+						'enable_avax',
+						'enable_sol',
+					],
+				},
 			},
-		},
-	});
+		});
 
-	return {
-		props: { records: JSON.stringify(records) },
-	};
+		return {
+			props: { records: JSON.stringify(records) },
+		};
+	});
 };
 
 const Settings = ({ records }) => {

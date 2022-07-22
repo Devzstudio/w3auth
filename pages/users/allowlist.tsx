@@ -8,29 +8,31 @@ import prisma from 'lib/prisma';
 import dayjs from 'dayjs';
 import { isEmpty } from 'lib/helpers';
 import Pagination from 'components/UI/pagination/Pagination';
-import { req } from 'lib/request';
 import useRequest from 'hooks/useRequests';
 import { useEffect } from 'react';
 import toast from 'react-hot-toast';
+import { validateCookie } from 'lib/cookie';
 
-export const getServerSideProps: GetStaticProps = async (params: any) => {
-	let page;
+export const getServerSideProps: GetStaticProps = async (context: any) => {
+	return validateCookie(context, async () => {
+		let page;
 
-	if (!params.query) page = 0;
-	else {
-		if (params?.query?.page) page = params?.query?.page - 1;
-	}
+		if (!context.query) page = 0;
+		else {
+			if (context?.query?.page) page = context?.query?.page - 1;
+		}
 
-	const records = await prisma.allowlist.findMany({
-		skip: page ? page * Config.ItemsPerPage : 0,
-		take: Config.ItemsPerPage,
+		const records = await prisma.allowlist.findMany({
+			skip: page ? page * Config.ItemsPerPage : 0,
+			take: Config.ItemsPerPage,
+		});
+
+		const total = await prisma.allowlist.count({});
+
+		return {
+			props: { records: JSON.stringify(records), total },
+		};
 	});
-
-	const total = await prisma.allowlist.count({});
-
-	return {
-		props: { records: JSON.stringify(records), total },
-	};
 };
 
 const Allowlist = ({ records, total }) => {

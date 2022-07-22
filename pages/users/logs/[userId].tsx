@@ -7,25 +7,28 @@ import { isEmpty } from 'lib/helpers';
 import prisma from 'lib/prisma';
 import { GetStaticProps } from 'next';
 import Pagination from 'components/UI/pagination/Pagination';
+import { validateCookie } from 'lib/cookie';
 
-export const getServerSideProps: GetStaticProps = async (params: any) => {
-	let page;
+export const getServerSideProps: GetStaticProps = async (context: any) => {
+	return validateCookie(context, async () => {
+		let page;
 
-	if (!params.query) page = 0;
-	else {
-		if (params?.query?.page) page = params?.query?.page - 1;
-	}
+		if (!context.query) page = 0;
+		else {
+			if (context?.query?.page) page = context?.query?.page - 1;
+		}
 
-	const records = await prisma.user_logins.findMany({
-		skip: page ? page * Config.ItemsPerPage : 0,
-		take: Config.ItemsPerPage,
+		const records = await prisma.user_logins.findMany({
+			skip: page ? page * Config.ItemsPerPage : 0,
+			take: Config.ItemsPerPage,
+		});
+
+		const total = await prisma.user_logins.count({});
+
+		return {
+			props: { records: JSON.stringify(records), total },
+		};
 	});
-
-	const total = await prisma.user_logins.count({});
-
-	return {
-		props: { records: JSON.stringify(records), total },
-	};
 };
 
 const LogsActivity = ({ records, total }) => {

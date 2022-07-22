@@ -1,17 +1,24 @@
+import { useAuth } from 'context/auth.context';
 import { req } from 'lib/request';
 import { useState } from 'react';
 
 const useRequest = ({ url }) => {
+    const { auth } = useAuth();
     const [loading, setLoading] = useState(false)
     const [response, setResponse] = useState(null)
 
     const sendRequest = async (option, options) => {
         setLoading(true);
 
+        console.log(auth)
         const response = await req(url,
             {
                 method: option,
                 body: options
+            },
+            {
+                'Content-type': 'application/json',
+                'authorization': `Bearer ${auth.token}`,
             }
         );
 

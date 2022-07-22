@@ -1,4 +1,4 @@
-import { Button, Switch, TextInput } from '@mantine/core';
+import { Button, TextInput } from '@mantine/core';
 import CardWrapper from 'components/UI/card/CardWrapper';
 import PageHeader from 'components/PageHeader';
 import useRequest from 'hooks/useRequests';
@@ -8,17 +8,20 @@ import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 import { GetStaticProps } from 'next';
 import prisma from 'lib/prisma';
+import { validateCookie } from 'lib/cookie';
 
-export const getServerSideProps: GetStaticProps = async (params: any) => {
-	const records = await prisma.admins.findFirst({
-		where: {
-			admin_id: params.query.adminId,
-		},
+export const getServerSideProps: GetStaticProps = async (context: any) => {
+	return validateCookie(context, async () => {
+		const records = await prisma.admins.findFirst({
+			where: {
+				admin_id: context.query.adminId,
+			},
+		});
+
+		return {
+			props: { record: JSON.stringify(records) },
+		};
 	});
-
-	return {
-		props: { record: JSON.stringify(records) },
-	};
 };
 
 const Edit = ({ record }) => {

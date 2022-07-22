@@ -9,24 +9,28 @@ import { useForm } from '@mantine/hooks';
 import useRequest from 'hooks/useRequests';
 import { useEffect } from 'react';
 import toast from 'react-hot-toast';
+import { validateCookie } from 'lib/cookie';
 
-export const getServerSideProps: GetStaticProps = async (params: any) => {
-	const records = await prisma.settings.findMany({
-		where: {
-			name: {
-				in: [
-					'access_allowlist_only',
-					'enable_nft_gating',
-					'enable_token_gating',
-					'accept_custom_fields_on_registeration',
-				],
+export const getServerSideProps: GetStaticProps = async (context: any) => {
+	return validateCookie(context, async () => {
+		const records = await prisma.settings.findMany({
+			where: {
+				name: {
+					in: [
+						'access_allowlist_only',
+						'enable_nft_gating',
+						'custom_jwt_claim',
+						'enable_token_gating',
+						'accept_custom_fields_on_registeration',
+					],
+				},
 			},
-		},
-	});
+		});
 
-	return {
-		props: { records: JSON.stringify(records) },
-	};
+		return {
+			props: { records: JSON.stringify(records) },
+		};
+	});
 };
 
 const example = {
@@ -40,6 +44,7 @@ const SettingsPage = ({ records }) => {
 
 	const form = useForm({
 		initialValues: {
+			custom_jwt_claim: settings.custom_jwt_claim,
 			access_allowlist_only: settings.access_allowlist_only,
 			enable_nft_gating: settings.enable_nft_gating,
 			enable_token_gating: settings.enable_token_gating,
@@ -103,7 +108,11 @@ const SettingsPage = ({ records }) => {
 						/>
 
 						<div>
-							<Textarea label="Custom JWT Claim" />
+							<Textarea
+								label="Custom JWT Claim"
+								value={form.values.custom_jwt_claim}
+								onChange={(val) => form.setFieldValue('custom_jwt_claim', val)}
+							/>
 							<div className="md:w-1/2 text-gray-500">
 								<p className="text-sm mt-5 mb-2 block">Example</p>
 								<Code block>{JSON.stringify(example, null, 2)}</Code>

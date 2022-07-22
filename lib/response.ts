@@ -3,3 +3,8 @@ export const ok = (res, message = "ok") => {
         success: message
     });
 }
+export const oops = (res, message = "Ooops!") => {
+    return res.status(200).json({
+        error: message
+    });
+}

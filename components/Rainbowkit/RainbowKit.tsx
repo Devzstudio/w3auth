@@ -2,12 +2,9 @@ import { Button } from '@mantine/core';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import useNounceHandler from 'hooks/auth/useNounceHandler';
 import { shortenAddress } from 'lib/helpers';
-import React, { useEffect } from 'react';
+import React from 'react';
 
 const ConnectOptionsHandler = ({ account, chain, openAccountModal, openChainModal, openConnectModal, mounted }) => {
-	console.log('RENDER: CONNECTED OPTIONS HANDLER');
-	console.log({ account, chain, openAccountModal, openChainModal, openConnectModal, mounted });
-
 	return (
 		<div
 			{...(!mounted && {
@@ -66,8 +63,6 @@ const ConnectOptionsHandler = ({ account, chain, openAccountModal, openChainModa
 };
 
 const ConnectedAddress = ({ chain, openChainModal, openAccountModal, account }) => {
-	console.log('RENDER: CONNECTED ADDRESS');
-
 	useNounceHandler({
 		account,
 	});
@@ -87,7 +82,7 @@ const ConnectedAddress = ({ chain, openChainModal, openAccountModal, account }) 
 					/>
 				)}
 				<a
-					className="text-sm flex items-center justify-center text-gray-500 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-200 dark:hover:bg-dark-900 rounded p-1 px-2 cursor-pointer"
+					className="text-sm flex items-center justify-center text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-200 dark:hover:bg-dark-900 rounded p-1 px-2 cursor-pointer"
 					onClick={() => {
 						openAccountModal();
 					}}

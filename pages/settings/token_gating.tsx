@@ -9,19 +9,22 @@ import { useForm } from '@mantine/hooks';
 import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import CardWrapper from 'components/UI/card/CardWrapper';
+import { validateCookie } from 'lib/cookie';
 
-export const getServerSideProps: GetStaticProps = async (params: any) => {
-	const records = await prisma.settings.findMany({
-		where: {
-			name: {
-				in: ['token_gating_contract_address', 'token_gating_amount_required'],
+export const getServerSideProps: GetStaticProps = async (context: any) => {
+	return validateCookie(context, async () => {
+		const records = await prisma.settings.findMany({
+			where: {
+				name: {
+					in: ['token_gating_contract_address', 'token_gating_amount_required'],
+				},
 			},
-		},
-	});
+		});
 
-	return {
-		props: { records: JSON.stringify(records) },
-	};
+		return {
+			props: { records: JSON.stringify(records) },
+		};
+	});
 };
 
 const Settings = ({ records }) => {

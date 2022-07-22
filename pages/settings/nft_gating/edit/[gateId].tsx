@@ -1,4 +1,4 @@
-import { Button, Select, Switch, TextInput } from '@mantine/core';
+import { Button, Select, TextInput } from '@mantine/core';
 import CardWrapper from 'components/UI/card/CardWrapper';
 import PageHeader from 'components/PageHeader';
 import useRequest from 'hooks/useRequests';
@@ -9,17 +9,20 @@ import toast from 'react-hot-toast';
 import { ChainSelectList } from 'lib/chains';
 import { GetStaticProps } from 'next';
 import prisma from 'lib/prisma';
+import { validateCookie } from 'lib/cookie';
 
-export const getServerSideProps: GetStaticProps = async (params: any) => {
-	const records = await prisma.nft_gating.findFirst({
-		where: {
-			id: params.query.gateId,
-		},
+export const getServerSideProps: GetStaticProps = async (context: any) => {
+	return validateCookie(context, async () => {
+		const records = await prisma.nft_gating.findFirst({
+			where: {
+				id: context.query.gateId,
+			},
+		});
+
+		return {
+			props: { record: JSON.stringify(records) },
+		};
 	});
-
-	return {
-		props: { record: JSON.stringify(records) },
-	};
 };
 
 const Edit = ({ record }) => {

@@ -5,29 +5,32 @@ import { GetStaticProps } from 'next';
 import prisma from 'lib/prisma';
 import dayjs from 'dayjs';
 import { isEmpty } from 'lib/helpers';
+import { validateCookie } from 'lib/cookie';
 
-export const getServerSideProps: GetStaticProps = async (params: any) => {
-	const record = await prisma.users.findFirst({
-		where: {
-			id: params.query.userId,
-		},
-		include: {
-			user_address: true,
-		},
+export const getServerSideProps: GetStaticProps = async (context: any) => {
+	return validateCookie(context, async () => {
+		const record = await prisma.users.findFirst({
+			where: {
+				id: context.query.userId,
+			},
+			include: {
+				user_address: true,
+			},
+		});
+
+		const customFields = await prisma.user_custom_field.findMany({
+			where: {
+				user_id: record.id,
+			},
+			include: {
+				custom_fields: true,
+			},
+		});
+
+		return {
+			props: { record: JSON.stringify(record), customFields: JSON.stringify(customFields) },
+		};
 	});
-
-	const customFields = await prisma.user_custom_field.findMany({
-		where: {
-			user_id: record.id,
-		},
-		include: {
-			custom_fields: true,
-		},
-	});
-
-	return {
-		props: { record: JSON.stringify(record), customFields: JSON.stringify(customFields) },
-	};
 };
 
 const TableField = ({ label, value }) => {

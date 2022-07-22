@@ -5,12 +5,13 @@ interface IRequest {
         method?: string
         body?: any
     }
+    headers?: any
 }
 
 export const req = async (url, options = {
     method: "GET",
     body: {}
-}) => {
+}, headers) => {
 
     const result = await fetch(url,
         {
@@ -19,6 +20,7 @@ export const req = async (url, options = {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
+                ...headers
             },
             body: JSON.stringify({
                 ...options.body
