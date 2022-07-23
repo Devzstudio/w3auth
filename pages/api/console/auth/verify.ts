@@ -34,7 +34,7 @@ export default async (req, res) => {
         })
     }
 
-    const nonce = signed_message.split(":")[1].trim();
+    const nonce = signed_message.split("Nonce:")[1].trim().split(" ")[0]
 
     if (nonce != user.nonce) {
         return res.json({

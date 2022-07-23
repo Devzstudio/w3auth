@@ -63,13 +63,24 @@ export default async (req, res) => {
         }
 
 
-        const nonce = signed_message.split(":")[1].trim();
+        const nonce = signed_message.split("Nonce:")[1].trim().split(" ")[0]
+        const address = signed_message.split("Address:")[1].trim().split(" ")[0]
+
+        if (address != wallet_address) {
+            return res.json({
+                error: "Oops. Something went wrong."
+            })
+        }
 
         if (nonce != user.nonce) {
             return res.json({
                 error: "Expired sign in. Try again."
             })
         }
+
+
+
+
 
         await prisma.users.update({
             where: {
