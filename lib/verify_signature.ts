@@ -8,7 +8,7 @@ const web3 = new Web3(new Web3.providers.HttpProvider(ethNetwork));
 export const verifySignature = async ({ chain, signature, signed_message, public_key = null }) => {
 
 
-    if (['eth', 'ftm', 'matic', 'evm', 'glmr'].includes(chain)) {
+    if (['eth', 'bnb', 'ftm', 'matic', 'evm', 'glmr', 'movr'].includes(chain)) {
         const recoveredAddress = await web3.eth.accounts.recover(signed_message, signature)
         return recoveredAddress;
     }
@@ -26,5 +26,8 @@ export const verifySignature = async ({ chain, signature, signed_message, public
 
         return result;
     }
+
+    //  polkadot sign and verify Refer: https://polkadot.js.org/docs/keyring/start/sign-verify/
+    // flow sign and verify: Refer: https://docs.onflow.org/fcl/reference/user-signatures/
 
 }

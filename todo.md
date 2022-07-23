@@ -14,8 +14,6 @@
 
 # Phase 2
 
--   remove all allowlist
--   remove all blocklist
 -   remove team member
 -   remove custom fields (delete the stored values )
 -   enable , disable custom fields
@@ -24,8 +22,4 @@
 -   kyc platform integrations
 -   clear user login logs
 -   breadcrump on edit / create pages
--   heading, subheading on settings page
-
-# Docs
-
--   jwt secret : https://cloud.google.com/network-connectivity/docs/vpn/how-to/generating-pre-shared-key
+-   lang file for all error / success messages

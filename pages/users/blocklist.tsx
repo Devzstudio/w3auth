@@ -12,6 +12,7 @@ import useRequest from 'hooks/useRequests';
 import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { validateCookie } from 'lib/cookie';
+import { TrashIcon } from '@heroicons/react/outline';
 
 export const getServerSideProps: GetStaticProps = async (context: any) => {
 	return validateCookie(context, async () => {
@@ -41,6 +42,11 @@ const BlockList = ({ records, total }) => {
 	const router = useRouter();
 
 	const { loading, response, post } = useRequest({ url: '/api/console/users/remove_blocklist' });
+	const {
+		loading: deleteLoading,
+		response: responseClearList,
+		post: postRemoveList,
+	} = useRequest({ url: '/api/console/users/clear_list' });
 
 	const removeItem = (id) => {
 		post({
@@ -55,6 +61,13 @@ const BlockList = ({ records, total }) => {
 		}
 	}, [response]);
 
+	useEffect(() => {
+		if (responseClearList?.success) {
+			toast.success('Allowlist cleared');
+			router.replace(router.asPath);
+		}
+	}, [responseClearList]);
+
 	return (
 		<CardWrapper
 			label="Blocklist"
@@ -62,6 +75,20 @@ const BlockList = ({ records, total }) => {
 				link: '/users/blocklist/create',
 				label: 'New blocklist',
 			}}
+			options={
+				<Button
+					color="red"
+					loading={deleteLoading}
+					onClick={() =>
+						postRemoveList({
+							list_type: 'blocklist',
+						})
+					}
+					className="text-gray-500 flex items-center cursor-pointer hover:text-gray-100"
+				>
+					<TrashIcon className="w-4 h-4 mr-1" /> <span>Clear list</span>
+				</Button>
+			}
 		>
 			<PageHeader title="Blocklist" />
 

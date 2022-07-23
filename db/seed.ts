@@ -112,6 +112,15 @@ async function main() {
     })
 
     await prisma.settings.upsert({
+        where: { name: 'enable_movr' },
+        update: {},
+        create: {
+            name: 'enable_movr',
+            value: 'false',
+        },
+    })
+
+    await prisma.settings.upsert({
         where: { name: 'enable_ftm' },
         update: {},
         create: {
