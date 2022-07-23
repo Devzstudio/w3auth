@@ -1,21 +1,15 @@
-import Cors from 'cors'
-import type { NextApiRequest, NextApiResponse } from 'next'
 
-export const cors = Cors({
-    methods: ['POST', 'GET', 'HEAD'],
-})
+import NextCors from 'nextjs-cors';
 
-export function corsMiddleware(
-    req: NextApiRequest,
-    res: NextApiResponse
-) {
-    return new Promise((resolve, reject) => {
-        cors(req, res, (result: any) => {
-            if (result instanceof Error) {
-                return reject(result)
-            }
 
-            return resolve(result)
-        })
-    })
+export const corsMiddleware = async (req, res) => {
+
+
+    await NextCors(req, res, {
+        methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', "OPTIONS"],
+        origin: 'http://localhost:3000',
+        optionsSuccessStatus: 200,
+        headers: "Origin, X-Requested-With, Content-Type, Accept, Authorization, authorization, Referer, User-Agent"
+    });
+
 }

@@ -2,9 +2,10 @@ import prisma from "lib/prisma";
 import { getToken } from "lib/token";
 import { verifySignature } from "lib/verify_signature";
 import { serialize } from "cookie";
+import { NextApiRequest, NextApiResponse } from "next";
 
 
-export default async (req, res) => {
+export default async function verifyhandler(req: NextApiRequest, res: NextApiResponse) {
 
     const { signature, signed_message } = req.body;
 

@@ -1,7 +1,8 @@
 import prisma from "lib/prisma";
+import { NextApiRequest, NextApiResponse } from "next";
 
 
-export default async (req, res) => {
+export default async function noncehandler(req: NextApiRequest, res: NextApiResponse) {
 
     const { public_address: wallet_address } = req.body;
 

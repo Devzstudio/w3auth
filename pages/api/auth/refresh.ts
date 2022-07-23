@@ -1,23 +1,36 @@
 import prisma from "lib/prisma";
 import { getToken } from "lib/token";
-import { verifySignature } from "lib/verify_signature";
 import { serialize } from "cookie";
 import { getAppCookies } from "lib/helpers";
+import { corsMiddleware } from "lib/cors";
+import { ok } from "lib/response";
+import { NextApiRequest, NextApiResponse } from "next";
 
+export default async function refreshHandler(req: NextApiRequest, res: NextApiResponse) {
 
-export default async (req, res) => {
+    console.log("REACHEDDEDEDE")
+
+    if (req.method === "OPTIONS") {
+        return res.status(200).send("ok")
+    }
+    await corsMiddleware(req, res);
 
     const refreshToken = getAppCookies(req)['refresh_token']
 
     if (refreshToken) {
 
-        //  Feat delete old refreh token
 
         const rt = await prisma.refresh_token.findFirst({
             where: {
                 id: refreshToken
             }
         });
+
+        if (!rt) {
+            return res.json({
+                error: "Token not found"
+            })
+        }
 
 
         const user = await prisma.users.findFirst({
@@ -60,5 +73,7 @@ export default async (req, res) => {
         });
 
     }
+
+    return ok(res);
 
 }

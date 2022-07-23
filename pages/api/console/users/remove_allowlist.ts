@@ -2,7 +2,7 @@ import { ok } from 'lib/response';
 import prisma from "lib/prisma"
 import checkAuth from '../middlerware/checkAuth';
 
-export default checkAuth(async (req, res) => {
+export default checkAuth(async function removeAllowlist(req, res) {
 
     const { id } = req.body;
 

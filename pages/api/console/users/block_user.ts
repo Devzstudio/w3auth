@@ -2,7 +2,7 @@ import { ok, oops } from 'lib/response';
 import prisma from "lib/prisma"
 import checkAuth from '../middlerware/checkAuth';
 
-const BlockUser = checkAuth(async (req, res) => {
+const BlockUser = checkAuth(async function blockUser(req, res) {
 
     const { user_id, is_blocked } = (req.body);
 

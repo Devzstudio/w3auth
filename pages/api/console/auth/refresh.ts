@@ -2,9 +2,11 @@ import { getAppCookies } from "lib/helpers";
 import prisma from "lib/prisma";
 import { getToken } from "lib/token";
 import { serialize } from "cookie";
+import { ok } from "lib/response";
+import { NextApiRequest, NextApiResponse } from "next";
 
 
-export default async (req, res) => {
+export default async function refrehhandler(req: NextApiRequest, res: NextApiResponse) {
 
     const refreshToken = getAppCookies(req)['refresh_token']
 
@@ -43,6 +45,6 @@ export default async (req, res) => {
         });
     }
 
-
+    return ok(res);
 
 }

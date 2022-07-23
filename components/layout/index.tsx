@@ -50,7 +50,6 @@ const Layout = ({ children }) => {
 			<header className={`${auth.token ? 'border-b-2' : ''} md:px-5 pt-5 border-dark-800`}>
 				<div className="mx-auto max-w-screen-xl md:px-4 sm:px-6 relative">
 					<nav className="flex justify-between">
-						{/* <img src="/logo.svg" /> */}
 						<span className="text-xl font-medium pl-3">
 							<span className="text-gray-500 mr-1">w3</span>
 							auth

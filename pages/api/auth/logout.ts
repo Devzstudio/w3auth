@@ -1,12 +1,18 @@
 import { corsMiddleware } from "lib/cors";
 import { getAppCookies } from "lib/helpers";
 import prisma from "lib/prisma";
-import { ok, oops } from "lib/response";
+import { ok, oops, response } from "lib/response";
+import { NextApiRequest, NextApiResponse } from "next";
 
 
-export default async (req, res) => {
+export default async function Logouthandler(req: NextApiRequest, res: NextApiResponse) {
 
-    corsMiddleware(req, res)
+    if (req.method === "OPTIONS") {
+        return res.status(200).send("ok")
+    }
+
+    await corsMiddleware(req, res);
+
 
     const refreshToken = getAppCookies(req)['refresh_token']
 
@@ -20,7 +26,7 @@ export default async (req, res) => {
 
 
         if (!rt) {
-            return res.json({
+            return response(res, {
                 error: "Invalid token"
             })
         }
@@ -33,7 +39,7 @@ export default async (req, res) => {
         });
 
         if (!user) {
-            return res.json({
+            return response(res, {
                 error: "Invalid Address"
             })
         }

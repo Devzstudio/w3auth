@@ -1,3 +1,5 @@
+import { NextApiResponse } from 'next';
+import { NextApiRequest } from 'next';
 
 import { getAppCookies } from "lib/helpers";
 import prisma from "lib/prisma";
@@ -6,9 +8,13 @@ import { serialize } from "cookie";
 import { verifySignature } from "lib/verify_signature";
 import { oops } from "lib/response";
 import { detectChain } from "lib/detect_chain";
+import { corsMiddleware } from "lib/cors";
 
 
-export default async (req, res) => {
+export default async function verifyHandler(req: NextApiRequest, res: NextApiResponse) {
+
+    await corsMiddleware(req, res);
+
 
     const { signature, signed_message, wallet_address, profile } = req.body;
 

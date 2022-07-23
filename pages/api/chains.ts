@@ -1,7 +1,10 @@
+import { corsMiddleware } from "lib/cors";
 import { getSettings } from "lib/helpers";
 import prisma from "lib/prisma";
+import { response } from "lib/response";
 
-export default async (req, res) => {
+export default async function chains(req, res) {
+    await corsMiddleware(req, res);
 
     const settingsData = await prisma.settings.findMany({})
     const settings = getSettings(settingsData);
@@ -19,7 +22,7 @@ export default async (req, res) => {
     }
 
 
-    return res.json({
+    return response(res, {
         active_chains
     })
 }

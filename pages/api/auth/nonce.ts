@@ -10,16 +10,21 @@ import {
     getNftsForOwner
 } from "@alch/alchemy-sdk";
 import { createAlchemyWeb3 } from "@alch/alchemy-web3";
+import { corsMiddleware } from "lib/cors";
+import { NextApiRequest, NextApiResponse } from "next";
 
 
-export default async (req, res) => {
+export default async function noncehandler(req: NextApiRequest, res: NextApiResponse) {
+
+    await corsMiddleware(req, res);
+
 
     const { wallet_address } = req.body;
 
     if (!wallet_address) {
-        return res.json({
-            error: "Invalid address"
-        })
+        return oops(res,
+            "Invalid address"
+        )
     }
 
     let chain = "eth"; // [Feat] ability to use solana address / pass chain from frontend app

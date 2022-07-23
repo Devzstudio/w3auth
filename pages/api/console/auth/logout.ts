@@ -1,9 +1,10 @@
 import { getAppCookies } from "lib/helpers";
 import prisma from "lib/prisma";
 import { ok, oops } from "lib/response";
+import { NextApiRequest, NextApiResponse } from "next";
 
 
-export default async (req, res) => {
+export default async function logouthandler(req: NextApiRequest, res: NextApiResponse) {
 
     const refreshToken = getAppCookies(req)['refresh_token']
 

@@ -102,6 +102,7 @@ const Users = ({ record, customFields }) => {
 												<img
 													src={ChainLogo[wallet.chain.toUpperCase()]}
 													className="w-4 h-4 mr-2"
+													alt=""
 												/>
 												{wallet.chain.toUpperCase()}
 											</td>

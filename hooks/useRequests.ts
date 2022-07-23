@@ -17,7 +17,7 @@ const useRequest = ({ url }) => {
             },
             {
                 Accept: 'application/json',
-                'authorization': `Bearer ${auth.token}`,
+                // 'authorization': `Bearer ${auth.token}`,
             }
         );
 

@@ -11,8 +11,8 @@ import ProgressBar from 'components/UI/progressbar';
 import { AuthProvider } from 'context/auth.context';
 
 import '@rainbow-me/rainbowkit/styles.css';
-import '../styles/globals.css';
 import 'react-tippy/dist/tippy.css';
+import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }) {
 	const darkMode = useDarkMode(true, {
@@ -34,6 +34,8 @@ function MyApp({ Component, pageProps }) {
 					<RainbowKitProvider chains={chains} theme={darkMode.value ? darkTheme() : lightTheme()}>
 						<Layout>
 							<MantineProvider
+								withGlobalStyles
+								withNormalizeCSS
 								theme={{
 									// colorScheme: darkMode.value ? 'dark' : 'light',
 									colorScheme: 'dark',
