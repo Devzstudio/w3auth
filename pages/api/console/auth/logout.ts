@@ -40,7 +40,7 @@ export default async (req, res) => {
                 admin_id: user.admin_id
             },
             data: {
-                nounce: null
+                nonce: null
             }
         });
 

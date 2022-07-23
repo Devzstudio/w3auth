@@ -10,7 +10,7 @@ import { detectChain } from "lib/detect_chain";
 
 export default async (req, res) => {
 
-    const { signature, signed_message, wallet_address } = req.body;
+    const { signature, signed_message, wallet_address, profile } = req.body;
 
     const chain = detectChain(wallet_address)
 
@@ -33,6 +33,7 @@ export default async (req, res) => {
     if (verifyResponse) {
         // make sure the address is valid.
         // Test: is it possible to send another address via the wallet_adress and sign to account?
+
 
         const user_address = await prisma.user_address.findFirst({
             where: {
@@ -62,9 +63,9 @@ export default async (req, res) => {
         }
 
 
-        const nounce = signed_message.split(":")[1].trim();
+        const nonce = signed_message.split(":")[1].trim();
 
-        if (nounce != user.nounce) {
+        if (nonce != user.nonce) {
             return res.json({
                 error: "Expired sign in. Try again."
             })

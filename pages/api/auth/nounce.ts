@@ -14,7 +14,7 @@ import { createAlchemyWeb3 } from "@alch/alchemy-web3";
 
 export default async (req, res) => {
 
-    const { wallet_address, profile } = req.body;
+    const { wallet_address } = req.body;
 
     if (!wallet_address) {
         return res.json({
@@ -128,7 +128,7 @@ export default async (req, res) => {
 
 
 
-    const nounce = Math.random().toString(36).slice(2, 15);;
+    const nonce = Math.random().toString(36).slice(2, 15);;
 
     const user = await prisma.user_address.findFirst({
         where: {
@@ -144,8 +144,7 @@ export default async (req, res) => {
     if (!user) {
         await prisma.users.create({
             data: {
-                name: profile.name ?? null,
-                nounce: nounce,
+                nonce: nonce,
                 user_address: {
                     create: [
                         {
@@ -158,7 +157,7 @@ export default async (req, res) => {
         })
 
         return res.json({
-            nounce
+            nonce
         });
 
     }
@@ -173,12 +172,12 @@ export default async (req, res) => {
             id: user.user_id
         },
         data: {
-            nounce: nounce
+            nonce: nonce
         }
     });
 
 
     return res.json({
-        nounce
+        nonce
     });
 }

@@ -11,7 +11,7 @@ export default async (req, res) => {
         })
     }
 
-    const nounce = Math.random().toString(36).slice(2, 15);
+    const nonce = Math.random().toString(36).slice(2, 15);
 
     const user = await prisma.admins.findFirst({
         where: {
@@ -21,7 +21,7 @@ export default async (req, res) => {
 
     if (!user) {
         return res.json({
-            nounce
+            nonce
         })
     }
 
@@ -30,12 +30,12 @@ export default async (req, res) => {
             admin_id: user.admin_id
         },
         data: {
-            nounce: nounce
+            nonce: nonce
         }
     });
 
 
     return res.json({
-        nounce
+        nonce
     });
 }

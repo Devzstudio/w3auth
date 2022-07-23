@@ -1,7 +1,7 @@
 # Todo
 
 -   index tables
--   clear all admin / user nounce at 30min interval. (cron)
+-   clear all admin / user nonce at 30min interval. (cron)
 -   clear all refresh tokens (4hr interval)
 -   responsiveness
 -   cors domain allowlist
@@ -16,7 +16,6 @@
 
 -   remove team member
 -   remove custom fields (delete the stored values )
--   enable , disable custom fields
 -   search field on users, allowlist, blocklist
 -   edit user details (name,email,twitter username, discord username, telegram username)
 -   kyc platform integrations

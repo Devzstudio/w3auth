@@ -76,6 +76,15 @@ async function main() {
     })
 
     await prisma.settings.upsert({
+        where: { name: 'cron_password' },
+        update: {},
+        create: {
+            name: 'cron_password',
+            value: 'false',
+        },
+    })
+
+    await prisma.settings.upsert({
         where: { name: 'enable_eth' },
         update: {},
         create: {

@@ -34,9 +34,9 @@ export default async (req, res) => {
         })
     }
 
-    const nounce = signed_message.split(":")[1].trim();
+    const nonce = signed_message.split(":")[1].trim();
 
-    if (nounce != user.nounce) {
+    if (nonce != user.nonce) {
         return res.json({
             error: "Expired sign in. Try again."
         })

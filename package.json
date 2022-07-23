@@ -14,7 +14,9 @@
     "@heroicons/react": "^1.0.6",
     "@mantine/core": "^4.2.12",
     "@mantine/hooks": "^4.2.12",
+    "@mantine/next": "^4.2.12",
     "@onflow/fcl": "^1.1.0",
+    "@polkadot/keyring": "^10.1.1",
     "@polkadot/util": "^10.1.1",
     "@prisma/client": "^4.0.0",
     "@rainbow-me/rainbowkit": "^0.4.4",
@@ -41,6 +43,7 @@
   },
   "devDependencies": {
     "@types/node": "^18.0.1",
+    "@types/react": "^18.0.15",
     "autoprefixer": "^10.4.7",
     "eslint": "8.19.0",
     "eslint-config-next": "12.2.0",

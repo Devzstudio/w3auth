@@ -43,7 +43,7 @@ export default async (req, res) => {
                 id: rt.user_id
             },
             data: {
-                nounce: null
+                nonce: null
             }
         });
 

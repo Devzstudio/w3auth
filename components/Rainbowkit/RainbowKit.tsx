@@ -2,7 +2,7 @@ import { LogoutIcon } from '@heroicons/react/outline';
 import { Button } from '@mantine/core';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { AuthActionTypes, useAuth } from 'context/auth.context';
-import useNounceHandler from 'hooks/auth/useNounceHandler';
+import useNonceHandler from 'hooks/auth/useNonceHandler';
 import useRequest from 'hooks/useRequests';
 import { shortenAddress } from 'lib/helpers';
 import { useRouter } from 'next/router';
@@ -68,12 +68,12 @@ const ConnectOptionsHandler = ({ account, chain, openAccountModal, openChainModa
 };
 
 const ConnectedAddress = ({ chain, openChainModal, openAccountModal, account }) => {
-	const { post, response } = useRequest({ url: '/api/console/auth/logout' });
+	const { loading, post, response } = useRequest({ url: '/api/console/auth/logout' });
 	const router = useRouter();
 	const { auth, authDispatch } = useAuth();
 	const { disconnect } = useDisconnect();
 
-	useNounceHandler({
+	useNonceHandler({
 		account,
 	});
 
@@ -91,7 +91,7 @@ const ConnectedAddress = ({ chain, openChainModal, openAccountModal, account }) 
 
 	return (
 		<div className="flex items-center">
-			<div className="flex items-center bg-gray-100 dark:bg-dark-700 rounded px-3 py-1 divide-x divide-gray-700">
+			<div className="flex items-center bg-gray-100 dark:bg-dark-700 rounded px-3 py-1 divide-x divide-gray-700 mr-2">
 				{chain.iconUrl && (
 					<img
 						className="text-sm flex items-center justify-center text-gray-500 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-200 dark:hover:bg-dark-900 rounded  mr-2"
@@ -105,9 +105,9 @@ const ConnectedAddress = ({ chain, openChainModal, openAccountModal, account }) 
 				</a>
 			</div>
 
-			<a className="text-gray-500 hover:text-gray-100 cursor-pointer" onClick={() => post({})}>
-				<LogoutIcon className="w-4 h-4 ml-4" />
-			</a>
+			<Button loading={loading} onClick={() => post({})} variant="subtle" compact>
+				<LogoutIcon className="w-4 h-4" />
+			</Button>
 		</div>
 	);
 };

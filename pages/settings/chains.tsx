@@ -87,12 +87,20 @@ const Settings = ({ records }) => {
 								label={chain.symbol}
 								icon={chain.icon}
 								checked={form.values[`enable_${chain.symbol.toLocaleLowerCase()}`]}
-								onChange={() =>
+								onChange={() => {
 									form.setFieldValue(
-										`enable_${chain.symbol.toLocaleLowerCase()}`,
+										`enable_${chain.symbol.toLocaleLowerCase()}` as
+											| 'enable_eth'
+											| 'enable_bnb'
+											| 'enable_matic'
+											| 'enable_glmr'
+											| 'enable_movr'
+											| 'enable_ftm'
+											| 'enable_avax'
+											| 'enable_sol',
 										!form.values[`enable_${chain.symbol.toLocaleLowerCase()}`]
-									)
-								}
+									);
+								}}
 							/>
 						);
 					})}

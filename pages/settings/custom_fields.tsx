@@ -3,7 +3,7 @@ import PageHeader from 'components/PageHeader';
 import { GetStaticProps } from 'next';
 import prisma from 'lib/prisma';
 import Config from 'lib/config';
-import { Table } from '@mantine/core';
+import { Badge, Table } from '@mantine/core';
 import Link from 'next/link';
 import { isEmpty } from 'lib/helpers';
 import { PlusIcon } from '@heroicons/react/outline';
@@ -53,6 +53,7 @@ const Settings = ({ records, total }) => {
 						<tr>
 							<th>Label</th>
 							<th>Name</th>
+							<th>Status</th>
 							<th>Required</th>
 							<th></th>
 						</tr>
@@ -63,6 +64,11 @@ const Settings = ({ records, total }) => {
 								<tr key={record.option_id}>
 									<td>{record.label}</td>
 									<td>{record.name} </td>
+									<td>
+										<Badge color={record.enabled ? 'green' : 'red'} variant="outline">
+											{record.enabled ? 'Enabled' : 'Disabled'}
+										</Badge>
+									</td>
 									<td>{record.required ? 'Yes' : '-'}</td>
 
 									<td className="space-x-5">

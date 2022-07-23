@@ -10,7 +10,7 @@ import React from 'react';
 import { AuthActionTypes, useAuth } from 'context/auth.context';
 import Config from 'lib/config';
 
-const useNounceHandler = ({ account }) => {
+const useNonceHandler = ({ account }) => {
     const recoveredAddress = React.useRef<string>();
 
     const [userResponse, setUserReponse] = useState(null);
@@ -57,7 +57,7 @@ const useNounceHandler = ({ account }) => {
     const { auth, authDispatch } = useAuth();
 
     /*
-     * Get nounce from backend , verify it with the signature and save to context
+     * Get nonce from backend , verify it with the signature and save to context
      */
 
     const handleSignature = useCallback(async () => {
@@ -65,16 +65,16 @@ const useNounceHandler = ({ account }) => {
 
         if (account?.address && auth.token == '' && refreshFailed) {
 
-            const nounceCall = await fetch('/api/console/auth/nounce', {
+            const nonceCall = await fetch('/api/console/auth/nonce', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ public_address: account.address }),
             });
 
-            const nounceData = await nounceCall.json();
+            const nonceData = await nonceCall.json();
 
-            if (nounceData.nounce) {
-                const message = `${Config.SignMessageText} ${nounceData.nounce}`;
+            if (nonceData.nonce) {
+                const message = `${Config.SignMessageText} ${nonceData.nonce}`;
 
                 await signMessage({ message });
             }
@@ -180,4 +180,4 @@ const useNounceHandler = ({ account }) => {
     }
 };
 
-export default useNounceHandler;
+export default useNonceHandler;
