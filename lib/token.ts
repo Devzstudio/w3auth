@@ -1,13 +1,13 @@
 const jwt = require("jsonwebtoken")
 
-import { NextApiResponse } from "next";
-import Config from "./config";
 import prisma from "./prisma";
 
-const JWTKey = { "type": "HS256", "key": process.env.JWT_SECRET };
 
 
-export const getToken = async (user, customClaims = {}) => {
+export const getToken = async (user, customClaims = {}, admin = false) => {
+
+
+    const JWTKey = { "type": "HS256", "key": admin ? process.env.ADMIN_JWT_SECRET : process.env.JWT_SECRET };
 
     const refresh = await prisma.refresh_token.create({
         data: {
