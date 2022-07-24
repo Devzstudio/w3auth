@@ -838,7 +838,7 @@
   dependencies:
     "@mantine/ssr" "4.2.12"
 
-"@mantine/ssr@4.2.12":
+"@mantine/ssr@4.2.12", "@mantine/ssr@^4.2.12":
   version "4.2.12"
   resolved "https://registry.yarnpkg.com/@mantine/ssr/-/ssr-4.2.12.tgz#86e86243f7c3e010ad4ae0a2f0f6ce6f7154434a"
   integrity sha512-PhM+nYzKs7ooPgMyJGPrdE0KaBB1T72yln3K/3ydkJBAMb/gl08Gm8gpzInzfn2kB7bdRVNwuF0i8Ba0pDbvJg==

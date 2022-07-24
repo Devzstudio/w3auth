@@ -29,24 +29,24 @@ function MyApp({ Component, pageProps }) {
 					rel="stylesheet"
 				/>
 			</Head>
-			<WagmiConfig client={wagmiClient}>
-				<AuthProvider>
-					<RainbowKitProvider chains={chains} theme={darkMode.value ? darkTheme() : lightTheme()}>
-						<Layout>
-							<MantineProvider
-								withGlobalStyles
-								withNormalizeCSS
-								theme={{
-									// colorScheme: darkMode.value ? 'dark' : 'light',
-									colorScheme: 'dark',
-								}}
-							>
+			<MantineProvider
+				withGlobalStyles
+				withNormalizeCSS
+				theme={{
+					colorScheme: 'dark',
+				}}
+				emotionOptions={{ key: 'mantine', prepend: false }}
+			>
+				<WagmiConfig client={wagmiClient}>
+					<AuthProvider>
+						<RainbowKitProvider chains={chains} theme={darkMode.value ? darkTheme() : lightTheme()}>
+							<Layout>
 								<Component {...pageProps} />
-							</MantineProvider>
-						</Layout>
-					</RainbowKitProvider>
-				</AuthProvider>
-			</WagmiConfig>
+							</Layout>
+						</RainbowKitProvider>
+					</AuthProvider>
+				</WagmiConfig>
+			</MantineProvider>
 			<Toaster />
 			<ProgressBar color="#e93dd0" />
 		</>
