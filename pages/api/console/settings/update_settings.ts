@@ -6,6 +6,7 @@ export default checkAuth(async function updateSettings(req, res) {
 
     const { settings } = req.body;
 
+
     if (settings)
         Object.keys(settings).forEach(async value => {
             if (settings[value] == true || settings[value] == false)

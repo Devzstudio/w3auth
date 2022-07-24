@@ -1,7 +1,7 @@
 import { NextApiResponse } from 'next';
 import { NextApiRequest } from 'next';
 
-import { getAppCookies } from "lib/helpers";
+
 import prisma from "lib/prisma";
 import { getToken } from "lib/token";
 import { serialize } from "cookie";
@@ -57,7 +57,7 @@ export default async function verifyHandler(req: NextApiRequest, res: NextApiRes
 
         const user = await prisma.users.findFirst({
             where: {
-                id: user_address.id
+                id: user_address.user_id
             }
         });
 
@@ -69,14 +69,15 @@ export default async function verifyHandler(req: NextApiRequest, res: NextApiRes
         }
 
 
-        const nonce = signed_message.split("Nonce:")[1].trim().split(" ")[0]
-        const address = signed_message.split("Address:")[1].trim().split(" ")[0]
+        const nonce = signed_message.split("Nonce:")[1].trim().split(" ")[0].trim()
+        const address = signed_message.split("Address:")[1].trim().split(" ")[0].trim()
 
         if (address != wallet_address) {
             return res.json({
                 error: "Oops. Something went wrong."
             })
         }
+
 
         if (nonce != user.nonce) {
             return res.json({
@@ -107,10 +108,9 @@ export default async function verifyHandler(req: NextApiRequest, res: NextApiRes
 
 
         return res.json({
-            success: "OK",
             token: output.token,
-            name: user.name,
-            user_id: user.id
+            user_id: user.id,
+            // name: user.name,
         });
 
 

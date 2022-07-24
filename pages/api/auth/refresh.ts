@@ -3,16 +3,16 @@ import { getToken } from "lib/token";
 import { serialize } from "cookie";
 import { getAppCookies } from "lib/helpers";
 import { corsMiddleware } from "lib/cors";
-import { ok } from "lib/response";
+import { ok, oops } from "lib/response";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function refreshHandler(req: NextApiRequest, res: NextApiResponse) {
 
-    console.log("REACHEDDEDEDE")
 
     if (req.method === "OPTIONS") {
         return res.status(200).send("ok")
     }
+
     await corsMiddleware(req, res);
 
     const refreshToken = getAppCookies(req)['refresh_token']
@@ -74,6 +74,6 @@ export default async function refreshHandler(req: NextApiRequest, res: NextApiRe
 
     }
 
-    return ok(res);
+    return oops(res);
 
 }

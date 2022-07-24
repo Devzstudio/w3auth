@@ -7,8 +7,7 @@ interface IContextProps {
 
 interface State {
 	address: string;
-	name: string;
-	email: string;
+
 	user_id: string;
 	token: string;
 	dispatch?: React.Dispatch<Actions>;
@@ -22,8 +21,6 @@ interface Actions {
 const InitialState = {
 	address: '',
 	user_id: '',
-	name: '',
-	email: '',
 	token: '',
 };
 

@@ -22,7 +22,7 @@ export const getToken = async (user, customClaims = {}) => {
     })
 
     // loop?
-    const customClaim = settings.value.replaceAll("[USER_ID]", user.id).replaceAll("[USER_EMAIL]", user.email)
+    const customClaim = JSON.parse(settings.value.replaceAll("[USER_ID]", user.id).replaceAll("[USER_EMAIL]", user.email))
 
 
     const token = jwt.sign(

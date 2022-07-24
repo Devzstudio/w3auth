@@ -29,6 +29,10 @@ export const req = async (url, options = {
     );
 
     const response = await result.json()
+    const statusCode = result.status
 
-    return response;
+    return {
+        statusCode: statusCode,
+        response: response
+    };
 }

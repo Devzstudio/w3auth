@@ -7,9 +7,9 @@ export const corsMiddleware = async (req, res) => {
 
     await NextCors(req, res, {
         methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', "OPTIONS"],
-        origin: 'http://localhost:3000',
+        origin: 'https://w3auth-demo.vercel.app',
         optionsSuccessStatus: 200,
-        headers: "Origin, X-Requested-With, Content-Type, Accept, Authorization, authorization, Referer, User-Agent"
+        headers: "Origin, X-Requested-With, Content-Type, Accept, Authorization, authorization, Referer, User-Agent, cookie"
     });
 
 }
