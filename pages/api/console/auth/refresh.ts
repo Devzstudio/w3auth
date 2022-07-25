@@ -2,7 +2,7 @@ import { getAppCookies } from "lib/helpers";
 import prisma from "lib/prisma";
 import { getToken } from "lib/token";
 import { serialize } from "cookie";
-import { ok } from "lib/response";
+import { ok, oops } from "lib/response";
 import { NextApiRequest, NextApiResponse } from "next";
 import Lang from "lib/lang";
 
@@ -40,12 +40,13 @@ export default async function refrehhandler(req: NextApiRequest, res: NextApiRes
         const output = await getToken(user)
 
         res.setHeader('Set-Cookie', serialize('refresh_token', output.refresh_token, { path: '/', maxAge: 3600000, httpOnly: true }));
+
         return res.json({
-            success: "OK",
             token: output.token,
+            user_id: rt.user_id
         });
     }
 
-    return ok(res);
+    return oops(res, Lang.INVALID_REFRESH_TOKEN);
 
 }

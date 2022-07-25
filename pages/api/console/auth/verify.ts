@@ -25,7 +25,7 @@ export default async function verifyhandler(req: NextApiRequest, res: NextApiRes
 
     const user = await prisma.admins.findFirst({
         where: {
-            wallet_address: address
+            wallet_address: process.env.DEMO ? '0x000000000000000000000000000000000000dEaD' : address
         }
     });
 
