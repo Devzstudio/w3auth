@@ -84,7 +84,7 @@ const Settings = ({ records, total }) => {
 						})}
 						{isEmpty(fields) && (
 							<tr>
-								<td colSpan={6}>There are no records.</td>
+								<td colSpan={5}>There are no records.</td>
 							</tr>
 						)}
 					</tbody>

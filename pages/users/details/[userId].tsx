@@ -1,4 +1,4 @@
-import { Table } from '@mantine/core';
+import { Badge, Table } from '@mantine/core';
 import CardWrapper from 'components/UI/card/CardWrapper';
 import PageHeader from 'components/PageHeader';
 import { GetStaticProps } from 'next';
@@ -52,6 +52,12 @@ const Users = ({ record, customFields }) => {
 			<PageHeader title={user.name} />
 
 			<div className="px-4 pb-5">
+				<div className="grid place-items-end">
+					<Badge color={user.kyc_verified ? 'green' : 'orange'} variant="outline">
+						{user.kyc_verified ? 'KYC Verified' : 'KYC Not verified'}
+					</Badge>
+				</div>
+
 				<div className="grid md:grid-cols-2 gap-5">
 					<section>
 						<h4 className="mb-5">Basic Details</h4>
