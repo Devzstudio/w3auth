@@ -23,6 +23,7 @@ export const getServerSideProps: GetStaticProps = async (context: any) => {
 						'accept_custom_fields_on_registeration',
 						'custom_jwt_claim',
 						'log_user_logins',
+						'country_blocklist',
 					],
 				},
 			},
@@ -45,6 +46,7 @@ const SettingsPage = ({ records }) => {
 
 	const form = useForm({
 		initialValues: {
+			country_blocklist: settings.country_blocklist,
 			custom_jwt_claim: settings.custom_jwt_claim,
 			log_user_logins: settings.log_user_logins,
 			access_allowlist_only: settings.access_allowlist_only,
@@ -100,6 +102,13 @@ const SettingsPage = ({ records }) => {
 							color={'violet'}
 							checked={form.values.log_user_logins}
 							onChange={() => form.setFieldValue('log_user_logins', !form.values.log_user_logins)}
+						/>
+
+						<Textarea
+							minRows={5}
+							label="Country Blocklist"
+							value={form.values.country_blocklist}
+							onChange={(val) => form.setFieldValue('country_blocklist', val)}
 						/>
 
 						<div className="grid md:grid-cols-2 gap-5">

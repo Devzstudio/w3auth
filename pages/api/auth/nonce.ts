@@ -38,6 +38,20 @@ export default async function noncehandler(req: NextApiRequest, res: NextApiResp
     const settings = getSettings(settingsData);
 
     /*
+    *   Country blocklist check
+    */
+
+    if (settings.country_blocklist != "" && req.headers['Cf-Ipcountry']) {
+        const country = req.headers['Cf-Ipcountry'];
+        const countriesList = settings.country_blocklist.split(",")
+
+        if (countriesList.includes(country)) {
+            return oops(res, Lang.COUNTRY_BLOCKLIST);
+        }
+    }
+
+
+    /*
     *   Only allowalist users are allowed to login
     */
 

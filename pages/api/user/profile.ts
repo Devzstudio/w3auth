@@ -12,7 +12,8 @@ export default checkAuth(async function updateProfileHandler(req, res) {
 
     const decoded: { user_id: string } = jwt_decode(token);
 
-    const { name, email, discord, telegram, twitter, custom } = req.body;
+    const { profile } = req.body;
+    const { name, email, discord, telegram, twitter, custom } = profile;
 
     const user = await prisma.users.findFirst({
         where: {

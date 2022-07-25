@@ -85,6 +85,15 @@ async function main() {
     })
 
     await prisma.settings.upsert({
+        where: { name: 'country_blocklist' },
+        update: {},
+        create: {
+            name: 'country_blocklist',
+            value: '',
+        },
+    })
+
+    await prisma.settings.upsert({
         where: { name: 'enable_eth' },
         update: {},
         create: {
