@@ -10,13 +10,15 @@ w3auth app allows access to JWTs and refresh cookies. Provide admins with the ab
 
 -   🖼️ NFT Gating
 
--   ✨ Custom JWT Claim
-
 -   🎟️ Token Gating
+
+-   ✨ Custom JWT Claim
 
 -   🧩 Custom profile fields
 
 -   👤 Basic user profile
+
+-   🌐 Country blocklist
 
 -   🧠 Multiple team members
 

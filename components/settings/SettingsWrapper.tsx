@@ -1,4 +1,5 @@
 import {
+	AdjustmentsIcon,
 	CogIcon,
 	CubeTransparentIcon,
 	DocumentTextIcon,
@@ -39,6 +40,11 @@ const NavigationLinks = [
 		name: 'Team',
 		link: '/settings/team',
 		icon: <UsersIcon className="w-4 h-4 mr-2" />,
+	},
+	{
+		name: 'Integrations',
+		link: '/settings/integrations',
+		icon: <AdjustmentsIcon className="w-4 h-4 mr-2" />,
 	},
 ];
 

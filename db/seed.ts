@@ -93,6 +93,25 @@ async function main() {
         },
     })
 
+
+    await prisma.settings.upsert({
+        where: { name: 'blockpass_clientid' },
+        update: {},
+        create: {
+            name: 'blockpass_clientid',
+            value: '',
+        },
+    })
+
+    await prisma.settings.upsert({
+        where: { name: 'blockpass_apikey' },
+        update: {},
+        create: {
+            name: 'blockpass_apikey',
+            value: '',
+        },
+    })
+
     await prisma.settings.upsert({
         where: { name: 'enable_eth' },
         update: {},
