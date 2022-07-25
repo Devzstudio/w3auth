@@ -22,6 +22,7 @@ export const getServerSideProps: GetStaticProps = async (context: any) => {
 						'enable_token_gating',
 						'accept_custom_fields_on_registeration',
 						'custom_jwt_claim',
+						'log_user_logins',
 					],
 				},
 			},
@@ -45,6 +46,7 @@ const SettingsPage = ({ records }) => {
 	const form = useForm({
 		initialValues: {
 			custom_jwt_claim: settings.custom_jwt_claim,
+			log_user_logins: settings.log_user_logins,
 			access_allowlist_only: settings.access_allowlist_only,
 			enable_nft_gating: settings.enable_nft_gating,
 			enable_token_gating: settings.enable_token_gating,
@@ -94,15 +96,10 @@ const SettingsPage = ({ records }) => {
 							onChange={() => form.setFieldValue('enable_token_gating', !form.values.enable_token_gating)}
 						/>
 						<Switch
-							label="Accept custom fields on registeration"
+							label="Log user login details"
 							color={'violet'}
-							checked={form.values.accept_custom_fields_on_registeration}
-							onChange={() =>
-								form.setFieldValue(
-									'accept_custom_fields_on_registeration',
-									!form.values.accept_custom_fields_on_registeration
-								)
-							}
+							checked={form.values.log_user_logins}
+							onChange={() => form.setFieldValue('log_user_logins', !form.values.log_user_logins)}
 						/>
 
 						<div className="grid md:grid-cols-2 gap-5">

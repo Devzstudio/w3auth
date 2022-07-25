@@ -9,6 +9,7 @@ import { verifySignature } from "lib/verify_signature";
 import { oops } from "lib/response";
 import { detectChain } from "lib/detect_chain";
 import { corsMiddleware } from "lib/cors";
+import { getSettings } from 'lib/helpers';
 
 
 export default async function verifyHandler(req: NextApiRequest, res: NextApiResponse) {
@@ -87,8 +88,6 @@ export default async function verifyHandler(req: NextApiRequest, res: NextApiRes
 
 
 
-
-
         await prisma.users.update({
             where: {
                 id: user.id
@@ -97,6 +96,23 @@ export default async function verifyHandler(req: NextApiRequest, res: NextApiRes
                 last_login: new Date()
             }
         })
+
+
+        const settingsData = await prisma.settings.findMany({})
+        const settings = getSettings(settingsData);
+
+        if (settings.log_user_logins) {
+
+            await prisma.user_logins.create({
+                data: {
+                    user_id: user.id,
+                    browser: req.headers['User-Agent"'],
+                    ip: req.headers['cf-connecting-ip'],
+                    country: req.headers['Cf-Ipcountry'],
+                }
+            })
+
+        }
 
         const output = await getToken(user, {
             user_id: user.id,

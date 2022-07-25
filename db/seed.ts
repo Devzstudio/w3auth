@@ -76,10 +76,10 @@ async function main() {
     })
 
     await prisma.settings.upsert({
-        where: { name: 'cron_password' },
+        where: { name: 'log_user_logins' },
         update: {},
         create: {
-            name: 'cron_password',
+            name: 'log_user_logins',
             value: 'false',
         },
     })
