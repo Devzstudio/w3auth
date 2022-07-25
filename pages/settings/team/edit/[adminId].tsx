@@ -60,12 +60,14 @@ const Edit = ({ record }) => {
 					}}
 				>
 					<TextInput
+						color="violet"
 						label="Name"
 						value={form.values.name}
 						onChange={(e) => form.setFieldValue('name', e.target.value)}
 					/>
 
 					<TextInput
+						color="violet"
 						label="EVM Wallet Address"
 						value={form.values.wallet_address}
 						onChange={(e) => form.setFieldValue('wallet_address', e.target.value)}

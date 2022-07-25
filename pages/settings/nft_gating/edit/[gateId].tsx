@@ -69,11 +69,13 @@ const Edit = ({ record }) => {
 						data={ChainSelectList}
 					></Select>
 					<TextInput
+						color="violet"
 						label="Label"
 						value={form.values.label}
 						onChange={(e) => form.setFieldValue('label', e.target.value)}
 					/>
 					<TextInput
+						color="violet"
 						label="Contract Address"
 						value={form.values.contract_address}
 						onChange={(e) => form.setFieldValue('contract_address', e.target.value)}

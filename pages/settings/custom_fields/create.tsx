@@ -42,11 +42,13 @@ const Create = () => {
 					}}
 				>
 					<TextInput
+						color="violet"
 						label="Label"
 						value={form.values.label}
 						onChange={(e) => form.setFieldValue('label', e.target.value)}
 					/>
 					<TextInput
+						color="violet"
 						label="Name"
 						placeholder="phone_number"
 						value={form.values.name}

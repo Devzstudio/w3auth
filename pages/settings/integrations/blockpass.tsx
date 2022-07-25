@@ -65,12 +65,14 @@ const SettingsPage = ({ records }) => {
 				>
 					<div className="px-6 py-4 space-y-5">
 						<TextInput
+							color="violet"
 							label="Blockpass Client ID"
 							value={form.values.blockpass_clientid}
 							onChange={(e) => form.setFieldValue('blockpass_clientid', e.target.value)}
 						/>
 
 						<TextInput
+							color="violet"
 							label="Blockpass API Key"
 							value={form.values.blockpass_apikey}
 							onChange={(e) => form.setFieldValue('blockpass_apikey', e.target.value)}

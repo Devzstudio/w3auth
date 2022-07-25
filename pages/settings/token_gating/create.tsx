@@ -44,23 +44,29 @@ const Create = () => {
 					}}
 				>
 					<TextInput
+						color="violet"
 						label="Label"
 						value={form.values.label}
 						onChange={(e) => form.setFieldValue('label', e.target.value)}
 					/>
 
 					<Select
+						color="violet"
 						label="Chain"
 						value={form.values.chain}
 						onChange={(val) => form.setFieldValue('chain', val)}
 						data={ChainSelectList}
 					></Select>
+
 					<TextInput
+						color="violet"
 						label="Contract Address"
 						value={form.values.contract_address}
 						onChange={(e) => form.setFieldValue('contract_address', e.target.value)}
 					/>
+
 					<NumberInput
+						color="violet"
 						label="Value"
 						value={Number(form.values.value)}
 						onChange={(val) => form.setFieldValue('value', String(val))}

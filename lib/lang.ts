@@ -10,6 +10,7 @@ const Lang = {
     EXPIRED_NONCE: "Expired sign-in. Try again",
     INCORRECT_CRON_PASSWORD: "Incorrect cron password",
     COUNTRY_BLOCKLIST: "Not allowed in sign in from your country",
+    INVALID_API_SECRET: "Invalid API Key / Secret"
 }
 
 export default Lang;

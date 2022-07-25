@@ -78,11 +78,13 @@ const Create = () => {
 						}}
 					>
 						<TextInput
+							color="violet"
 							label="Note"
 							value={form.values.note}
 							onChange={(e) => form.setFieldValue('note', e.target.value)}
 						/>
 						<TextInput
+							color="violet"
 							label="Address"
 							value={form.values.address}
 							onChange={(e) => form.setFieldValue('address', e.target.value)}
