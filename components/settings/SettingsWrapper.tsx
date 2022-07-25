@@ -1,3 +1,11 @@
+import {
+	CogIcon,
+	CubeTransparentIcon,
+	DocumentTextIcon,
+	FingerPrintIcon,
+	PhotographIcon,
+	UsersIcon,
+} from '@heroicons/react/outline';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -5,26 +13,32 @@ const NavigationLinks = [
 	{
 		name: 'General',
 		link: '/settings',
+		icon: <CogIcon className="w-4 h-4 mr-2" />,
 	},
 	{
 		name: 'Chains',
 		link: '/settings/chains',
+		icon: <CubeTransparentIcon className="w-4 h-4 mr-2" />,
 	},
 	{
 		name: 'NFT Gating',
 		link: '/settings/nft_gating',
+		icon: <PhotographIcon className="w-4 h-4 mr-2" />,
 	},
 	{
 		name: 'Token Gating',
 		link: '/settings/token_gating',
+		icon: <FingerPrintIcon className="w-4 h-4 mr-2" />,
 	},
 	{
 		name: 'Custom fields',
 		link: '/settings/custom_fields',
+		icon: <DocumentTextIcon className="w-4 h-4 mr-2" />,
 	},
 	{
 		name: 'Team',
 		link: '/settings/team',
+		icon: <UsersIcon className="w-4 h-4 mr-2" />,
 	},
 ];
 
@@ -37,11 +51,11 @@ const SettingsWrapper = ({ children }) => {
 				{NavigationLinks.map((nav) => (
 					<Link as={nav.link} href={nav.link} key={nav.link}>
 						<a
-							className={`text-sm block text-gray-500 hover:text-gray-100 hover:bg-dark-700 px-3 py-1.5 rounded cursor-pointer
+							className={`text-sm text-gray-500 hover:text-gray-100 hover:bg-dark-700 px-3 py-1.5 rounded cursor-pointer flex items-center
 							${router.asPath == nav.link ? 'text-purple-500' : ''}
 						`}
 						>
-							{nav.name}
+							{nav.icon} {nav.name}
 						</a>
 					</Link>
 				))}

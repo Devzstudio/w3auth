@@ -5,7 +5,7 @@ const CardWrapper = ({ children, label, create = null, options = null }) => {
 	return (
 		<div
 			className={`bg-dark-800 rounded pt-5 ${
-				label.includes('Create') || label.includes('Edit') ? 'md:w-1/2' : ''
+				(label && label.includes('Create')) || (label && label.includes('Edit')) ? 'md:w-1/2' : ''
 			}`}
 		>
 			<div className="flex justify-between items-center pr-5">

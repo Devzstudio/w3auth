@@ -14,6 +14,8 @@ export default checkAuth(async function updateProfileHandler(req, res) {
 
     const { custom } = req.body;
 
+    // Feat: required field validation. (make sure all the required fields are passed to the request)
+
     if (custom) {
         custom.forEach(async element => {
 

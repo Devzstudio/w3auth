@@ -1,12 +1,9 @@
 # Todo
 
 -   index tables
--   clear all admin / user nonce at 30min interval. (cron)
--   clear all refresh tokens (4hr interval)
 -   responsiveness
--   cors domain allowlist
 
-# Refactor
+# Code Refactor
 
 -   reusable custom fields form
 -   reusable nft gating form
@@ -21,4 +18,3 @@
 -   kyc platform integrations
 -   clear user login logs
 -   breadcrump on edit / create pages
--   lang file for all error / success messages
