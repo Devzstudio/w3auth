@@ -20,6 +20,9 @@ export default async function noncehandler(req: NextApiRequest, res: NextApiResp
 
     await corsMiddleware(req, res);
 
+    if (req.method === "OPTIONS") {
+        return res.status(200).send("ok")
+    }
 
     const { wallet_address } = req.body;
 

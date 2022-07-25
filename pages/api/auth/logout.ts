@@ -15,7 +15,7 @@ export default async function Logouthandler(req: NextApiRequest, res: NextApiRes
     await corsMiddleware(req, res);
 
 
-    const refreshToken = getAppCookies(req)['refresh_token']
+    const refreshToken = getAppCookies(req)['w3_refresh_token']
 
     if (refreshToken) {
 

@@ -16,10 +16,9 @@ export default async function refreshHandler(req: NextApiRequest, res: NextApiRe
 
     await corsMiddleware(req, res);
 
-    const refreshToken = getAppCookies(req)['refresh_token']
+    const refreshToken = getAppCookies(req)['w3_refresh_token']
 
     if (refreshToken) {
-
 
         const rt = await prisma.refresh_token.findFirst({
             where: {
@@ -29,7 +28,7 @@ export default async function refreshHandler(req: NextApiRequest, res: NextApiRe
 
         if (!rt) {
             return res.json({
-                error: Lang.INVALID_REFRESH_TOKEN
+                error: Lang.INVALID_REFRESH_TOKEN + ' ' + refreshToken
             })
         }
 
@@ -63,7 +62,7 @@ export default async function refreshHandler(req: NextApiRequest, res: NextApiRe
         })
 
 
-        res.setHeader('Set-Cookie', serialize('refresh_token', output.refresh_token, { path: '/', maxAge: 3600000, httpOnly: true }));
+        res.setHeader('Set-Cookie', serialize('w3_refresh_token', output.refresh_token, { path: '/', maxAge: 3600000, httpOnly: true, SameSite: "None" }));
 
 
         return res.json({

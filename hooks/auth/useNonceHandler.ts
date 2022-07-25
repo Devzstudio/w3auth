@@ -27,6 +27,7 @@ const useNonceHandler = ({ account }) => {
             if (data != '') {
                 const verifyCall = await fetch('/api/console/auth/verify', {
                     method: 'POST',
+                    credentials: 'include',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ signature: data, signed_message: variables.message }),
                 });
@@ -120,7 +121,7 @@ const useNonceHandler = ({ account }) => {
                         Accept: 'application/json',
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ refresh_token: refreshToken }),
+                    body: JSON.stringify({}),
                 });
                 setRefreshFailed(true)
 
@@ -134,11 +135,11 @@ const useNonceHandler = ({ account }) => {
 
                     setUserReponse(user_response);
 
-                    // if (router.query.redirect_to) {
-                    //     router.push(router.query.redirect_to as string);
-                    // } else {
-                    //     router.push('/dashboard');
-                    // }
+                    if (router.query.redirect_to) {
+                        router.push(router.query.redirect_to as string);
+                    } else {
+                        router.push('/dashboard');
+                    }
                 }
             }
             else {

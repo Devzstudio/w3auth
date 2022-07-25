@@ -15,7 +15,12 @@ import Lang from 'lib/lang';
 
 export default async function verifyHandler(req: NextApiRequest, res: NextApiResponse) {
 
+    if (req.method === "OPTIONS") {
+        return res.status(200).send("ok")
+    }
+
     await corsMiddleware(req, res);
+
 
 
     const { signature, signed_message, wallet_address, profile } = req.body;
@@ -118,7 +123,7 @@ export default async function verifyHandler(req: NextApiRequest, res: NextApiRes
         })
 
 
-        res.setHeader('Set-Cookie', serialize('refresh_token', output.refresh_token, { path: '/', maxAge: 3600000, httpOnly: true }));
+        res.setHeader('Set-Cookie', serialize('w3_refresh_token', output.refresh_token, { path: '/', maxAge: 3600000, httpOnly: true, SameSite: "None" }));
 
 
         return res.json({
