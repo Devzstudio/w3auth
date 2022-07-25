@@ -1,3 +1,5 @@
+import { detectChain } from './../../../lib/detect_chain';
+import Lang from 'lib/lang';
 
 import { getSettings } from "lib/helpers";
 import prisma from "lib/prisma";
@@ -23,11 +25,11 @@ export default async function noncehandler(req: NextApiRequest, res: NextApiResp
 
     if (!wallet_address) {
         return oops(res,
-            "Invalid address"
+            Lang.INVALID_ADDRESS
         )
     }
 
-    let chain = "eth"; // [Feat] ability to use solana address / pass chain from frontend app
+    let chain = detectChain(wallet_address)
 
     const settingsData = await prisma.settings.findMany({})
     const settings = getSettings(settingsData);
@@ -45,7 +47,7 @@ export default async function noncehandler(req: NextApiRequest, res: NextApiResp
         })
 
         if (addressExistonAllowlist == 0) {
-            return oops(res, "Wallet address not found on allowlist");
+            return oops(res, Lang.NOT_ON_ALLOWED_LIST);
 
         }
     }
@@ -61,7 +63,7 @@ export default async function noncehandler(req: NextApiRequest, res: NextApiResp
     })
 
     if (addressExistonBlocklist != 0) {
-        return oops(res, "You are not allowed to sign in.");
+        return oops(res, Lang.ADDRESS_BLOCKED);
     }
 
 
@@ -99,7 +101,7 @@ export default async function noncehandler(req: NextApiRequest, res: NextApiResp
             })
 
             if (contractAddressExist == 0) {
-                return oops(res, "NFT not found on account.");
+                return oops(res, Lang.NFT_NOT_FOUND);
             }
 
         }
@@ -169,7 +171,7 @@ export default async function noncehandler(req: NextApiRequest, res: NextApiResp
 
 
     if (user.is_blocked) {
-        return oops(res, "You are not allowed to sign in.");
+        return oops(res, Lang.ADDRESS_BLOCKED);
     }
 
     await prisma.users.update({

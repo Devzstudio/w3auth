@@ -3,6 +3,7 @@ import { getToken } from "lib/token";
 import { verifySignature } from "lib/verify_signature";
 import { serialize } from "cookie";
 import { NextApiRequest, NextApiResponse } from "next";
+import Lang from "lib/lang";
 
 
 export default async function verifyhandler(req: NextApiRequest, res: NextApiResponse) {
@@ -11,7 +12,7 @@ export default async function verifyhandler(req: NextApiRequest, res: NextApiRes
 
     if (!signature || signature == "" || signed_message == "") {
         return res.json({
-            error: "Invalid signature"
+            error: Lang.INVALID_SIGNATURE
         })
     }
 
@@ -31,7 +32,7 @@ export default async function verifyhandler(req: NextApiRequest, res: NextApiRes
 
     if (!user) {
         return res.json({
-            error: "Account not exist"
+            error: Lang.INVALID_ADDRESS
         })
     }
 
@@ -39,7 +40,7 @@ export default async function verifyhandler(req: NextApiRequest, res: NextApiRes
 
     if (nonce != user.nonce) {
         return res.json({
-            error: "Expired sign in. Try again."
+            error: Lang.EXPIRED_NONCE
         })
     }
 
@@ -62,7 +63,6 @@ export default async function verifyhandler(req: NextApiRequest, res: NextApiRes
 
 
     return res.json({
-        success: "OK",
         token: output.token,
         name: user.name,
         user_id: user.id

@@ -4,6 +4,7 @@ import { getToken } from "lib/token";
 import { serialize } from "cookie";
 import { ok } from "lib/response";
 import { NextApiRequest, NextApiResponse } from "next";
+import Lang from "lib/lang";
 
 
 export default async function refrehhandler(req: NextApiRequest, res: NextApiResponse) {
@@ -19,7 +20,7 @@ export default async function refrehhandler(req: NextApiRequest, res: NextApiRes
 
         if (!rt) {
             return res.json({
-                error: "Token expired"
+                error: Lang.INVALID_REFRESH_TOKEN
             })
         }
 
@@ -31,7 +32,7 @@ export default async function refrehhandler(req: NextApiRequest, res: NextApiRes
 
         if (!user) {
             return res.json({
-                error: "Not Exist"
+                error: Lang.USER_NOT_FOUND
             })
         }
 

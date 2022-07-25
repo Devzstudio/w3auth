@@ -1,3 +1,4 @@
+import Lang from "lib/lang";
 import prisma from "lib/prisma";
 import { NextApiRequest, NextApiResponse } from "next";
 
@@ -8,7 +9,7 @@ export default async function noncehandler(req: NextApiRequest, res: NextApiResp
 
     if (!wallet_address) {
         return res.json({
-            error: "Invalid address"
+            error: Lang.INVALID_ADDRESS
         })
     }
 

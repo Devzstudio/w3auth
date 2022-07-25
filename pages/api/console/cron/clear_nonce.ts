@@ -1,4 +1,5 @@
 import { corsMiddleware } from "lib/cors";
+import Lang from "lib/lang";
 import prisma from "lib/prisma";
 import { ok, oops } from "lib/response";
 
@@ -26,6 +27,6 @@ export default async function clearNonce(req, res) {
         return ok(res)
     }
 
-    return oops(res);
+    return oops(res, Lang.INCORRECT_CRON_PASSWORD);
 
 }

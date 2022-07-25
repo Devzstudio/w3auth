@@ -1,5 +1,6 @@
 import { corsMiddleware } from "lib/cors";
 import { getAppCookies } from "lib/helpers";
+import Lang from "lib/lang";
 import prisma from "lib/prisma";
 import { ok, oops, response } from "lib/response";
 import { NextApiRequest, NextApiResponse } from "next";
@@ -27,7 +28,7 @@ export default async function Logouthandler(req: NextApiRequest, res: NextApiRes
 
         if (!rt) {
             return response(res, {
-                error: "Invalid token"
+                error: Lang.INVALID_REFRESH_TOKEN
             })
         }
 
@@ -40,7 +41,7 @@ export default async function Logouthandler(req: NextApiRequest, res: NextApiRes
 
         if (!user) {
             return response(res, {
-                error: "Invalid Address"
+                error: Lang.INVALID_ADDRESS
             })
         }
 
@@ -62,6 +63,6 @@ export default async function Logouthandler(req: NextApiRequest, res: NextApiRes
         return ok(res)
     }
 
-    return oops(res);
+    return oops(res, Lang.INVALID_REFRESH_TOKEN);
 
 }

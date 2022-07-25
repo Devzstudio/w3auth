@@ -10,6 +10,7 @@ import { oops } from "lib/response";
 import { detectChain } from "lib/detect_chain";
 import { corsMiddleware } from "lib/cors";
 import { getSettings } from 'lib/helpers';
+import Lang from 'lib/lang';
 
 
 export default async function verifyHandler(req: NextApiRequest, res: NextApiResponse) {
@@ -24,7 +25,7 @@ export default async function verifyHandler(req: NextApiRequest, res: NextApiRes
 
     if (!signature || signature == "" || signed_message == "") {
         return res.json({
-            error: "Invalid signature"
+            error: Lang.INVALID_SIGNATURE
         })
     }
 
@@ -38,9 +39,6 @@ export default async function verifyHandler(req: NextApiRequest, res: NextApiRes
     // verifyResponse can be address / boolean
 
     if (verifyResponse) {
-        // make sure the address is valid.
-        // Test: is it possible to send another address via the wallet_adress and sign to account?
-
 
         const user_address = await prisma.user_address.findFirst({
             where: {
@@ -51,7 +49,7 @@ export default async function verifyHandler(req: NextApiRequest, res: NextApiRes
 
         if (!user_address) {
             return res.json({
-                error: "Address not exist"
+                error: Lang.INVALID_ADDRESS
             })
         }
 
@@ -65,7 +63,7 @@ export default async function verifyHandler(req: NextApiRequest, res: NextApiRes
 
         if (!user) {
             return res.json({
-                error: "User not found"
+                error: Lang.USER_NOT_FOUND
             })
         }
 
@@ -75,14 +73,14 @@ export default async function verifyHandler(req: NextApiRequest, res: NextApiRes
 
         if (address != wallet_address) {
             return res.json({
-                error: "Oops. Something went wrong."
+                error: Lang.INCORRECT_WALLET_ADDRESS
             })
         }
 
 
         if (nonce != user.nonce) {
             return res.json({
-                error: "Expired sign in. Try again."
+                error: Lang.EXPIRED_NONCE
             })
         }
 
@@ -126,9 +124,7 @@ export default async function verifyHandler(req: NextApiRequest, res: NextApiRes
         return res.json({
             token: output.token,
             user_id: user.id,
-            // name: user.name,
         });
-
 
     }
 

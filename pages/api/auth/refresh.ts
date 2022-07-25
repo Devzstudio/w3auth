@@ -5,6 +5,7 @@ import { getAppCookies } from "lib/helpers";
 import { corsMiddleware } from "lib/cors";
 import { ok, oops } from "lib/response";
 import { NextApiRequest, NextApiResponse } from "next";
+import Lang from "lib/lang";
 
 export default async function refreshHandler(req: NextApiRequest, res: NextApiResponse) {
 
@@ -28,7 +29,7 @@ export default async function refreshHandler(req: NextApiRequest, res: NextApiRe
 
         if (!rt) {
             return res.json({
-                error: "Token not found"
+                error: Lang.INVALID_REFRESH_TOKEN
             })
         }
 
@@ -42,7 +43,7 @@ export default async function refreshHandler(req: NextApiRequest, res: NextApiRe
 
         if (!user) {
             return res.json({
-                error: "Account not exist"
+                error: Lang.INVALID_ADDRESS
             })
         }
 
@@ -74,6 +75,6 @@ export default async function refreshHandler(req: NextApiRequest, res: NextApiRe
 
     }
 
-    return oops(res);
+    return oops(res, Lang.INVALID_REFRESH_TOKEN);
 
 }
