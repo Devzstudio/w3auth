@@ -12,7 +12,26 @@ export default checkAuth(async function updateProfileHandler(req, res) {
 
     const decoded: { user_id: string } = jwt_decode(token);
 
-    const { custom } = req.body;
+    const { name, email, discord, telegram, twitter, custom } = req.body;
+
+    const user = await prisma.users.findFirst({
+        where: {
+            id: decoded.user_id
+        }
+    });
+
+    await prisma.users.update({
+        where: {
+            id: decoded.user_id
+        },
+        data: {
+            name: name ?? user.name,
+            email: email ?? user.email,
+            discord_username: discord ?? user.discord_username,
+            telegram_username: telegram ?? user.telegram_username,
+            twitter_username: twitter ?? user.twitter_username,
+        }
+    })
 
     // Feat: required field validation. (make sure all the required fields are passed to the request)
 

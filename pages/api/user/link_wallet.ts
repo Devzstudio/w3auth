@@ -8,6 +8,6 @@ export default async function linkWalletHandler(req, res) {
     const token = authorization.split(" ")[1]
     const decoded: { user_id: string } = jwt_decode(token);
 
-    // wallet_address, signed message?
+    // Feat: wallet_address, signed message?
 
 }
