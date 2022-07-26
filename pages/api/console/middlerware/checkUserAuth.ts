@@ -1,8 +1,8 @@
 import { verify } from 'jsonwebtoken'
 
-// Admin Authentication
+// User Authentication
 
-const checkAuth = (handler) => {
+const checkUserAuth = (handler) => {
     return async (req, res) => {
         try {
             const authorization = req.headers["authorization"]
@@ -11,7 +11,7 @@ const checkAuth = (handler) => {
             const token = authorization.split(" ")[1]
 
 
-            verify(token, process.env.ADMIN_JWT_SECRET);
+            verify(token, process.env.JWT_SECRET);
 
             handler(req, res)
         } catch (e) {
@@ -20,4 +20,4 @@ const checkAuth = (handler) => {
     }
 }
 
-export default checkAuth
+export default checkUserAuth

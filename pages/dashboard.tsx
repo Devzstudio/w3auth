@@ -96,8 +96,8 @@ export default function Dashboard({ newUsers, userCount, todaysUsers, lastLoginU
 													)}
 												</td>
 
-												<td>{user.name}</td>
-												<td>{user.email}</td>
+												<td>{user.name ?? '-'}</td>
+												<td>{user.email ?? '-'}</td>
 												<td className="space-x-5">
 													<Link
 														as={`/users/details/${user.id}`}
@@ -143,8 +143,8 @@ export default function Dashboard({ newUsers, userCount, todaysUsers, lastLoginU
 													)}
 												</td>
 
-												<td>{user.name}</td>
-												<td>{user.email}</td>
+												<td>{user.name ?? '-'}</td>
+												<td>{user.email ?? '-'}</td>
 												<td className="space-x-5">
 													<Link
 														as={`/users/details/${user.id}`}

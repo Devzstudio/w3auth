@@ -91,17 +91,28 @@ const Users = ({ records, total }) => {
 									)}
 								</td>
 
-								<td>{user.name}</td>
-								<td>{user.email}</td>
+								<td>{user.name ?? '-'}</td>
+								<td>{user.email ?? '-'}</td>
 								<td>{dayjs(user.created_at).format('DD MMM YYYY')}</td>
 								<td>{user.last_login ? dayjs(user.last_login).format('DD MMM YYYY') : '-'}</td>
 								<td className="space-x-5">
-									<Link as={`/users/logs/${user.id}`} href={`/users/logs/${user.id}`}>
-										<a className="cursor-pointer text-gray-500 hover:text-gray-100">Logs</a>
-									</Link>
-									<Link as={`/users/details/${user.id}`} href={`/users/details/${user.id}`}>
-										<a className="cursor-pointer text-gray-500 hover:text-gray-100">Details</a>
-									</Link>
+									<Button
+										size="xs"
+										variant="subtle"
+										onClick={() => router.push(`/users/logs/${user.id}`)}
+										className="cursor-pointer text-gray-500 hover:text-gray-100"
+									>
+										Logs
+									</Button>
+
+									<Button
+										size="xs"
+										variant="subtle"
+										onClick={() => router.push(`/users/details/${user.id}`)}
+										className="cursor-pointer text-gray-500 hover:text-gray-100"
+									>
+										Details
+									</Button>
 
 									<Button
 										size="xs"

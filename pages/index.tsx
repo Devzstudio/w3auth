@@ -12,7 +12,7 @@ export default function Home() {
 	return (
 		<section className="grid place-items-center min-h-screen">
 			<PageHeader title="w3auth" />
-			<div className="bg-dark-700 px-5 py-3 rounded grid place-items-center w-72">
+			<div className="bg-dark-700 px-5 py-3 rounded-xl pb-5 grid place-items-center w-72">
 				{auth.token == '' ? (
 					<>
 						<LockClosedIcon className="w-20 h-20 mt-10 mb-10 text-dark-900" />

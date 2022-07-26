@@ -10,6 +10,7 @@ import useRequest from 'hooks/useRequests';
 import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { validateCookie } from 'lib/cookie';
+import CountrySelect from 'components/UI/CountrySelect';
 
 export const getServerSideProps: GetStaticProps = async (context: any) => {
 	return validateCookie(context, async () => {
@@ -49,7 +50,7 @@ const SettingsPage = ({ records }) => {
 
 	const form = useForm({
 		initialValues: {
-			country_blocklist: settings.country_blocklist,
+			country_blocklist: settings.country_blocklist.split(','),
 			custom_jwt_claim: settings.custom_jwt_claim,
 			log_user_logins: settings.log_user_logins,
 			access_allowlist_only: settings.access_allowlist_only,
@@ -75,7 +76,10 @@ const SettingsPage = ({ records }) => {
 						e.preventDefault();
 
 						post({
-							settings: form.values,
+							settings: {
+								...form.values,
+								country_blocklist: form.values.country_blocklist.join(','),
+							},
 						});
 					}}
 				>
@@ -107,8 +111,7 @@ const SettingsPage = ({ records }) => {
 							onChange={() => form.setFieldValue('log_user_logins', !form.values.log_user_logins)}
 						/>
 
-						<Textarea
-							minRows={5}
+						<CountrySelect
 							label="Country Blocklist"
 							value={form.values.country_blocklist}
 							onChange={(val) => form.setFieldValue('country_blocklist', val)}
