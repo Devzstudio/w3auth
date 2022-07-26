@@ -45,3 +45,7 @@ Live demo: https://w3authdemo.devzstudio.com/
 Live demo: https://w3authuser.devzstudio.com/
 
 Demo code: https://github.com/Devzstudio/w3auth_demo
+
+# Deploy
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FDevzstudio%2Fw3auth&env=DATABASE_URL,JWT_SECRET,ADMIN_JWT_SECRET,ALCHEMY_API,CRON_PASSWORD,FRONT_END_URL&repo-name=w3auth)
