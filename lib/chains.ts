@@ -26,6 +26,14 @@ const ConfigChains = [
     {
         symbol: "MOVR",
         icon: "https://s2.coinmarketcap.com/static/img/coins/64x64/9285.png"
+    },
+    {
+        symbol: "DOT",
+        icon: "https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@bea1a9722a8c63169dcc06e86182bf2c55a76bbc/svg/color/dot.svg"
+    },
+    {
+        symbol: "FLOW",
+        icon: "https://assets.website-files.com/5f6294c0c7a8cdd643b1c820/5f6294c0c7a8cd5704b1c939_favicon.png"
     }
 ]
 
@@ -37,7 +45,9 @@ export const ChainLogo = {
     "MATIC": "https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@bea1a9722a8c63169dcc06e86182bf2c55a76bbc/svg/color/matic.svg",
     "SOL": "https://s2.coinmarketcap.com/static/img/coins/64x64/5426.png",
     "GLMR": "https://s2.coinmarketcap.com/static/img/coins/64x64/6836.png",
-    "MOVR": "https://s2.coinmarketcap.com/static/img/coins/64x64/9285.png"
+    "MOVR": "https://s2.coinmarketcap.com/static/img/coins/64x64/9285.png",
+    "DOT": "https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@bea1a9722a8c63169dcc06e86182bf2c55a76bbc/svg/color/dot.svg",
+    "FLOW": "https://assets.website-files.com/5f6294c0c7a8cdd643b1c820/5f6294c0c7a8cd5704b1c939_favicon.png"
 }
 
 export const ChainSelectList = [
@@ -72,6 +82,16 @@ export const ChainSelectList = [
         value: "MOVR",
         label: "MOVR",
         icon: "https://s2.coinmarketcap.com/static/img/coins/64x64/9285.png"
+    },
+    {
+        value: "DOT",
+        label: "DOT",
+        icon: "https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@bea1a9722a8c63169dcc06e86182bf2c55a76bbc/svg/color/dot.svg"
+    },
+    {
+        value: "FLOW",
+        label: "FLOW",
+        icon: "https://assets.website-files.com/5f6294c0c7a8cdd643b1c820/5f6294c0c7a8cd5704b1c939_favicon.png"
     }
 
 ]

@@ -1,4 +1,4 @@
-import { detectChain } from './../../../lib/detect_chain';
+import { detectChain } from 'lib/detect_chain';
 import Lang from 'lib/lang';
 
 import { getSettings } from "lib/helpers";

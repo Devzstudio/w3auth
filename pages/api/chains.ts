@@ -19,6 +19,8 @@ export default async function chains(req, res) {
         movr: settings.enable_movr,
         avax: settings.enable_avax,
         sol: settings.enable_sol,
+        dot: settings.enable_dot,
+        flow: settings.enable_flow,
     }
 
 

@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
+
 async function main() {
     await prisma.settings.upsert({
         where: { name: 'access_allowlist_only' },
@@ -66,14 +67,6 @@ async function main() {
         },
     })
 
-    await prisma.settings.upsert({
-        where: { name: 'block_chainabuse_address' },
-        update: {},
-        create: {
-            name: 'block_chainabuse_address',
-            value: 'false',
-        },
-    })
 
     await prisma.settings.upsert({
         where: { name: 'log_user_logins' },
@@ -189,6 +182,25 @@ async function main() {
         update: {},
         create: {
             name: 'enable_sol',
+            value: 'false',
+        },
+    })
+
+    await prisma.settings.upsert({
+        where: { name: 'enable_dot' },
+        update: {},
+        create: {
+            name: 'enable_dot',
+            value: 'false',
+        },
+    })
+
+
+    await prisma.settings.upsert({
+        where: { name: 'enable_flow' },
+        update: {},
+        create: {
+            name: 'enable_flow',
             value: 'false',
         },
     })

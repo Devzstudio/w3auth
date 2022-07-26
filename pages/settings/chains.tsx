@@ -27,6 +27,8 @@ export const getServerSideProps: GetStaticProps = async (context: any) => {
 						'enable_movr',
 						'enable_avax',
 						'enable_sol',
+						'enable_dot',
+						'enable_flow',
 					],
 				},
 			},
@@ -52,6 +54,8 @@ const Settings = ({ records }) => {
 			enable_movr: settings.enable_movr,
 			enable_avax: settings.enable_avax,
 			enable_sol: settings.enable_sol,
+			enable_flow: settings.enable_flow,
+			enable_dot: settings.enable_dot,
 		},
 	});
 
@@ -97,6 +101,8 @@ const Settings = ({ records }) => {
 											| 'enable_movr'
 											| 'enable_ftm'
 											| 'enable_avax'
+											| 'enable_dot'
+											| 'enable_flow'
 											| 'enable_sol',
 										!form.values[`enable_${chain.symbol.toLocaleLowerCase()}`]
 									);

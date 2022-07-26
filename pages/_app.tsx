@@ -1,5 +1,5 @@
 import Head from 'node_modules/next/head';
-import Layout from '../components/Layout/index';
+import Layout from 'components/Layout/index';
 import { Toaster } from 'react-hot-toast';
 
 import { WagmiConfig } from 'wagmi';
@@ -21,10 +21,6 @@ function MyApp({ Component, pageProps }) {
 
 	return (
 		<>
-			<Head>
-				<link rel="preconnect" href="https://fonts.googleapis.com" />
-				<link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-			</Head>
 			<MantineProvider
 				withGlobalStyles
 				withNormalizeCSS
