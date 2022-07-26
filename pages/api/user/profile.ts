@@ -1,10 +1,10 @@
 import prisma from "lib/prisma";
 import { ok } from "lib/response";
-import checkAuth from "../console/middlerware/checkAuth";
+import checkUserAuth from "../console/middlerware/checkUserAuth";
 import jwt_decode from "jwt-decode";
 import { corsMiddleware } from "lib/cors";
 
-export default checkAuth(async function updateProfileHandler(req, res) {
+export default checkUserAuth(async function updateProfileHandler(req, res) {
     await corsMiddleware(req, res);
 
     const authorization = req.headers["authorization"];

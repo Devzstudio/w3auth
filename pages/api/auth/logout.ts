@@ -6,7 +6,7 @@ import { ok, oops, response } from "lib/response";
 import { NextApiRequest, NextApiResponse } from "next";
 
 
-export default async function Logouthandler(req: NextApiRequest, res: NextApiResponse) {
+export default async function LogoutHandler(req: NextApiRequest, res: NextApiResponse) {
 
     if (req.method === "OPTIONS") {
         return res.status(200).send("ok")

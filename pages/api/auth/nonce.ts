@@ -16,7 +16,7 @@ import { corsMiddleware } from "lib/cors";
 import { NextApiRequest, NextApiResponse } from "next";
 
 
-export default async function noncehandler(req: NextApiRequest, res: NextApiResponse) {
+export default async function nonceHandler(req: NextApiRequest, res: NextApiResponse) {
 
     await corsMiddleware(req, res);
 

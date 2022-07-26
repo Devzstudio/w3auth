@@ -21,8 +21,8 @@ export const getToken = async (user, customClaims = {}, admin = false) => {
         }
     })
 
-    // loop?
-    const customClaim = JSON.parse(settings.value.replaceAll("[USER_ID]", user.id).replaceAll("[USER_EMAIL]", user.email).replaceAll("[USER_NAME]", user.name).replaceAll("[USER_KYC_STATUS]", user.kyc_verified).replaceAll("[USER_KYC_PROCESS_ID]", user.kyc_processed_id))
+
+    const customClaim = admin ? {} : JSON.parse(settings.value.replaceAll("[USER_ID]", user.id).replaceAll("[USER_EMAIL]", user.email).replaceAll("[USER_NAME]", user.name).replaceAll("[USER_KYC_STATUS]", user.kyc_verified).replaceAll("[USER_KYC_PROCESS_ID]", user.kyc_processed_id))
 
 
     const token = jwt.sign(

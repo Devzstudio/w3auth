@@ -4,7 +4,7 @@ import PageHeader from 'components/PageHeader';
 import { GetStaticProps } from 'next';
 import prisma from 'lib/prisma';
 import dayjs from 'dayjs';
-import { isEmpty } from 'lib/helpers';
+import { isEmpty, shortenAddress } from 'lib/helpers';
 import { validateCookie } from 'lib/cookie';
 import { ChainLogo } from 'lib/chains';
 
@@ -48,8 +48,8 @@ const Users = ({ record, customFields }) => {
 	const custom_fields = JSON.parse(customFields);
 
 	return (
-		<CardWrapper label={user.name}>
-			<PageHeader title={user.name} />
+		<CardWrapper label={user.name ?? shortenAddress(user.user_address[0].wallet_address)}>
+			<PageHeader title={user.name ?? shortenAddress(user.user_address[0].wallet_address)} />
 
 			<div className="px-4 pb-5">
 				<div className="grid place-items-end">
