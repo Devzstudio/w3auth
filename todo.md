@@ -1,6 +1,5 @@
 # Todo
 
--   refresh token issue in sub domain
 -   logout user when 401 status code is returned
 
 # Code Refactor
@@ -19,3 +18,6 @@
 -   edit user details (name,email,twitter username, discord username, telegram username)
 -   kyc platform integrations (fractal)
 -   breadcrump on edit / create pages
+-   more chain : near, algorand, cosmos, tezos , zilliqa
+-   NFT Gating : support more chain
+-   Token Gating : support more chain
