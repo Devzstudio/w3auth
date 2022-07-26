@@ -1,7 +1,7 @@
 # Todo
 
--   index tables
--   responsiveness
+-   refresh token issue in sub domain
+-   logout user when 401 status code is returned
 
 # Code Refactor
 
@@ -11,6 +11,7 @@
 
 # Phase 2
 
+-   responsiveness
 -   remove team member
 -   remove custom fields (delete the stored values )
 -   search field on users, allowlist, blocklist
