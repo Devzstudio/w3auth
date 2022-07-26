@@ -123,10 +123,9 @@ export default async function verifyHandler(req: NextApiRequest, res: NextApiRes
         })
 
 
-        res.setHeader('Set-Cookie', [
+        res.setHeader('Set-Cookie',
             serialize('w3_refresh_token', output.refresh_token, { path: '/', maxAge: 3600000, httpOnly: true, sameSite: "LAX" }),
-            serialize('DOMAIN', process.env.FRONT_END_URL, { path: '/', maxAge: 3600000, httpOnly: true, sameSite: "LAX" }),
-        ]);
+        );
 
 
         return res.json({
