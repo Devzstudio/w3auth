@@ -62,7 +62,10 @@ export default async function refreshHandler(req: NextApiRequest, res: NextApiRe
         })
 
 
-        res.setHeader('Set-Cookie', serialize('w3_refresh_token', output.refresh_token, { path: '/', maxAge: 3600000, httpOnly: true, SameSite: "None" }));
+        res.setHeader('Set-Cookie', [
+            serialize('w3_refresh_token', output.refresh_token, { path: '/', maxAge: 3600000, httpOnly: true, SameSite: "LAX" }),
+            serialize('DOMAIN', process.env.FRONT_END_URL, { path: '/', maxAge: 3600000, httpOnly: true, SameSite: "LAX" }),
+        ]);
 
 
         return res.json({

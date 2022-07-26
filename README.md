@@ -6,6 +6,8 @@ w3auth app allows access to JWTs and refresh cookies. Provide admins with the ab
 
 # Features
 
+-   ⛓️ Support multiple chains
+
 -   👥 User management
 
 -   🖼️ NFT Gating
@@ -21,6 +23,8 @@ w3auth app allows access to JWTs and refresh cookies. Provide admins with the ab
 -   🌐 Country blocklist
 
 -   🧠 Multiple team members
+
+-   🪪 Support Blockpass KYC
 
 # Authentication Flow
 
