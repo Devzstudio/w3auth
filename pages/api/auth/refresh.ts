@@ -3,7 +3,7 @@ import { getToken } from "lib/token";
 import { serialize } from "cookie";
 import { getAppCookies } from "lib/helpers";
 import { corsMiddleware } from "lib/cors";
-import { ok, oops } from "lib/response";
+import { oops } from "lib/response";
 import { NextApiRequest, NextApiResponse } from "next";
 import Lang from "lib/lang";
 

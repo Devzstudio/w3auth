@@ -24,13 +24,15 @@ export default async function noncehandler(req: NextApiRequest, res: NextApiResp
         return res.status(200).send("ok")
     }
 
-    const { wallet_address } = req.body;
+    const { wallet_address, chain: connectedChain } = req.body;
 
     if (!wallet_address) {
         return oops(res,
             Lang.INVALID_ADDRESS
         )
     }
+
+    // connectedChain? based on this check
 
     let chain = detectChain(wallet_address)
 
@@ -52,7 +54,7 @@ export default async function noncehandler(req: NextApiRequest, res: NextApiResp
 
 
     /*
-    *   Only allowalist users are allowed to login
+    *   Only allowlist users are allowed to login
     */
 
     if (settings.access_allowlist_only) {
