@@ -8,38 +8,118 @@ datasource db {
 }
 
 model custom_fields {
-  option_id String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  name      String?
-  label     String?
-  required  Boolean? @default(false)
+  option_id         String              @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name              String?             @unique
+  label             String?
+  required          Boolean?            @default(false)
+  enabled           Boolean?            @default(true)
+  user_custom_field user_custom_field[]
 }
 
 model user_address {
   user_address_id String  @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  user_ud         String? @db.Uuid
+  user_id         String? @db.Uuid
   wallet_address  String?
   chain           String?
+  users           users?  @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@index([wallet_address], map: "idx_user_address")
 }
 
 model user_custom_field {
-  field_id  String  @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  option_id String? @db.Uuid
-  value     String?
+  field_id      String         @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  option_id     String?        @db.Uuid
+  value         String?
+  user_id       String?        @db.Uuid
+  custom_fields custom_fields? @relation(fields: [option_id], references: [option_id], onDelete: NoAction, onUpdate: NoAction)
+  users         users?         @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@index([user_id], map: "idx_user_custom_field")
 }
 
 model user_logins {
   user_login_id String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  user_id       String?
+  user_id       String?   @db.Uuid
   browser       String?
   ip            String?
   country       String?
   created_at    DateTime? @db.Timestamptz(6)
+  users         users?    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@index([user_id], map: "idx_user_logins")
 }
 
 model users {
-  id         String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  name       String?
-  nounce     Decimal?  @db.Decimal
-  created_at DateTime? @default(now()) @db.Timestamptz(6)
-  email      String?
+  id                String              @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name              String?
+  nonce             String?
+  created_at        DateTime?           @default(now()) @db.Timestamptz(6)
+  email             String?
+  kyc_verified      Boolean?            @default(false)
+  discord_username  String?
+  telegram_username String?
+  twitter_username  String?
+  is_blocked        Boolean?            @default(false)
+  last_login        DateTime?           @db.Timestamptz(6)
+  kyc_processed_id  String?
+  user_address      user_address[]
+  user_custom_field user_custom_field[]
+  user_logins       user_logins[]
+}
+
+model settings {
+  name  String  @id
+  value String?
+}
+
+model admins {
+  wallet_address String?
+  created_at     DateTime? @default(now()) @db.Timestamptz(6)
+  last_login     DateTime? @db.Timestamptz(6)
+  nonce          String?
+  admin_id       String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name           String?
+
+  @@index([wallet_address], map: "idx_admins")
+}
+
+model allowlist {
+  allowlist_id String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  address      String?
+  label        String?
+  created_at   DateTime? @default(now()) @db.Timestamptz(6)
+
+  @@index([address], map: "idx_allowlist")
+}
+
+model blocklist {
+  address      String?
+  note         String?
+  created_at   DateTime? @default(now()) @db.Timestamptz(6)
+  blocklist_id String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+
+  @@index([address], map: "idx_blocklist")
+}
+
+model nft_gating {
+  id               String  @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  chain            String?
+  contract_address String?
+  label            String?
+
+  @@index([contract_address], map: "idx_nft_gating")
+}
+
+model refresh_token {
+  id      String  @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  user_id String? @db.Uuid
+}
+
+model token_gating {
+  id               String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  contract_address String?
+  chain            String?
+  value            Decimal? @db.Decimal
+
+  @@index([contract_address], map: "idx_token_gating")
 }
