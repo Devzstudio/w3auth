@@ -37,7 +37,10 @@ export const getServerSideProps: GetStaticProps = async (context: any) => {
 
 const example = {
 	user_id: '[USER_ID]',
+	name: '[USER_NAME]',
 	email: '[USER_EMAIL]',
+	kyc_status: '[USER_KYC_STATUS]',
+	kyc_processed_id: '[USER_KYC_PROCESS_ID]',
 };
 
 const SettingsPage = ({ records }) => {
