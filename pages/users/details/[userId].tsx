@@ -74,6 +74,7 @@ const Users = ({ record, customFields }) => {
 								<TableField label="Twitter username" value={user.twitter_username} />
 								<TableField label="Telegram username" value={user.telegram_username} />
 								<TableField label="Discord username" value={user.discord_username} />
+								<TableField label="KYC Processed Id" value={user.kyc_processed_id ?? '-'} />
 							</tbody>
 						</Table>
 						<h4 className="mb-5 mt-10">Custom Fields</h4>
