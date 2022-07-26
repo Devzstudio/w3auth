@@ -17,5 +17,4 @@
 -   filter on users page
 -   edit user details (name,email,twitter username, discord username, telegram username)
 -   kyc platform integrations (fractal)
--   clear user login logs
 -   breadcrump on edit / create pages
