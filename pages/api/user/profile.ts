@@ -46,13 +46,39 @@ export default checkUserAuth(async function updateProfileHandler(req, res) {
             })
 
             if (option_id) {
-                await prisma.user_custom_field.create({
-                    data: {
+                const fieldExist = await prisma.user_custom_field.findMany({
+                    select: {
+                        option_id: true,
+                    },
+                    where: {
+                        user_id: decoded.user_id,
                         option_id: option_id.option_id,
-                        value: element.value,
-                        user_id: decoded.user_id
                     }
                 })
+
+                if (fieldExist.length == 0) {
+
+                    await prisma.user_custom_field.create({
+                        data: {
+                            user_id: decoded.user_id,
+                            option_id: option_id.option_id,
+                            value: element.value
+                        }
+                    })
+
+                }
+                else {
+                    await prisma.user_custom_field.updateMany({
+                        where: {
+                            user_id: decoded.user_id,
+                            option_id: option_id.option_id,
+                        },
+                        data: {
+                            value: element.value
+                        }
+                    })
+                }
+
 
             }
         });
