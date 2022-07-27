@@ -23,7 +23,7 @@ export default async function verifyHandler(req: NextApiRequest, res: NextApiRes
 
 
 
-    const { signature, signed_message, wallet_address, profile } = req.body;
+    const { signature, signed_message, wallet_address } = req.body;
 
     const chain = detectChain(wallet_address)
 

@@ -75,7 +75,7 @@ const useNonceHandler = ({ account }) => {
             const nonceData = await nonceCall.json();
 
             if (nonceData.nonce) {
-                const message = `${Config.SignMessageText} ${nonceData.nonce} \n Address: ${account.address}`;
+                const message = `${Config.SignMessageText} Nonce: ${nonceData.nonce} \n Address: ${account.address}`;
 
                 await signMessage({ message });
             }
