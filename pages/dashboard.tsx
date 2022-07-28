@@ -69,7 +69,7 @@ export default function Dashboard({ newUsers, userCount, todaysUsers, lastLoginU
 
 				<div className="grid md:grid-cols-2 gap-5 px-4 pb-5">
 					<section>
-						<h4 className="text-xl ml-2 mt-5 pb-5">New Users</h4>
+						<h4 className="text-xl ml-2 mt-5 pb-5 text-gray-900 dark:text-gray-100">New Users</h4>
 						<div className="overflow-x-scroll">
 							<Table striped highlightOnHover className="overflow-x-scroll">
 								<thead>
@@ -103,7 +103,7 @@ export default function Dashboard({ newUsers, userCount, todaysUsers, lastLoginU
 														as={`/users/details/${user.id}`}
 														href={`/users/details/${user.id}`}
 													>
-														<a className="cursor-pointer text-gray-500 hover:text-gray-100">
+														<a className="cursor-pointer text-gray-500 hover:text-gray-900 dark:hover:text-gray-100">
 															Details
 														</a>
 													</Link>
@@ -116,7 +116,7 @@ export default function Dashboard({ newUsers, userCount, todaysUsers, lastLoginU
 						</div>
 					</section>
 					<section>
-						<h4 className="text-xl ml-2 mt-5 pb-5">Recent login</h4>
+						<h4 className="text-xl ml-2 mt-5 pb-5 text-gray-900 dark:text-gray-100">Recent login</h4>
 						<div className="overflow-x-scroll">
 							<Table striped highlightOnHover className="overflow-x-scroll">
 								<thead>
@@ -150,7 +150,7 @@ export default function Dashboard({ newUsers, userCount, todaysUsers, lastLoginU
 														as={`/users/details/${user.id}`}
 														href={`/users/details/${user.id}`}
 													>
-														<a className="cursor-pointer text-gray-500 hover:text-gray-100">
+														<a className="cursor-pointer text-gray-500 hover:text-gray-900 dark:hover:text-gray-100">
 															Details
 														</a>
 													</Link>

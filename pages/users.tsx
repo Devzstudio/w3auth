@@ -100,7 +100,7 @@ const Users = ({ records, total }) => {
 										size="xs"
 										variant="subtle"
 										onClick={() => router.push(`/users/logs/${user.id}`)}
-										className="cursor-pointer text-gray-500 hover:text-gray-100"
+										className="cursor-pointer text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
 									>
 										Logs
 									</Button>
@@ -109,7 +109,7 @@ const Users = ({ records, total }) => {
 										size="xs"
 										variant="subtle"
 										onClick={() => router.push(`/users/details/${user.id}`)}
-										className="cursor-pointer text-gray-500 hover:text-gray-100"
+										className="cursor-pointer text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
 									>
 										Details
 									</Button>
@@ -119,7 +119,7 @@ const Users = ({ records, total }) => {
 										loading={loading}
 										variant="subtle"
 										onClick={() => blockUser(user.id, user.is_blocked == true ? false : true)}
-										className="cursor-pointer text-gray-500 hover:text-gray-100"
+										className="cursor-pointer text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
 									>
 										{user.is_blocked ? 'Unblock' : 'Block'}
 									</Button>

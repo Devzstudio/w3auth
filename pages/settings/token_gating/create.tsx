@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 import { ChainSelectList } from 'lib/chains';
+import SettingsWrapper from 'components/Settings/SettingsWrapper';
 
 const Create = () => {
 	const form = useForm({
@@ -29,55 +30,57 @@ const Create = () => {
 	}, [response]);
 
 	return (
-		<CardWrapper label="Create Token Gating">
-			<PageHeader title="Create Token Gating" />
+		<SettingsWrapper>
+			<CardWrapper label="Create Token Gating">
+				<PageHeader title="Create Token Gating" />
 
-			<div className="px-3 pb-5">
-				<form
-					className="space-y-5"
-					onSubmit={(e) => {
-						e.preventDefault();
+				<div className="px-3 pb-5">
+					<form
+						className="space-y-5"
+						onSubmit={(e) => {
+							e.preventDefault();
 
-						post({
-							...form.values,
-						});
-					}}
-				>
-					<TextInput
-						color="violet"
-						label="Label"
-						value={form.values.label}
-						onChange={(e) => form.setFieldValue('label', e.target.value)}
-					/>
+							post({
+								...form.values,
+							});
+						}}
+					>
+						<TextInput
+							color="violet"
+							label="Label"
+							value={form.values.label}
+							onChange={(e) => form.setFieldValue('label', e.target.value)}
+						/>
 
-					<Select
-						color="violet"
-						label="Chain"
-						value={form.values.chain}
-						onChange={(val) => form.setFieldValue('chain', val)}
-						data={ChainSelectList}
-					></Select>
+						<Select
+							color="violet"
+							label="Chain"
+							value={form.values.chain}
+							onChange={(val) => form.setFieldValue('chain', val)}
+							data={ChainSelectList}
+						></Select>
 
-					<TextInput
-						color="violet"
-						label="Contract Address"
-						value={form.values.contract_address}
-						onChange={(e) => form.setFieldValue('contract_address', e.target.value)}
-					/>
+						<TextInput
+							color="violet"
+							label="Contract Address"
+							value={form.values.contract_address}
+							onChange={(e) => form.setFieldValue('contract_address', e.target.value)}
+						/>
 
-					<NumberInput
-						color="violet"
-						label="Value"
-						value={Number(form.values.value)}
-						onChange={(val) => form.setFieldValue('value', String(val))}
-					/>
+						<NumberInput
+							color="violet"
+							label="Value"
+							value={Number(form.values.value)}
+							onChange={(val) => form.setFieldValue('value', String(val))}
+						/>
 
-					<Button loading={loading} variant="outline" color="violet" type="submit">
-						Submit
-					</Button>
-				</form>
-			</div>
-		</CardWrapper>
+						<Button loading={loading} variant="outline" color="violet" type="submit">
+							Submit
+						</Button>
+					</form>
+				</div>
+			</CardWrapper>
+		</SettingsWrapper>
 	);
 };
 

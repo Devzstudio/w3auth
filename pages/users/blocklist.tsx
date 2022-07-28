@@ -116,7 +116,7 @@ const BlockList = ({ records, total }) => {
 										loading={loading}
 										variant="subtle"
 										onClick={() => removeItem(user.blocklist_id)}
-										className="cursor-pointer text-gray-500 hover:text-gray-100"
+										className="cursor-pointer text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
 									>
 										Remove
 									</Button>{' '}

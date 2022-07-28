@@ -9,6 +9,7 @@ import toast from 'react-hot-toast';
 import prisma from 'lib/prisma';
 import { GetStaticProps } from 'next';
 import { validateCookie } from 'lib/cookie';
+import SettingsWrapper from 'components/Settings/SettingsWrapper';
 
 export const getServerSideProps: GetStaticProps = async (context: any) => {
 	return validateCookie(context, async () => {
@@ -47,46 +48,48 @@ const EditOption = ({ record }) => {
 	}, [response]);
 
 	return (
-		<CardWrapper label="Edit Custom Field">
-			<PageHeader title="Edit Custom Field" />
+		<SettingsWrapper>
+			<CardWrapper label="Edit Custom Field">
+				<PageHeader title="Edit Custom Field" />
 
-			<div className="px-3 pb-5">
-				<form
-					className="space-y-5"
-					onSubmit={(e) => {
-						e.preventDefault();
+				<div className="px-3 pb-5">
+					<form
+						className="space-y-5"
+						onSubmit={(e) => {
+							e.preventDefault();
 
-						post({
-							...form.values,
-						});
-					}}
-				>
-					<TextInput
-						color="violet"
-						label="Label"
-						value={form.values.label}
-						onChange={(e) => form.setFieldValue('label', e.target.value)}
-					/>
-					<TextInput
-						color="violet"
-						label="Name"
-						placeholder="phone_number"
-						value={form.values.name}
-						onChange={(e) => form.setFieldValue('name', e.target.value)}
-					/>
+							post({
+								...form.values,
+							});
+						}}
+					>
+						<TextInput
+							color="violet"
+							label="Label"
+							value={form.values.label}
+							onChange={(e) => form.setFieldValue('label', e.target.value)}
+						/>
+						<TextInput
+							color="violet"
+							label="Name"
+							placeholder="field_name"
+							value={form.values.name}
+							onChange={(e) => form.setFieldValue('name', e.target.value)}
+						/>
 
-					<Switch
-						color={'violet'}
-						label="Required Field"
-						checked={form.values.required}
-						onChange={() => form.setFieldValue('required', !form.values.required)}
-					/>
-					<Button loading={loading} variant="outline" color="violet" type="submit">
-						Submit
-					</Button>
-				</form>
-			</div>
-		</CardWrapper>
+						<Switch
+							color={'violet'}
+							label="Required Field"
+							checked={form.values.required}
+							onChange={() => form.setFieldValue('required', !form.values.required)}
+						/>
+						<Button loading={loading} variant="outline" color="violet" type="submit">
+							Submit
+						</Button>
+					</form>
+				</div>
+			</CardWrapper>
+		</SettingsWrapper>
 	);
 };
 

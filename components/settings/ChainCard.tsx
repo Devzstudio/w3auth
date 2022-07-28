@@ -2,7 +2,7 @@ import { Switch } from '@mantine/core';
 
 const ChainCard = ({ label, checked, onChange, icon = null }) => {
 	return (
-		<div className="bg-dark-800 rounded p-5 col-span-3">
+		<div className="bg-white border dark:border-transparent dark:bg-dark-800 rounded p-5 col-span-3">
 			<div className="flex justify-between items-center">
 				<h4 className="flex items-center text-gray-400">
 					<img

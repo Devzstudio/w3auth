@@ -60,7 +60,7 @@ const Users = ({ record, customFields }) => {
 
 				<div className="grid md:grid-cols-2 gap-5">
 					<section>
-						<h4 className="mb-5">Basic Details</h4>
+						<h4 className="mb-5 text-gray-900 dark:text-gray-100">Basic Details</h4>
 						<Table striped>
 							<tbody>
 								<TableField label="#" value={user.id} />
@@ -77,7 +77,7 @@ const Users = ({ record, customFields }) => {
 								<TableField label="KYC Processed Id" value={user.kyc_processed_id ?? '-'} />
 							</tbody>
 						</Table>
-						<h4 className="mb-5 mt-10">Custom Fields</h4>
+						<h4 className="mb-5 mt-10 text-gray-900 dark:text-gray-100">Custom Fields</h4>
 						<Table striped>
 							<tbody>
 								{custom_fields.map((field) => {
@@ -99,7 +99,7 @@ const Users = ({ record, customFields }) => {
 						</Table>
 					</section>
 					<section>
-						<h4 className="mb-5">Wallets</h4>
+						<h4 className="mb-5 text-gray-900 dark:text-gray-100">Wallets</h4>
 						<Table striped>
 							<tbody>
 								{user.user_address.map((wallet) => {

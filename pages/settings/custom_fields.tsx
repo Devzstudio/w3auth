@@ -9,6 +9,7 @@ import { isEmpty } from 'lib/helpers';
 import { PlusIcon } from '@heroicons/react/outline';
 import Pagination from 'components/UI/pagination/Pagination';
 import { validateCookie } from 'lib/cookie';
+import Heading from 'components/UI/Heading';
 
 export const getServerSideProps: GetStaticProps = async (context: any) => {
 	return validateCookie(context, async () => {
@@ -38,6 +39,11 @@ const Settings = ({ records, total }) => {
 	return (
 		<SettingsWrapper>
 			<PageHeader title="Custom Fields" />
+
+			<Heading
+				heading="Custom Fields"
+				sub_heading="Utilizing the profile API, you may add personalised profile fields and change the data."
+			/>
 
 			<div className="space-y-5">
 				<div className="grid place-items-end">
@@ -76,7 +82,9 @@ const Settings = ({ records, total }) => {
 											as={`/settings/custom_fields/edit/${record.option_id}`}
 											href={`/settings/custom_fields/edit/${record.option_id}`}
 										>
-											<a className="cursor-pointer text-gray-500 hover:text-gray-100">Edit</a>
+											<a className="cursor-pointer text-gray-500 hover:text-gray-900 dark:hover:text-gray-100">
+												Edit
+											</a>
 										</Link>
 									</td>
 								</tr>

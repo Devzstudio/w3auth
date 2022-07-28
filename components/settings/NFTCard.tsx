@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 const NFTCard = ({ label, chain, contract, icon = null, id }) => {
 	return (
-		<div className="bg-dark-800 rounded p-5 col-span-3">
+		<div className="bg-white border dark:border-transparent dark:bg-dark-800 rounded p-5 col-span-3 text-gray-800 dark:text-gray-100">
 			<div className="grid grid-cols-12 gap-5">
 				<p className="col-span-2">{label} </p>
 				<h4 className="flex items-center text-gray-400 col-span-2">

@@ -1,4 +1,4 @@
-import { LogoutIcon } from '@heroicons/react/outline';
+import { LogoutIcon, MoonIcon } from '@heroicons/react/outline';
 import { Button } from '@mantine/core';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { AuthActionTypes, useAuth } from 'context/auth.context';
@@ -7,6 +7,7 @@ import useRequest from 'hooks/useRequests';
 import { shortenAddress } from 'lib/helpers';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
+import useDarkMode from 'use-dark-mode';
 import { useDisconnect } from 'wagmi';
 
 const ConnectOptionsHandler = ({ account, chain, openAccountModal, openChainModal, openConnectModal, mounted }) => {
@@ -29,7 +30,7 @@ const ConnectOptionsHandler = ({ account, chain, openAccountModal, openChainModa
 							onClick={openConnectModal}
 							compact
 							variant="subtle"
-							className="text-sm text-gray-500 hover:text-gray-100 hover:bg-dark-700 px-3 py-1.5 rounded cursor-pointer"
+							className="text-sm dark:text-gray-500 dark:hover:text-gray-100 hover:bg-dark-700 px-3 py-1.5 rounded cursor-pointer"
 						>
 							Connect Wallet
 						</Button>
@@ -70,6 +71,7 @@ const ConnectOptionsHandler = ({ account, chain, openAccountModal, openChainModa
 const ConnectedAddress = ({ chain, openChainModal, openAccountModal, account }) => {
 	const { loading, post, response } = useRequest({ url: '/api/console/auth/logout' });
 	const router = useRouter();
+
 	const { auth, authDispatch } = useAuth();
 	const { disconnect } = useDisconnect();
 
@@ -91,7 +93,7 @@ const ConnectedAddress = ({ chain, openChainModal, openAccountModal, account }) 
 
 	return (
 		<div className="flex items-center">
-			<div className="flex items-center bg-gray-100 dark:bg-dark-700 rounded px-3 py-1 divide-x divide-gray-700 mr-2">
+			<div className="flex items-center border dark:border-transparent bg-gray-50 dark:bg-dark-700 rounded px-3 py-1 divide-x dark:divide-gray-700 mr-2">
 				{chain.iconUrl && (
 					<img
 						className="text-sm flex items-center justify-center text-gray-500 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-200 dark:hover:bg-dark-900 rounded  mr-2"
