@@ -6,25 +6,27 @@ w3auth app allows access to JWTs and refresh cookies. Provide admins with the ab
 
 # Features
 
--   ⛓️ Support multiple chains
+⛓️ Support multiple chains
 
--   👥 User management
+👥 User management
 
--   🖼️ NFT Gating
+🖼️ NFT Gating
 
--   🎟️ Token Gating
+🎟️ Token Gating
 
--   ✨ Custom JWT Claim
+✨ Custom JWT Claim
 
--   🧩 Custom profile fields
+🧩 Custom profile fields
 
--   👤 Basic user profile
+👤 Basic user profile
 
--   🌐 Country blocklist
+🔗 Link multiple wallets on user account
 
--   🧠 Multiple team members
+🌐 Country blocklist
 
--   🪪 Support Blockpass KYC
+🧠 Multiple team members
+
+🪪 Support Blockpass KYC
 
 # Authentication Flow
 
@@ -53,3 +55,10 @@ Demo code: https://github.com/Devzstudio/w3auth_demo
 [![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template/apHdWH)
 
 [![Deploy on Heroku](https://www.herokucdn.com/deploy/button.svg)](https://www.heroku.com/deploy/?template=https://github.com/Devzstudio/w3auth)
+
+# Credits
+
+[Planetscale](https://planetscale.com/)
+[HashNode](https://hashnode.com/)
+[NextJs](https://nextjs.org/)
+[Prisma](prisma.io)
