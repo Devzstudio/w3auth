@@ -25,13 +25,13 @@ function MyApp({ Component, pageProps }) {
 				withGlobalStyles
 				withNormalizeCSS
 				theme={{
-					colorScheme: 'dark',
+					colorScheme: darkMode.value ? 'dark' : 'light',
 				}}
 				emotionOptions={{ key: 'mantine', prepend: false }}
 			>
 				<WagmiConfig client={wagmiClient}>
 					<AuthProvider>
-						<RainbowKitProvider chains={chains} theme={darkMode.value ? darkTheme() : lightTheme()}>
+						<RainbowKitProvider chains={chains} theme={darkMode.value ? lightTheme() : darkTheme()}>
 							<Layout>
 								<Component {...pageProps} />
 							</Layout>

@@ -10,6 +10,7 @@ import { PlusIcon } from '@heroicons/react/outline';
 import Pagination from 'components/UI/pagination/Pagination';
 import dayjs from 'dayjs';
 import { validateCookie } from 'lib/cookie';
+import Heading from 'components/UI/Heading';
 
 export const getServerSideProps: GetStaticProps = async (context: any) => {
 	return validateCookie(context, async () => {
@@ -39,6 +40,11 @@ const Settings = ({ records, total }) => {
 	return (
 		<SettingsWrapper>
 			<PageHeader title="Team Members" />
+
+			<Heading
+				heading="Team Members"
+				sub_heading="Invite a teammate, then control the authentication process together."
+			/>
 
 			<div className="space-y-5">
 				<div className="grid place-items-end">
@@ -71,7 +77,9 @@ const Settings = ({ records, total }) => {
 											as={`/settings/team/edit/${record.admin_id}`}
 											href={`/settings/team/edit/${record.admin_id}`}
 										>
-											<a className="cursor-pointer text-gray-500 hover:text-gray-100">Edit</a>
+											<a className="cursor-pointer text-gray-500 hover:text-gray-900 dark:hover:text-gray-100">
+												Edit
+											</a>
 										</Link>
 									</td>
 								</tr>

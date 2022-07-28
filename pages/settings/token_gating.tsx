@@ -94,7 +94,9 @@ const Settings = ({ records, total, settings }) => {
 											as={`/settings/token_gating/edit/${record.id}`}
 											href={`/settings/token_gating/edit/${record.id}`}
 										>
-											<a className="cursor-pointer text-gray-500 hover:text-gray-100">Edit</a>
+											<a className="cursor-pointer text-gray-500 hover:text-gray-900 dark:hover:text-gray-100">
+												Edit
+											</a>
 										</Link>
 									</td>
 								</tr>

@@ -9,6 +9,7 @@ import toast from 'react-hot-toast';
 import { GetStaticProps } from 'next';
 import prisma from 'lib/prisma';
 import { validateCookie } from 'lib/cookie';
+import SettingsWrapper from 'components/Settings/SettingsWrapper';
 
 export const getServerSideProps: GetStaticProps = async (context: any) => {
 	return validateCookie(context, async () => {
@@ -45,40 +46,42 @@ const Edit = ({ record }) => {
 	}, [response]);
 
 	return (
-		<CardWrapper label="Edit Team Member">
-			<PageHeader title="Edit Team Member" />
+		<SettingsWrapper>
+			<CardWrapper label="Edit Team Member">
+				<PageHeader title="Edit Team Member" />
 
-			<div className="px-3 pb-5">
-				<form
-					className="space-y-5"
-					onSubmit={(e) => {
-						e.preventDefault();
+				<div className="px-3 pb-5">
+					<form
+						className="space-y-5"
+						onSubmit={(e) => {
+							e.preventDefault();
 
-						post({
-							...form.values,
-						});
-					}}
-				>
-					<TextInput
-						color="violet"
-						label="Name"
-						value={form.values.name}
-						onChange={(e) => form.setFieldValue('name', e.target.value)}
-					/>
+							post({
+								...form.values,
+							});
+						}}
+					>
+						<TextInput
+							color="violet"
+							label="Name"
+							value={form.values.name}
+							onChange={(e) => form.setFieldValue('name', e.target.value)}
+						/>
 
-					<TextInput
-						color="violet"
-						label="EVM Wallet Address"
-						value={form.values.wallet_address}
-						onChange={(e) => form.setFieldValue('wallet_address', e.target.value)}
-					/>
+						<TextInput
+							color="violet"
+							label="EVM Wallet Address"
+							value={form.values.wallet_address}
+							onChange={(e) => form.setFieldValue('wallet_address', e.target.value)}
+						/>
 
-					<Button loading={loading} variant="outline" color="violet" type="submit">
-						Submit
-					</Button>
-				</form>
-			</div>
-		</CardWrapper>
+						<Button loading={loading} variant="outline" color="violet" type="submit">
+							Submit
+						</Button>
+					</form>
+				</div>
+			</CardWrapper>
+		</SettingsWrapper>
 	);
 };
 
