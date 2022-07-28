@@ -1,5 +1,6 @@
 import Lang from "lib/lang";
 import prisma from "lib/prisma";
+import { oops } from "lib/response";
 import { NextApiRequest, NextApiResponse } from "next";
 
 
@@ -8,23 +9,19 @@ export default async function noncehandler(req: NextApiRequest, res: NextApiResp
     const { public_address: wallet_address } = req.body;
 
     if (!wallet_address) {
-        return res.json({
-            error: Lang.INVALID_ADDRESS
-        })
+        return oops(res, Lang.INVALID_ADDRESS)
     }
 
     const nonce = Math.random().toString(36).slice(2, 15);
 
     const user = await prisma.admins.findFirst({
         where: {
-            wallet_address: wallet_address
+            wallet_address: process.env.DEMO ? '0x000000000000000000000000000000000000dEaD' : wallet_address
         }
     });
 
     if (!user) {
-        return res.json({
-            nonce
-        })
+        return oops(res, Lang.INVALID_ADDRESS)
     }
 
     await prisma.admins.update({

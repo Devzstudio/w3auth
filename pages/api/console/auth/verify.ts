@@ -4,6 +4,7 @@ import { verifySignature } from "lib/verify_signature";
 import { serialize } from "cookie";
 import { NextApiRequest, NextApiResponse } from "next";
 import Lang from "lib/lang";
+import { oops } from "lib/response";
 
 
 export default async function verifyhandler(req: NextApiRequest, res: NextApiResponse) {
@@ -11,9 +12,7 @@ export default async function verifyhandler(req: NextApiRequest, res: NextApiRes
     const { signature, signed_message } = req.body;
 
     if (!signature || signature == "" || signed_message == "") {
-        return res.json({
-            error: Lang.INVALID_SIGNATURE
-        })
+        return oops(res, Lang.INVALID_SIGNATURE)
     }
 
     const address = await verifySignature({
@@ -31,17 +30,13 @@ export default async function verifyhandler(req: NextApiRequest, res: NextApiRes
 
 
     if (!user) {
-        return res.json({
-            error: Lang.INVALID_ADDRESS
-        })
+        return oops(res, Lang.INVALID_ADDRESS)
     }
 
     const nonce = signed_message.split("Nonce:")[1].trim().split(" ")[0]
 
     if (nonce != user.nonce) {
-        return res.json({
-            error: Lang.EXPIRED_NONCE
-        })
+        return oops(res, Lang.EXPIRED_NONCE)
     }
 
     await prisma.admins.update({

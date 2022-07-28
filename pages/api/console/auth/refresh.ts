@@ -19,9 +19,7 @@ export default async function refrehhandler(req: NextApiRequest, res: NextApiRes
         });
 
         if (!rt) {
-            return res.json({
-                error: Lang.INVALID_REFRESH_TOKEN
-            })
+            return oops(res, Lang.INVALID_REFRESH_TOKEN)
         }
 
         const user = await prisma.admins.findFirst({
@@ -31,9 +29,7 @@ export default async function refrehhandler(req: NextApiRequest, res: NextApiRes
         });
 
         if (!user) {
-            return res.json({
-                error: Lang.USER_NOT_FOUND
-            })
+            return oops(res, Lang.USER_NOT_FOUND)
         }
 
 
