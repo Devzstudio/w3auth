@@ -6,27 +6,27 @@ w3auth app allows access to JWTs and refresh cookies. Provide admins with the ab
 
 # Features
 
--   ⛓️ Support multiple chains
+⛓️ Support multiple chains
 
--   👥 User management
+👥 User management
 
--   🖼️ NFT Gating
+🖼️ NFT Gating
 
--   🎟️ Token Gating
+🎟️ Token Gating
 
--   ✨ Custom JWT Claim
+✨ Custom JWT Claim
 
--   🧩 Custom profile fields
+🧩 Custom profile fields
 
--   👤 Basic user profile
+👤 Basic user profile
 
--   🔗 Link multiple wallets on user account
+🔗 Link multiple wallets on user account
 
--   🌐 Country blocklist
+🌐 Country blocklist
 
--   🧠 Multiple team members
+🧠 Multiple team members
 
--   🪪 Support Blockpass KYC
+🪪 Support Blockpass KYC
 
 # Authentication Flow
 
@@ -52,13 +52,13 @@ Demo code: https://github.com/Devzstudio/w3auth_demo
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FDevzstudio%2Fw3auth&env=DATABASE_URL,JWT_SECRET,ADMIN_JWT_SECRET,ALCHEMY_API,CRON_PASSWORD,FRONT_END_URL&repo-name=w3auth)
 
-
 [![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template/apHdWH)
 
-# Credits 
+[![Deploy on Heroku](https://www.herokucdn.com/deploy/button.svg)](https://www.heroku.com/deploy/?template=https://github.com/Devzstudio/w3auth)
+
+# Credits
 
 [Planetscale](https://planetscale.com/)
 [HashNode](https://hashnode.com/)
 [NextJs](https://nextjs.org/)
 [Prisma](prisma.io)
-

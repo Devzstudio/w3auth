@@ -1,0 +1,7 @@
+{
+  "name": "w3auth",
+  "description": "Integrate w3auth for your identity needs",
+  "repository": "https://github.com/Devzstudio/w3auth",
+  "logo": "https://i.imgur.com/hTVOnUX.png",
+  "keywords": ["node", "static"]
+}
