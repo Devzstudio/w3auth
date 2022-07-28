@@ -20,6 +20,8 @@ w3auth app allows access to JWTs and refresh cookies. Provide admins with the ab
 
 -   👤 Basic user profile
 
+-   🔗 Link multiple wallets on user account
+
 -   🌐 Country blocklist
 
 -   🧠 Multiple team members
@@ -50,9 +52,13 @@ Demo code: https://github.com/Devzstudio/w3auth_demo
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FDevzstudio%2Fw3auth&env=DATABASE_URL,JWT_SECRET,ADMIN_JWT_SECRET,ALCHEMY_API,CRON_PASSWORD,FRONT_END_URL&repo-name=w3auth)
 
+
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template/apHdWH)
+
 # Credits 
 
 [Planetscale](https://planetscale.com/)
 [HashNode](https://hashnode.com/)
 [NextJs](https://nextjs.org/)
 [Prisma](prisma.io)
+

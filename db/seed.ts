@@ -3,6 +3,7 @@ const prisma = new PrismaClient()
 
 
 async function main() {
+
     await prisma.settings.upsert({
         where: { name: 'access_allowlist_only' },
         update: {},
@@ -205,6 +206,12 @@ async function main() {
         },
     })
 
+    await prisma.admins.create({
+        data: {
+            wallet_address: '0x000000000000000000000000000000000000dEaD',
+            name: 'John Doe',
+        },
+    })
 
 }
 

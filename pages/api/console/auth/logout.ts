@@ -19,9 +19,7 @@ export default async function logouthandler(req: NextApiRequest, res: NextApiRes
 
 
         if (!rt) {
-            return res.json({
-                error: Lang.INVALID_REFRESH_TOKEN
-            })
+            return oops(res, Lang.INVALID_REFRESH_TOKEN)
         }
 
 
@@ -32,9 +30,7 @@ export default async function logouthandler(req: NextApiRequest, res: NextApiRes
         });
 
         if (!user) {
-            return res.json({
-                error: Lang.INVALID_ADDRESS
-            })
+            return oops(res, Lang.INVALID_ADDRESS)
         }
 
         await prisma.admins.update({
