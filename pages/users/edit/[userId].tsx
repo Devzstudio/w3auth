@@ -9,7 +9,6 @@ import toast from 'react-hot-toast';
 import prisma from 'lib/prisma';
 import { GetStaticProps } from 'next';
 import { validateCookie } from 'lib/cookie';
-import SettingsWrapper from 'components/Settings/SettingsWrapper';
 
 export const getServerSideProps: GetStaticProps = async (context: any) => {
 	return validateCookie(context, async () => {

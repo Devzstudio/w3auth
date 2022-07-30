@@ -22,6 +22,7 @@ export const getServerSideProps: GetStaticProps = async (context: any) => {
 						'enable_nft_gating',
 						'enable_token_gating',
 						'accept_custom_fields_on_registeration',
+						'unlink_wallet',
 						'custom_jwt_claim',
 						'log_user_logins',
 						'country_blocklist',
@@ -52,6 +53,7 @@ const SettingsPage = ({ records }) => {
 		initialValues: {
 			country_blocklist: settings.country_blocklist.split(','),
 			custom_jwt_claim: settings.custom_jwt_claim,
+			unlink_wallet: settings.unlink_wallet,
 			log_user_logins: settings.log_user_logins,
 			access_allowlist_only: settings.access_allowlist_only,
 			enable_nft_gating: settings.enable_nft_gating,
@@ -103,6 +105,12 @@ const SettingsPage = ({ records }) => {
 							label="Enable Token Gating"
 							checked={form.values.enable_token_gating}
 							onChange={() => form.setFieldValue('enable_token_gating', !form.values.enable_token_gating)}
+						/>
+						<Switch
+							label="Allow users to unlink wallet"
+							color={'violet'}
+							checked={form.values.unlink_wallet}
+							onChange={() => form.setFieldValue('unlink_wallet', !form.values.unlink_wallet)}
 						/>
 						<Switch
 							label="Log user login details"

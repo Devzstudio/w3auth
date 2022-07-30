@@ -107,6 +107,15 @@ async function main() {
     })
 
     await prisma.settings.upsert({
+        where: { name: 'unlink_wallet' },
+        update: {},
+        create: {
+            name: 'unlink_wallet',
+            value: 'false',
+        },
+    })
+
+    await prisma.settings.upsert({
         where: { name: 'enable_eth' },
         update: {},
         create: {

@@ -169,6 +169,7 @@ INSERT INTO "public"."settings" ("name", "value") VALUES
   "user-id": "[USER_ID]",
   "email": "[USER_EMAIL]"
 }'),
+('unlink_wallet', 'false'),
 ('enable_avax', 'false'),
 ('enable_bnb', 'false'),
 ('enable_dot', 'false'),

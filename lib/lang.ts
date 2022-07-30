@@ -14,6 +14,9 @@ const Lang = {
     WALLET_LINKED_SUCCESSFULLY: "Your wallet were successfully connected.",
     WALLET_ALREADY_LINKED: "You have already linked this wallet address to your account.",
     WALLET_LINK_ERROR: "There is already an account linked to this wallet address.",
+    WALLET_NOT_LINKED: "You have note linked this wallet address to your account.",
+    WALLET_LINK_REMOVED: "You have removed the wallet from your account.",
+    WALLET_REMOVE_PRIMARY: "You cannot remove the primary wallet from your account.",
 }
 
 export default Lang;
