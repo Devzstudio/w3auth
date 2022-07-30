@@ -17,6 +17,7 @@ const Lang = {
     WALLET_NOT_LINKED: "You have note linked this wallet address to your account.",
     WALLET_LINK_REMOVED: "You have removed the wallet from your account.",
     WALLET_REMOVE_PRIMARY: "You cannot remove the primary wallet from your account.",
+    UNLINK_NOT_ENABLED: "You cannot unlink wallet added to the account.",
 }
 
 export default Lang;

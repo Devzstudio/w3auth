@@ -1,6 +1,7 @@
 import jwt_decode from "jwt-decode";
 import { corsMiddleware } from "lib/cors";
 import { detectChain } from "lib/detect_chain";
+import { getSettings } from "lib/helpers";
 import Lang from "lib/lang";
 import prisma from "lib/prisma";
 import { ok, oops } from "lib/response";
@@ -13,6 +14,8 @@ export default checkUserAuth(async function removeWalletHandler(req, res) {
     const { signature, signed_message, wallet_address } = req.body;
 
     const chain = detectChain(wallet_address)
+
+
 
     if (!signature || signature == "" || signed_message == "") {
         return res.json({
@@ -31,6 +34,14 @@ export default checkUserAuth(async function removeWalletHandler(req, res) {
         signed_message
     });
 
+    const settingsData = await prisma.settings.findMany({})
+    const settings = getSettings(settingsData);
+
+    if (settings.unlink_wallet === false) {
+        return res.json({
+            error: Lang.UNLINK_NOT_ENABLED
+        })
+    }
 
     const LinkWalletAddress = signed_message.split("Address:")[1].trim().split(" ")[0]
 
