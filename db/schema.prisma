@@ -62,6 +62,7 @@ model users {
   is_blocked        Boolean?            @default(false)
   last_login        DateTime?           @db.Timestamptz(6)
   kyc_processed_id  String?
+  note              String?
   user_address      user_address[]
   user_custom_field user_custom_field[]
   user_logins       user_logins[]

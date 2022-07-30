@@ -36,8 +36,34 @@ export default async function refreshHandler(req: NextApiRequest, res: NextApiRe
         const user = await prisma.users.findFirst({
             where: {
                 id: rt.user_id
-            }
+            },
+            include: {
+                user_address: true,
+            },
         });
+
+        if (user.is_blocked) {
+            return oops(res, Lang.ADDRESS_BLOCKED);
+        }
+
+        const userWalletAddress = user.user_address.map(i => i.wallet_address);
+
+
+        /*
+        *   Check address exist on Blocklist
+        */
+
+        const addressExistonBlocklist = await prisma.blocklist.count({
+            where: {
+                address: {
+                    in: userWalletAddress
+                }
+            }
+        })
+
+        if (addressExistonBlocklist != 0) {
+            return oops(res, Lang.ADDRESS_BLOCKED);
+        }
 
 
         if (!user) {
