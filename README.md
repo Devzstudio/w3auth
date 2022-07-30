@@ -30,7 +30,7 @@ w3auth app allows access to JWTs and refresh cookies. Provide admins with the ab
 
 # Authentication Flow
 
-[![w3authflow](<https://3064172675-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F919JAnQdhkavPsOI2Tl5%2Fuploads%2F9hKdRrgqivbM2UpSDHYY%2Fw3auth%20(1).jpg?alt=media&token=9c683586-15ac-47cd-892a-bea1b67a8450> 'w3authflow')]()
+[![w3authflow](https://files.gitbook.com/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F919JAnQdhkavPsOI2Tl5%2Fuploads%2Fik2kFaVMNESgNyICfE26%2Fw3auth.drawio.png?alt=media&token=71228fac-ba15-4d3a-ae2c-cec8c60a9f53 'w3authflow')]()
 
 # Documentation
 
