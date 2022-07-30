@@ -34,7 +34,8 @@ export default checkUserAuth(async function updateProfileHandler(req, res) {
         }
     })
 
-    // Feat: required field validation. (make sure all the required fields are passed to the request)
+    // Feat: required field validation. (make sure all the required fields are passed to the request).
+    // Feat: one time fillable user profile field.
 
     if (custom) {
         custom.forEach(async element => {

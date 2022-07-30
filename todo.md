@@ -14,8 +14,6 @@
 -   remove team member
 -   remove custom fields (delete the stored values )
 -   edit custom field value
--   remove custom profile field value from user details
--   remove linked wallet from user profile
 -   search field on users, allowlist, blocklist
 -   filter on users page
 -   kyc platform integrations (fractal)
