@@ -1,7 +1,7 @@
 import { detectChain } from 'lib/detect_chain';
 import Lang from 'lib/lang';
 
-import { getSettings } from "lib/helpers";
+import { getSettings, getTokenContractDetails } from "lib/helpers";
 import prisma from "lib/prisma";
 import { oops } from "lib/response";
 import { ethers } from "ethers";
@@ -139,14 +139,38 @@ export default async function nonceHandler(req: NextApiRequest, res: NextApiResp
                 `https://eth-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API}`,
             );
 
-            const tokenBalance = await web3.alchemy.getTokenBalances(wallet_address, [settings.token_gating_contract_address])
 
-            const balance = ethers.BigNumber.from(tokenBalance.tokenBalances[0].tokenBalance)
+            const tokenGatingContractAddress = await prisma.token_gating.findMany({
+                select: {
+                    contract_address: true,
+                    value: true,
+                    chain: true
+                }, where: {}
+            })
 
-            // Modified token gating table
-            // if (balance < settings.token_gating_amount_required) {
-            //     return oops(res, "You dont have enough token balance to access.");
-            // }
+            const tokenContractAddress = tokenGatingContractAddress.map(i => i.contract_address)
+            const tokenSettings = getTokenContractDetails(tokenGatingContractAddress)
+
+            if (tokenContractAddress.length !== 0) {
+
+                let allowUser = false;
+                const tokenBalance = await web3.alchemy.getTokenBalances(wallet_address, tokenContractAddress)
+
+                for (const token of tokenBalance.tokenBalances) {
+
+                    const balance = ethers.BigNumber.from(token.tokenBalance)
+
+                    if (balance > tokenSettings[token.contractAddress].value) {
+                        allowUser = true
+                    }
+                }
+
+                if (allowUser == false) {
+                    return oops(res, "You dont have enough token balance to access.");
+
+                }
+
+            }
         }
 
     }

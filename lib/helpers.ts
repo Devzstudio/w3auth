@@ -43,6 +43,14 @@ export const getSettings = (set: any) => {
     return data;
 };
 
+export const getTokenContractDetails = (set: any) => {
+    const data: any = {};
+    set.map((val) => {
+        data[val.contract_address] = val.value
+    });
+    return data;
+};
+
 export const getAppCookies = (req) => {
     try {
         const rawCookies = req.headers.cookie.split('; ');
