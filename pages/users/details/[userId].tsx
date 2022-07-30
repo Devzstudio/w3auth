@@ -1,4 +1,4 @@
-import { Badge, Table } from '@mantine/core';
+import { Badge, Button, Table } from '@mantine/core';
 import CardWrapper from 'components/UI/card/CardWrapper';
 import PageHeader from 'components/PageHeader';
 import { GetStaticProps } from 'next';
@@ -7,6 +7,7 @@ import dayjs from 'dayjs';
 import { isEmpty, shortenAddress } from 'lib/helpers';
 import { validateCookie } from 'lib/cookie';
 import { ChainLogo } from 'lib/chains';
+import { useRouter } from 'next/router';
 
 export const getServerSideProps: GetStaticProps = async (context: any) => {
 	return validateCookie(context, async () => {
@@ -44,6 +45,7 @@ const TableField = ({ label, value }) => {
 };
 
 const Users = ({ record, customFields }) => {
+	const router = useRouter();
 	const user = JSON.parse(record);
 	const custom_fields = JSON.parse(customFields);
 
@@ -58,9 +60,23 @@ const Users = ({ record, customFields }) => {
 					</Badge>
 				</div>
 
-				<div className="grid md:grid-cols-2 gap-5">
+				<div className="text-yellow-600 dark:text-yellow-100 my-5 bg-yellow-100 dark:bg-yellow-900 rounded p-1">
+					{user.note}
+				</div>
+
+				<div className="grid md:grid-cols-2 gap-5 mb-5">
 					<section>
-						<h4 className="mb-5 text-gray-900 dark:text-gray-100">Basic Details</h4>
+						<div className="flex items-center justify-between">
+							<h4 className="mb-5 text-gray-900 dark:text-gray-100">Basic Details</h4>
+							<Button
+								size="xs"
+								variant="subtle"
+								onClick={() => router.push(`/users/edit/${user.id}`)}
+								className="cursor-pointer text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
+							>
+								Edit
+							</Button>
+						</div>
 						<Table striped>
 							<tbody>
 								<TableField label="#" value={user.id} />

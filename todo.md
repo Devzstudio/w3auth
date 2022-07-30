@@ -15,7 +15,6 @@
 -   remove custom fields (delete the stored values )
 -   search field on users, allowlist, blocklist
 -   filter on users page
--   edit user details (name,email,twitter username, discord username, telegram username)
 -   kyc platform integrations (fractal)
 -   breadcrump on edit / create pages
 -   more chain : near, algorand, cosmos, tezos , zilliqa

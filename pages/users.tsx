@@ -108,6 +108,15 @@ const Users = ({ records, total }) => {
 									<Button
 										size="xs"
 										variant="subtle"
+										onClick={() => router.push(`/users/edit/${user.id}`)}
+										className="cursor-pointer text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
+									>
+										Edit
+									</Button>
+
+									<Button
+										size="xs"
+										variant="subtle"
 										onClick={() => router.push(`/users/details/${user.id}`)}
 										className="cursor-pointer text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
 									>
