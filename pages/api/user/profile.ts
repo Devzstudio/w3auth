@@ -1,6 +1,6 @@
 import prisma from "lib/prisma";
 import { ok } from "lib/response";
-import checkUserAuth from "../console/middlerware/checkUserAuth";
+import checkUserAuth from "../console/middleware/checkUserAuth";
 import jwt_decode from "jwt-decode";
 import { corsMiddleware } from "lib/cors";
 

@@ -3,13 +3,17 @@ import PageHeader from 'components/PageHeader';
 import { GetStaticProps } from 'next';
 import prisma from 'lib/prisma';
 import Config from 'lib/config';
-import { Badge, Table } from '@mantine/core';
+import { Badge, Button, Table } from '@mantine/core';
 import Link from 'next/link';
 import { isEmpty } from 'lib/helpers';
-import { PlusIcon } from '@heroicons/react/outline';
+import { PlusIcon, TrashIcon } from '@heroicons/react/outline';
 import Pagination from 'components/UI/pagination/Pagination';
 import { validateCookie } from 'lib/cookie';
 import Heading from 'components/UI/Heading';
+import useRequest from 'hooks/useRequests';
+import { useEffect } from 'react';
+import toast from 'react-hot-toast';
+import { useRouter } from 'next/router';
 
 export const getServerSideProps: GetStaticProps = async (context: any) => {
 	return validateCookie(context, async () => {
@@ -35,6 +39,16 @@ export const getServerSideProps: GetStaticProps = async (context: any) => {
 
 const Settings = ({ records, total }) => {
 	const fields = JSON.parse(records);
+	const router = useRouter();
+
+	const { loading, response, post } = useRequest({ url: '/api/console/settings/remove_custom_field' });
+
+	useEffect(() => {
+		if (response?.success) {
+			toast.success('Removed custom field');
+			router.replace(router.asPath);
+		}
+	}, [response]);
 
 	return (
 		<SettingsWrapper>
@@ -86,6 +100,20 @@ const Settings = ({ records, total }) => {
 												Edit
 											</a>
 										</Link>
+
+										<Button
+											size="xs"
+											loading={loading}
+											variant="subtle"
+											onClick={() =>
+												post({
+													id: record.option_id,
+												})
+											}
+											className="cursor-pointer text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
+										>
+											<TrashIcon className="w-4 h-4" />
+										</Button>
 									</td>
 								</tr>
 							);

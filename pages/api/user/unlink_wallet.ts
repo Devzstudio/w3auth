@@ -6,7 +6,7 @@ import Lang from "lib/lang";
 import prisma from "lib/prisma";
 import { ok, oops } from "lib/response";
 import { verifySignature } from "lib/verify_signature";
-import checkUserAuth from "../console/middlerware/checkUserAuth";
+import checkUserAuth from "../console/middleware/checkUserAuth";
 
 export default checkUserAuth(async function removeWalletHandler(req, res) {
     await corsMiddleware(req, res);

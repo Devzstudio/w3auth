@@ -133,28 +133,31 @@ const Users = ({ record, customFields }) => {
 											<td>{field.custom_fields.label}</td>
 											<td>{field.value}</td>
 											<td>
-												<Link
-													as={`/users/custom_field/edit/${field.field_id}`}
-													href={`/users/custom_field/edit/${field.field_id}`}
-												>
-													<a>
-														<PencilAltIcon className="w-4 h-4" />
-													</a>
-												</Link>
+												<div className="flex items-center space-x-5">
+													<Link
+														as={`/users/custom_field/edit/${field.field_id}`}
+														href={`/users/custom_field/edit/${field.field_id}`}
+													>
+														<a className="text-gray-500 hover:text-gray-900 dark:hover:text-gray-100">
+															<PencilAltIcon className="w-4 h-4" />
+														</a>
+													</Link>
 
-												<Button
-													size="xs"
-													loading={removeCustomFieldLoading}
-													variant="subtle"
-													onClick={() =>
-														removeCustomField({
-															id: field.field_id,
-														})
-													}
-													className="cursor-pointer text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
-												>
-													<TrashIcon className="w-4 h-4" />
-												</Button>
+													<Button
+														size="xs"
+														loading={removeCustomFieldLoading}
+														variant="subtle"
+														onClick={() =>
+															removeCustomField({
+																id: field.field_id,
+															})
+														}
+														color="gray"
+														className="cursor-pointer text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
+													>
+														<TrashIcon className="w-4 h-4" />
+													</Button>
+												</div>
 											</td>
 										</tr>
 									);
@@ -175,13 +178,15 @@ const Users = ({ record, customFields }) => {
 								{user.user_address.map((wallet) => {
 									return (
 										<tr key={wallet.wallet_address}>
-											<td className="flex items-center">
-												<img
-													src={ChainLogo[wallet.chain.toUpperCase()]}
-													className="w-4 h-4 mr-2"
-													alt=""
-												/>
-												{wallet.chain.toUpperCase()}
+											<td>
+												<div className="flex items-center">
+													<img
+														src={ChainLogo[wallet.chain.toUpperCase()]}
+														className="w-4 h-4 mr-2"
+														alt=""
+													/>
+													{wallet.chain.toUpperCase()}
+												</div>
 											</td>
 											<td>{wallet.wallet_address}</td>
 											<td>
@@ -190,6 +195,7 @@ const Users = ({ record, customFields }) => {
 														size="xs"
 														loading={removeWalletLoading}
 														variant="subtle"
+														color="gray"
 														onClick={() =>
 															removeWallet({
 																id: wallet.user_address_id,

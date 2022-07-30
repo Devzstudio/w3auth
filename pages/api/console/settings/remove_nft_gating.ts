@@ -2,17 +2,18 @@ import { ok } from 'lib/response';
 import prisma from "lib/prisma"
 import checkAuth from '../middleware/checkAuth';
 
-export default checkAuth(async function removeCustomField(req, res) {
-
+export default checkAuth(async function removeNFTGating(req, res) {
 
     const { id } = req.body;
 
-    if (id)
-        await prisma.user_custom_field.delete({
+    if (id) {
+
+        await prisma.nft_gating.delete({
             where: {
-                field_id: id
+                id: id
             }
         })
+    }
 
     return ok(res);
 

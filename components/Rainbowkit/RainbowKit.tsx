@@ -107,7 +107,7 @@ const ConnectedAddress = ({ chain, openChainModal, openAccountModal, account }) 
 				</a>
 			</div>
 
-			<Button loading={loading} onClick={() => post({})} variant="subtle" compact>
+			<Button loading={loading} onClick={() => post({})} variant="subtle" compact color="gray">
 				<LogoutIcon className="w-4 h-4" />
 			</Button>
 		</div>

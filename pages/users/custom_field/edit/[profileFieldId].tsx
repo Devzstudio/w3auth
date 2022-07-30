@@ -40,7 +40,7 @@ const EditCustomProfileField = ({ record }) => {
 	useEffect(() => {
 		if (response?.success) {
 			toast.success('User profile updated successfully');
-			router.push(`/users/details/${router.query.userId}`);
+			router.push(`/users`);
 		}
 	}, [response]);
 
