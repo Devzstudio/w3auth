@@ -8,6 +8,11 @@ import { isEmpty, shortenAddress } from 'lib/helpers';
 import { validateCookie } from 'lib/cookie';
 import { ChainLogo } from 'lib/chains';
 import { useRouter } from 'next/router';
+import { PencilAltIcon, TrashIcon } from '@heroicons/react/outline';
+import useRequest from 'hooks/useRequests';
+import { useEffect } from 'react';
+import toast from 'react-hot-toast';
+import Link from 'next/link';
 
 export const getServerSideProps: GetStaticProps = async (context: any) => {
 	return validateCookie(context, async () => {
@@ -48,6 +53,32 @@ const Users = ({ record, customFields }) => {
 	const router = useRouter();
 	const user = JSON.parse(record);
 	const custom_fields = JSON.parse(customFields);
+
+	const {
+		loading: removeCustomFieldLoading,
+		response: removeCustomFieldResponse,
+		post: removeCustomField,
+	} = useRequest({ url: '/api/console/users/remove_custom_field' });
+
+	const {
+		loading: removeWalletLoading,
+		response: removeWalletResponse,
+		post: removeWallet,
+	} = useRequest({ url: '/api/console/users/unlink_wallet' });
+
+	useEffect(() => {
+		if (removeCustomFieldResponse?.success) {
+			toast.success('Removed custom field');
+			router.replace(router.asPath);
+		}
+	}, [removeCustomFieldResponse]);
+
+	useEffect(() => {
+		if (removeWalletResponse?.success) {
+			toast.success('Removed wallet');
+			router.replace(router.asPath);
+		}
+	}, [removeWalletResponse]);
 
 	return (
 		<CardWrapper label={user.name ?? shortenAddress(user.user_address[0].wallet_address)}>
@@ -98,11 +129,37 @@ const Users = ({ record, customFields }) => {
 							<tbody>
 								{custom_fields.map((field) => {
 									return (
-										<TableField
-											label={field.custom_fields.label}
-											value={field.value}
-											key={field.value}
-										/>
+										<tr key={field.value}>
+											<td>{field.custom_fields.label}</td>
+											<td>{field.value}</td>
+											<td>
+												<div className="flex items-center space-x-5">
+													<Link
+														as={`/users/custom_field/edit/${field.field_id}`}
+														href={`/users/custom_field/edit/${field.field_id}`}
+													>
+														<a className="text-gray-500 hover:text-gray-900 dark:hover:text-gray-100">
+															<PencilAltIcon className="w-4 h-4" />
+														</a>
+													</Link>
+
+													<Button
+														size="xs"
+														loading={removeCustomFieldLoading}
+														variant="subtle"
+														onClick={() =>
+															removeCustomField({
+																id: field.field_id,
+															})
+														}
+														color="gray"
+														className="cursor-pointer text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
+													>
+														<TrashIcon className="w-4 h-4" />
+													</Button>
+												</div>
+											</td>
+										</tr>
 									);
 								})}
 
@@ -121,22 +178,42 @@ const Users = ({ record, customFields }) => {
 								{user.user_address.map((wallet) => {
 									return (
 										<tr key={wallet.wallet_address}>
-											<td className="flex items-center">
-												<img
-													src={ChainLogo[wallet.chain.toUpperCase()]}
-													className="w-4 h-4 mr-2"
-													alt=""
-												/>
-												{wallet.chain.toUpperCase()}
+											<td>
+												<div className="flex items-center">
+													<img
+														src={ChainLogo[wallet.chain.toUpperCase()]}
+														className="w-4 h-4 mr-2"
+														alt=""
+													/>
+													{wallet.chain.toUpperCase()}
+												</div>
 											</td>
 											<td>{wallet.wallet_address}</td>
+											<td>
+												{user.user_address.length > 1 && (
+													<Button
+														size="xs"
+														loading={removeWalletLoading}
+														variant="subtle"
+														color="gray"
+														onClick={() =>
+															removeWallet({
+																id: wallet.user_address_id,
+															})
+														}
+														className="cursor-pointer text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
+													>
+														<TrashIcon className="w-4 h-4" />
+													</Button>
+												)}
+											</td>
 										</tr>
 									);
 								})}
 
 								{isEmpty(user.user_address) && (
 									<tr>
-										<td>There are no records.</td>
+										<td colSpan={3}>There are no records.</td>
 									</tr>
 								)}
 							</tbody>

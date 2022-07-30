@@ -1,6 +1,6 @@
 import { ok, oops } from 'lib/response';
 import prisma from "lib/prisma"
-import checkAuth from '../middlerware/checkAuth';
+import checkAuth from '../middleware/checkAuth';
 
 const UpdateUser = checkAuth(async function updateUser(req, res) {
 

@@ -1,6 +1,6 @@
 import { ok } from 'lib/response';
 import prisma from "lib/prisma"
-import checkAuth from '../middlerware/checkAuth';
+import checkAuth from '../middleware/checkAuth';
 
 export default checkAuth(async function clearList(req, res) {
 

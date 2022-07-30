@@ -1,6 +1,6 @@
 import prisma from "lib/prisma";
 import { ok } from "lib/response";
-import checkUserAuth from "../console/middlerware/checkUserAuth";
+import checkUserAuth from "../console/middleware/checkUserAuth";
 import jwt_decode from "jwt-decode";
 import { corsMiddleware } from "lib/cors";
 
@@ -34,7 +34,8 @@ export default checkUserAuth(async function updateProfileHandler(req, res) {
         }
     })
 
-    // Feat: required field validation. (make sure all the required fields are passed to the request)
+    // Feat: required field validation. (make sure all the required fields are passed to the request).
+    // Feat: one time fillable user profile field.
 
     if (custom) {
         custom.forEach(async element => {

@@ -50,14 +50,6 @@ const Settings = ({ records, total, settings }) => {
 	const getRecords = JSON.parse(records);
 	const setting = getSettings(settings);
 
-	const { loading, response, post } = useRequest({ url: '/api/console/settings/update_settings' });
-
-	useEffect(() => {
-		if (response?.success) {
-			toast.success('Updated settings');
-		}
-	}, [response]);
-
 	return (
 		<SettingsWrapper>
 			<PageHeader title="NFT Gating" />
