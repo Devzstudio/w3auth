@@ -43,6 +43,7 @@ const example = {
 	email: '[USER_EMAIL]',
 	kyc_status: '[USER_KYC_STATUS]',
 	kyc_processed_id: '[USER_KYC_PROCESS_ID]',
+	user_wallets: '[USER_WALLETS]',
 };
 
 const SettingsPage = ({ records }) => {

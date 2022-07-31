@@ -1,5 +1,5 @@
 import prisma from "lib/prisma";
-import { getToken } from "lib/token";
+import { getUserToken } from "lib/token";
 import { serialize } from "cookie";
 import { getAppCookies } from "lib/helpers";
 import { corsMiddleware } from "lib/cors";
@@ -82,7 +82,7 @@ export default async function refreshHandler(req: NextApiRequest, res: NextApiRe
             }
         })
 
-        const output = await getToken(user, {
+        const output = await getUserToken(user, {
             user_id: user.id,
             email: null
         })
