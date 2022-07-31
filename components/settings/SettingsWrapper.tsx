@@ -1,5 +1,6 @@
 import {
 	AdjustmentsIcon,
+	CodeIcon,
 	CogIcon,
 	CubeTransparentIcon,
 	DocumentTextIcon,
@@ -45,6 +46,11 @@ const NavigationLinks = [
 		name: 'Integrations',
 		link: '/settings/integrations',
 		icon: <AdjustmentsIcon className="w-4 h-4 mr-2" />,
+	},
+	{
+		name: 'API',
+		link: '/settings/api',
+		icon: <CodeIcon className="w-4 h-4 mr-2" />,
 	},
 ];
 

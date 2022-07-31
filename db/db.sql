@@ -154,8 +154,7 @@ CREATE TABLE "public"."users" (
 );
 
 INSERT INTO "public"."admins" ("wallet_address", "created_at", "last_login", "nonce", "admin_id", "name") VALUES
-('0x000000000000000000000000000000000000dEaD', '2022-07-25 14:13:20.445+00', '2022-07-30 04:57:44.59+00', 'kvx7jl04j4', '66cd0309-e9cc-4f9e-9427-58e491692e4c', 'demo'),
-('0xf1996154C34e3dc77b26437a102231785e9aD7fE', '2022-07-21 10:05:09+00', '2022-07-28 16:59:00.642+00', '5k91ercwtd2', '8f697ca0-2361-4747-9d57-7c017996aa37', 'jijin');
+('0x000000000000000000000000000000000000dEaD', '2022-07-25 14:13:20.445+00', '2022-07-30 04:57:44.59+00', '', '66cd0309-e9cc-4f9e-9427-58e491692e4c', 'demo');;
 
 
 INSERT INTO "public"."settings" ("name", "value") VALUES
@@ -193,3 +192,4 @@ ALTER TABLE "public"."user_address" ADD FOREIGN KEY ("user_id") REFERENCES "publ
 ALTER TABLE "public"."user_custom_field" ADD FOREIGN KEY ("option_id") REFERENCES "public"."custom_fields"("option_id");
 ALTER TABLE "public"."user_custom_field" ADD FOREIGN KEY ("user_id") REFERENCES "public"."users"("id");
 ALTER TABLE "public"."user_logins" ADD FOREIGN KEY ("user_id") REFERENCES "public"."users"("id");
+ALTER TABLE "public"."user_address" ADD CONSTRAINT unique_wallet_address UNIQUE (wallet_address);

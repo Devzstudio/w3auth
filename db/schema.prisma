@@ -19,7 +19,7 @@ model custom_fields {
 model user_address {
   user_address_id String  @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   user_id         String? @db.Uuid
-  wallet_address  String?
+  wallet_address  String? @unique(map: "unique_wallet_address")
   chain           String?
   users           users?  @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
