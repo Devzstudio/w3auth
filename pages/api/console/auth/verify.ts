@@ -1,5 +1,5 @@
 import prisma from "lib/prisma";
-import { getToken } from "lib/token";
+import { getAdminToken } from "lib/token";
 import { verifySignature } from "lib/verify_signature";
 import { serialize } from "cookie";
 import { NextApiRequest, NextApiResponse } from "next";
@@ -48,10 +48,10 @@ export default async function verifyhandler(req: NextApiRequest, res: NextApiRes
         }
     })
 
-    const output = await getToken(user, {
+    const output = await getAdminToken(user, {
         user_id: user.admin_id,
         email: null
-    }, true)
+    })
 
 
     res.setHeader('Set-Cookie', serialize('refresh_token', output.refresh_token, { path: '/', maxAge: 3600000, httpOnly: true }));

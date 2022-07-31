@@ -102,7 +102,7 @@ const ConnectedAddress = ({ chain, openChainModal, openAccountModal, account }) 
 						style={{ width: 18, height: 18 }}
 					/>
 				)}
-				<a className="text-sm flex items-center justify-center text-gray-400  rounded p-1 px-2">
+				<a className="text-sm flex items-center justify-center text-gray-500 dark:text-gray-400  rounded p-1 px-2">
 					{shortenAddress(account.address)} {account.displayBalance ? ` (${account.displayBalance})` : ''}
 				</a>
 			</div>

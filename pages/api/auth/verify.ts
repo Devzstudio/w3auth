@@ -3,7 +3,7 @@ import { NextApiRequest } from 'next';
 
 
 import prisma from "lib/prisma";
-import { getToken } from "lib/token";
+import { getUserToken } from "lib/token";
 import { serialize } from "cookie";
 import { verifySignature } from "lib/verify_signature";
 import { oops } from "lib/response";
@@ -117,7 +117,7 @@ export default async function verifyHandler(req: NextApiRequest, res: NextApiRes
 
         }
 
-        const output = await getToken(user, {
+        const output = await getUserToken(user, {
             user_id: user.id,
             email: null
         })

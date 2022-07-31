@@ -115,6 +115,34 @@ async function main() {
         },
     })
 
+
+    await prisma.settings.upsert({
+        where: { name: 'enable_api' },
+        update: {},
+        create: {
+            name: 'enable_api',
+            value: 'false',
+        },
+    })
+
+    await prisma.settings.upsert({
+        where: { name: 'api_key' },
+        update: {},
+        create: {
+            name: 'api_key',
+            value: '',
+        },
+    })
+
+    await prisma.settings.upsert({
+        where: { name: 'api_ip_whitelist' },
+        update: {},
+        create: {
+            name: 'api_ip_whitelist',
+            value: '',
+        },
+    })
+
     await prisma.settings.upsert({
         where: { name: 'enable_eth' },
         update: {},

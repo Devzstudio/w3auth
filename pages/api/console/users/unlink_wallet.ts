@@ -6,7 +6,6 @@ import Lang from 'lib/lang';
 export default checkAuth(async function unlinkWallet(req, res) {
     const { id } = req.body;
 
-    console.log(id + ":main")
     if (id) {
 
         const wallet = await prisma.user_address.findFirst({

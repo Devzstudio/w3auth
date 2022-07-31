@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { PlusIcon } from '@heroicons/react/outline';
 
-const CardWrapper = ({ children, label, create = null, options = null }) => {
+const CardWrapper = ({ children, label, create = null, options = null, noMargin = false }) => {
 	return (
 		<div
 			className={`bg-white shadow dark:bg-dark-800 rounded pt-5 ${
@@ -9,7 +9,7 @@ const CardWrapper = ({ children, label, create = null, options = null }) => {
 			}`}
 		>
 			<div className="flex justify-between items-center pr-5">
-				<h4 className="pl-3 text-xl mb-5 text-gray-900 dark:text-gray-100">{label}</h4>
+				<h4 className={`pl-3 text-xl ${noMargin ? '' : 'mb-5'} text-gray-900 dark:text-gray-100`}>{label}</h4>
 
 				<div className="flex items-center space-x-5">
 					{create && (
