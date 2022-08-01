@@ -91,9 +91,11 @@ const Users = ({ record, customFields }) => {
 					</Badge>
 				</div>
 
-				<div className="text-yellow-600 dark:text-yellow-100 my-5 bg-yellow-100 dark:bg-yellow-900 rounded p-1">
-					{user.note}
-				</div>
+				{user.note && (
+					<div className="text-yellow-600 dark:text-yellow-100 my-5 bg-yellow-100 dark:bg-yellow-900 rounded p-1">
+						{user.note}
+					</div>
+				)}
 
 				<div className="grid md:grid-cols-2 gap-5 mb-5">
 					<section>
@@ -134,10 +136,7 @@ const Users = ({ record, customFields }) => {
 											<td>{field.value}</td>
 											<td>
 												<div className="flex items-center space-x-5">
-													<Link
-														as={`/users/custom_field/edit/${field.field_id}`}
-														href={`/users/custom_field/edit/${field.field_id}`}
-													>
+													<Link passHref href={`/users/custom_field/edit/${field.field_id}`}>
 														<a className="text-gray-500 hover:text-gray-900 dark:hover:text-gray-100">
 															<PencilAltIcon className="w-4 h-4" />
 														</a>

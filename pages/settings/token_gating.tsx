@@ -63,7 +63,7 @@ const Settings = ({ records, total, settings }) => {
 
 			<div className="space-y-5">
 				<div className="grid place-items-end">
-					<Link href={'/settings/token_gating/create'} as={'/settings/token_gating/create'}>
+					<Link href={'/settings/token_gating/create'} passHref>
 						<a className="text-base bg-dark-700 dark:hover:bg-gray-800 px-4 py-2 rounded dark:text-gray-500 dark:hover:text-gray-100 flex items-center">
 							<PlusIcon className="w-4 h-4 mr-2" />
 							New Field
@@ -90,10 +90,7 @@ const Settings = ({ records, total, settings }) => {
 									<td>{record.value}</td>
 
 									<td className="space-x-5">
-										<Link
-											as={`/settings/token_gating/edit/${record.id}`}
-											href={`/settings/token_gating/edit/${record.id}`}
-										>
+										<Link passHref href={`/settings/token_gating/edit/${record.id}`}>
 											<a className="cursor-pointer text-gray-500 hover:text-gray-900 dark:hover:text-gray-100">
 												Edit
 											</a>

@@ -99,10 +99,7 @@ export default function Dashboard({ newUsers, userCount, todaysUsers, lastLoginU
 												<td>{user.name ?? '-'}</td>
 												<td>{user.email ?? '-'}</td>
 												<td className="space-x-5">
-													<Link
-														as={`/users/details/${user.id}`}
-														href={`/users/details/${user.id}`}
-													>
+													<Link href={`/users/details/${user.id}`} passHref>
 														<a className="cursor-pointer text-gray-500 hover:text-gray-900 dark:hover:text-gray-100">
 															Details
 														</a>
@@ -146,10 +143,7 @@ export default function Dashboard({ newUsers, userCount, todaysUsers, lastLoginU
 												<td>{user.name ?? '-'}</td>
 												<td>{user.email ?? '-'}</td>
 												<td className="space-x-5">
-													<Link
-														as={`/users/details/${user.id}`}
-														href={`/users/details/${user.id}`}
-													>
+													<Link href={`/users/details/${user.id}`} passHref>
 														<a className="cursor-pointer text-gray-500 hover:text-gray-900 dark:hover:text-gray-100">
 															Details
 														</a>

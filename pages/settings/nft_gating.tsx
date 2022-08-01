@@ -67,7 +67,7 @@ const Settings = ({ records, total, settings }) => {
 
 			<div className="space-y-5">
 				<div className="grid place-items-end">
-					<Link href={'/settings/nft_gating/create'} as={'/settings/nft_gating/create'}>
+					<Link href={'/settings/nft_gating/create'} passHref>
 						<a className="text-base bg-dark-700 dark:hover:bg-gray-800 px-4 py-2 rounded dark:text-gray-500 dark:hover:text-gray-100 flex items-center">
 							<PlusIcon className="w-4 h-4 mr-2" />
 							New Record

@@ -2,12 +2,6 @@
 
 -   logout user when 401 status code is returned
 
-# Code Refactor
-
--   reusable custom fields form
--   reusable nft gating form
--   reusable team members form
-
 # Phase 2
 
 -   responsiveness
@@ -18,3 +12,4 @@
 -   NFT Gating : support more chain
 -   Token Gating : support more chain
 -   Confirmation before removing the records
+-   if custom fields is not enabled , donot create / update records on profile api

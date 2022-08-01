@@ -29,7 +29,7 @@ const NFTCard = ({ label, chain, contract, icon = null, id }) => {
 				<div className="col-span-8 flex items-center space-x-3">
 					<TextInput placeholder="Contract Address" value={contract} disabled className="flex-1 mr-5" />
 
-					<Link href={`/settings/nft_gating/edit/${id}`} as={`/settings/nft_gating/edit/${id}`}>
+					<Link href={`/settings/nft_gating/edit/${id}`} passHref>
 						<a className="text-gray-500 hover:text-gray-900 dark:hover:text-gray-100">
 							<PencilIcon className="w-4 h-4" />
 						</a>

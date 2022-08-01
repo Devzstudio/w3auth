@@ -6,7 +6,7 @@ import Config from 'lib/config';
 import { Button, Table } from '@mantine/core';
 import Link from 'next/link';
 import { isEmpty } from 'lib/helpers';
-import { PlusIcon, TrashIcon } from '@heroicons/react/outline';
+import { PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/outline';
 import Pagination from 'components/UI/pagination/Pagination';
 import dayjs from 'dayjs';
 import { validateCookie } from 'lib/cookie';
@@ -61,7 +61,7 @@ const Settings = ({ records, total }) => {
 
 			<div className="space-y-5">
 				<div className="grid place-items-end">
-					<Link href={'/settings/team/create'} as={'/settings/team/create'}>
+					<Link href={'/settings/team/create'} passHref>
 						<a className="text-base bg-dark-700 dark:hover:bg-gray-800 px-4 py-2 rounded dark:text-gray-500 dark:hover:text-gray-100 flex items-center">
 							<PlusIcon className="w-4 h-4 mr-2" />
 							New Team Member
@@ -85,13 +85,10 @@ const Settings = ({ records, total }) => {
 									<td>{record.wallet_address} </td>
 									<td>{record.last_login ? dayjs(record.last_login).format('DD MMMM YYYY') : '-'}</td>
 
-									<td className="space-x-5">
-										<Link
-											as={`/settings/team/edit/${record.admin_id}`}
-											href={`/settings/team/edit/${record.admin_id}`}
-										>
-											<a className="cursor-pointer text-gray-500 hover:text-gray-900 dark:hover:text-gray-100">
-												Edit
+									<td className="space-x-5 flex items-center">
+										<Link passHref href={`/settings/team/edit/${record.admin_id}`}>
+											<a className="text-gray-500 hover:text-gray-900 dark:hover:text-gray-100">
+												<PencilIcon className="w-4 h-4" />
 											</a>
 										</Link>
 
