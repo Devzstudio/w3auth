@@ -14,6 +14,7 @@ import toast from 'react-hot-toast';
 import { validateCookie } from 'lib/cookie';
 import GatingStatus from 'components/UI/GatingStatus';
 import { TrashIcon } from '@heroicons/react/outline';
+import AllowlistFilter from 'components/Allowlist/AllowlistFilter';
 
 export const getServerSideProps: GetStaticProps = async (context: any) => {
 	return validateCookie(context, async () => {
@@ -24,7 +25,30 @@ export const getServerSideProps: GetStaticProps = async (context: any) => {
 			if (context?.query?.page) page = context?.query?.page - 1;
 		}
 
+		let where = {};
+
+		if (context.query.address) {
+			where = {
+				...where,
+
+				address: {
+					[context.query.address_condition ?? 'equals']: context.query.address,
+				},
+			};
+		}
+
+		if (context.query.label) {
+			where = {
+				...where,
+
+				label: {
+					[context.query.label_condition ?? 'equals']: context.query.label,
+				},
+			};
+		}
+
 		const records = await prisma.allowlist.findMany({
+			where,
 			skip: page ? page * Config.ItemsPerPage : 0,
 			take: Config.ItemsPerPage,
 		});
@@ -100,6 +124,10 @@ const Allowlist = ({ records, total, settings }) => {
 			}
 		>
 			<PageHeader title="Allowlist" />
+
+			<div className="px-3 mb-5">
+				<AllowlistFilter />
+			</div>
 
 			<div className="pl-3 mb-5">
 				{setting.access_allowlist_only ? (
