@@ -27,7 +27,6 @@ function MyApp({ Component, pageProps }) {
 				theme={{
 					colorScheme: darkMode.value ? 'dark' : 'light',
 				}}
-				emotionOptions={{ key: 'mantine', prepend: false }}
 			>
 				<WagmiConfig client={wagmiClient}>
 					<AuthProvider>
@@ -40,7 +39,7 @@ function MyApp({ Component, pageProps }) {
 				</WagmiConfig>
 			</MantineProvider>
 			<Toaster />
-			<ProgressBar color="#e93dd0" />
+			<ProgressBar color="#7950f2" />
 		</>
 	);
 }

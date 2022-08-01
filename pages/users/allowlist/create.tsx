@@ -2,7 +2,7 @@ import { Button, Textarea, TextInput } from '@mantine/core';
 import CardWrapper from 'components/UI/card/CardWrapper';
 import PageHeader from 'components/PageHeader';
 import useRequest from 'hooks/useRequests';
-import { useForm } from '@mantine/hooks';
+import { useForm } from '@mantine/form';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';

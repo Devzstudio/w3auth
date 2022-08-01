@@ -5,7 +5,7 @@ const IntegrationCard = ({ name, icon, description, link }) => {
 		<div className="dark:bg-dark-800 bg-white rounded bg-gwhite px-2 py-2 border dark:border-gray-800">
 			<Link href={link} as={link}>
 				<a className="flex items-center">
-					<img src={icon} className="rounded" />
+					<img src={icon} className="rounded" alt="" />
 					<div className="flex-1 ml-2">
 						<h3 className="text-base text-gray-900 dark:text-gray-100 font-medium">{name}</h3>
 

@@ -5,7 +5,7 @@ import PageHeader from 'components/PageHeader';
 import prisma from 'lib/prisma';
 import { GetStaticProps } from 'next';
 import { getSettings } from 'lib/helpers';
-import { useForm } from '@mantine/hooks';
+import { useForm } from '@mantine/form';
 import useRequest from 'hooks/useRequests';
 import { useEffect } from 'react';
 import toast from 'react-hot-toast';
