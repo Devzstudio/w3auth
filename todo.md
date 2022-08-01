@@ -11,11 +11,10 @@
 # Phase 2
 
 -   responsiveness
--   search field on users, allowlist, blocklist
--   filter on users page
+-   filter on users page (kyc, chain)
 -   kyc platform integrations (fractal)
 -   breadcrump on edit / create pages
 -   More chain : near, algorand, cosmos, tezos , zilliqa (verify sig method.)
 -   NFT Gating : support more chain
 -   Token Gating : support more chain
--   Confirmation before removing the record
+-   Confirmation before removing the records
