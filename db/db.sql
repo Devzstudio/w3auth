@@ -193,3 +193,4 @@ ALTER TABLE "public"."user_custom_field" ADD FOREIGN KEY ("option_id") REFERENCE
 ALTER TABLE "public"."user_custom_field" ADD FOREIGN KEY ("user_id") REFERENCES "public"."users"("id");
 ALTER TABLE "public"."user_logins" ADD FOREIGN KEY ("user_id") REFERENCES "public"."users"("id");
 ALTER TABLE "public"."user_address" ADD CONSTRAINT unique_wallet_address UNIQUE (wallet_address);
+ALTER TABLE "public"."admins" ADD CONSTRAINT unique_wallet_address UNIQUE (wallet_address);
