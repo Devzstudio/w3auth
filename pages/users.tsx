@@ -1,13 +1,11 @@
 import prisma from 'lib/prisma';
 
-import { useForm, UseFormReturnType } from '@mantine/form';
-
-import { Select, Table, TextInput } from '@mantine/core';
+import { Table } from '@mantine/core';
 import CardWrapper from 'components/UI/card/CardWrapper';
 import PageHeader from 'components/PageHeader';
 import { GetStaticProps } from 'next';
 import dayjs from 'dayjs';
-import { Popover, Input, Button } from '@mantine/core';
+import { Button } from '@mantine/core';
 
 import { useRouter } from 'next/router';
 import Config from 'lib/config';
@@ -18,7 +16,7 @@ import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { validateCookie } from 'lib/cookie';
 import WalletAddress from 'components/UI/WalletAddress';
-import { FilterIcon } from '@heroicons/react/outline';
+import UserFilter from 'components/Users/UserFilter';
 
 export const getServerSideProps: GetStaticProps = async (context: any) => {
 	return validateCookie(context, async () => {
@@ -33,10 +31,58 @@ export const getServerSideProps: GetStaticProps = async (context: any) => {
 
 		if (context.query.address) {
 			where = {
+				...where,
 				user_address: {
 					some: {
-						wallet_address: context.query.address,
+						wallet_address: {
+							[context.query.address_condition ?? 'equals']: context.query.address,
+						},
 					},
+				},
+			};
+		}
+
+		if (context.query.email) {
+			where = {
+				...where,
+				email: {
+					[context.query.email_condition ?? 'equals']: context.query.email,
+				},
+			};
+		}
+
+		if (context.query.name) {
+			where = {
+				...where,
+				name: {
+					[context.query.name_condition ?? 'equals']: context.query.name,
+				},
+			};
+		}
+
+		if (context.query.name) {
+			where = {
+				...where,
+				discord_username: {
+					[context.query.discord_condition ?? 'equals']: context.query.discord,
+				},
+			};
+		}
+
+		if (context.query.name) {
+			where = {
+				...where,
+				telegram_username: {
+					[context.query.telegram_condition ?? 'equals']: context.query.telegram,
+				},
+			};
+		}
+
+		if (context.query.name) {
+			where = {
+				...where,
+				twitter_username: {
+					[context.query.twitter_condition ?? 'equals']: context.query.twitter,
 				},
 			};
 		}
@@ -56,71 +102,6 @@ export const getServerSideProps: GetStaticProps = async (context: any) => {
 			props: { records: JSON.stringify(records), total },
 		};
 	});
-};
-
-const UserFilter = () => {
-	const [opened, setOpened] = useState(false);
-	const router = useRouter();
-
-	const form = useForm({
-		initialValues: {
-			address: '',
-		},
-	});
-
-	return (
-		<>
-			<Popover
-				width={300}
-				position="bottom-start"
-				shadow="md"
-				opened={opened}
-				closeOnClickOutside
-				onChange={(val) => setOpened(val)}
-			>
-				<Popover.Target>
-					<Button
-						className="text-gray-500 hover:text-gray-100"
-						color="violet"
-						onClick={() => setOpened(true)}
-					>
-						<FilterIcon className="w-4 h-4 mr-2" />
-						Filters
-					</Button>
-				</Popover.Target>
-				<Popover.Dropdown>
-					<section className="text-gray-500 dark:text-gray-100 ">
-						<div className="flex justify-between items-center">
-							<h4 className="font-medium">Filters</h4>
-
-							<Button
-								onClick={() => {
-									router.push(`?address=${form.values.address}`);
-									setOpened(false);
-								}}
-								variant="subtle"
-							>
-								Apply Filter
-							</Button>
-						</div>
-
-						<div className="mt-5">
-							<Input.Wrapper label="Address">
-								{/* <div className="grid grid-cols-12 gap-5">  */}
-								<TextInput
-									value={form.values.address}
-									onChange={(e) => form.setFieldValue('address', e.target.value)}
-									className="col-span-8"
-									placeholder="Address"
-								/>
-								{/* </div> */}
-							</Input.Wrapper>
-						</div>
-					</section>
-				</Popover.Dropdown>
-			</Popover>
-		</>
-	);
 };
 
 const Users = ({ records, total }) => {
