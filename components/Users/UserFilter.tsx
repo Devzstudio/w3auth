@@ -13,6 +13,7 @@ const FilterCondition = ({ value, onChange }) => {
 	return (
 		<Select
 			value={value}
+			color="violet"
 			onChange={onChange}
 			data={[
 				{ label: 'equals', value: 'equals' },
