@@ -32,6 +32,9 @@ export const getServerSideProps: GetStaticProps = async (context) => {
 
 		const userCount = await prisma.users.count({});
 
+		const allowlistCount = await prisma.allowlist.count({});
+		const blocklistCount = await prisma.blocklist.count({});
+
 		const todaysUsers = await prisma.users.count({
 			where: {
 				created_at: {
@@ -46,12 +49,21 @@ export const getServerSideProps: GetStaticProps = async (context) => {
 				lastLoginUsers: JSON.stringify(lastLoginUsers),
 				userCount,
 				todaysUsers,
+				allowlistCount,
+				blocklistCount,
 			},
 		};
 	});
 };
 
-export default function Dashboard({ newUsers, userCount, todaysUsers, lastLoginUsers }) {
+export default function Dashboard({
+	newUsers,
+	userCount,
+	todaysUsers,
+	lastLoginUsers,
+	allowlistCount,
+	blocklistCount,
+}) {
 	const new_users = JSON.parse(newUsers);
 	const last_login_users = JSON.parse(lastLoginUsers);
 
@@ -61,9 +73,11 @@ export default function Dashboard({ newUsers, userCount, todaysUsers, lastLoginU
 
 			<CardWrapper label="Dashboard">
 				<div className="px-4">
-					<div className="flex space-x-5">
+					<div className="grid md:grid-cols-12 gap-5">
 						<StatsCard value={userCount} label="Total Users" />
 						<StatsCard value={todaysUsers} label="New users today" />
+						<StatsCard value={allowlistCount} label="Allowlist" />
+						<StatsCard value={blocklistCount} label="Blocklist" />
 					</div>
 				</div>
 
@@ -99,10 +113,7 @@ export default function Dashboard({ newUsers, userCount, todaysUsers, lastLoginU
 												<td>{user.name ?? '-'}</td>
 												<td>{user.email ?? '-'}</td>
 												<td className="space-x-5">
-													<Link
-														as={`/users/details/${user.id}`}
-														href={`/users/details/${user.id}`}
-													>
+													<Link href={`/users/details/${user.id}`} passHref>
 														<a className="cursor-pointer text-gray-500 hover:text-gray-900 dark:hover:text-gray-100">
 															Details
 														</a>
@@ -146,10 +157,7 @@ export default function Dashboard({ newUsers, userCount, todaysUsers, lastLoginU
 												<td>{user.name ?? '-'}</td>
 												<td>{user.email ?? '-'}</td>
 												<td className="space-x-5">
-													<Link
-														as={`/users/details/${user.id}`}
-														href={`/users/details/${user.id}`}
-													>
+													<Link href={`/users/details/${user.id}`} passHref>
 														<a className="cursor-pointer text-gray-500 hover:text-gray-900 dark:hover:text-gray-100">
 															Details
 														</a>

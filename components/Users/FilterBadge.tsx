@@ -29,7 +29,7 @@ const FilterBadge = () => {
 											urlQuery += `${key}=${routerParams[key]}&`;
 										});
 
-										router.push(`/users/?` + urlQuery);
+										router.push('?' + urlQuery);
 									}}
 									size="xs"
 									color="blue"

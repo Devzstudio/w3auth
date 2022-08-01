@@ -3,7 +3,7 @@ import Link from 'next/link';
 const IntegrationCard = ({ name, icon, description, link }) => {
 	return (
 		<div className="dark:bg-dark-800 bg-white rounded bg-gwhite px-2 py-2 border dark:border-gray-800">
-			<Link href={link} as={link}>
+			<Link href={link} passHref>
 				<a className="flex items-center">
 					<img src={icon} className="rounded" alt="" />
 					<div className="flex-1 ml-2">

@@ -68,7 +68,7 @@ const Layout = ({ children }) => {
 					{auth.token && (
 						<div className="my-5 space-x-5 flex items-center w-full">
 							{NavigationLinks.map((nav) => (
-								<Link as={nav.link} href={nav.link} key={nav.link}>
+								<Link href={nav.link} key={nav.link} passHref>
 									<a
 										className={`text-sm text-gray-500 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-200 dark:hover:bg-dark-700 px-3 py-1.5 rounded cursor-pointer flex items-center ${
 											router.asPath == nav.link ? 'text-purple-500' : ''

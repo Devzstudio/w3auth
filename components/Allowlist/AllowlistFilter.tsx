@@ -10,24 +10,16 @@ import { useRouter } from 'next/router';
 import CollapseOption from 'components/UI/CollapseOption';
 import FilterCondition from 'components/UI/FilterCondition';
 
-const UserFilter = () => {
+const AllowlistFilter = () => {
 	const [opened, setOpened] = useState(false);
 	const router = useRouter();
 
 	const form = useForm({
 		initialValues: {
 			address: '',
-			email: '',
-			name: '',
-			telegram: '',
-			discord: '',
-			twitter: '',
 			address_condition: 'equals',
-			email_condition: 'equals',
-			name_condition: 'equals',
-			telegram_condition: 'equals',
-			discord_condition: 'equals',
-			twitter_condition: 'equals',
+			label: '',
+			label_condition: 'equals',
 		},
 	});
 
@@ -97,67 +89,14 @@ const UserFilter = () => {
 								/>
 							</CollapseOption>
 
-							<CollapseOption name="Email">
+							<CollapseOption name="Label">
 								<FilterCondition
-									value={form.values.email_condition}
-									onChange={(val) => form.setFieldValue('email_condition', val)}
-								/>
-
-								<TextInput
-									value={form.values.email}
-									onChange={(e) => form.setFieldValue('email', e.target.value)}
-									className="col-span-8"
-									placeholder="value"
-								/>
-							</CollapseOption>
-
-							<CollapseOption name="Name">
-								<FilterCondition
-									value={form.values.name_condition}
-									onChange={(val) => form.setFieldValue('name_condition', val)}
+									value={form.values.label_condition}
+									onChange={(val) => form.setFieldValue('label_condition', val)}
 								/>
 								<TextInput
-									value={form.values.name}
-									onChange={(e) => form.setFieldValue('name', e.target.value)}
-									className="col-span-8"
-									placeholder="value"
-								/>
-							</CollapseOption>
-
-							<CollapseOption name="Telegram">
-								<FilterCondition
-									value={form.values.telegram_condition}
-									onChange={(val) => form.setFieldValue('telegram_condition', val)}
-								/>
-								<TextInput
-									value={form.values.name}
-									onChange={(e) => form.setFieldValue('telegram', e.target.value)}
-									className="col-span-8"
-									placeholder="value"
-								/>
-							</CollapseOption>
-
-							<CollapseOption name="Twitter">
-								<FilterCondition
-									value={form.values.twitter_condition}
-									onChange={(val) => form.setFieldValue('twitter_condition', val)}
-								/>
-								<TextInput
-									value={form.values.name}
-									onChange={(e) => form.setFieldValue('twitter', e.target.value)}
-									className="col-span-8"
-									placeholder="value"
-								/>
-							</CollapseOption>
-
-							<CollapseOption name="Discord">
-								<FilterCondition
-									value={form.values.discord_condition}
-									onChange={(val) => form.setFieldValue('discord_condition', val)}
-								/>
-								<TextInput
-									value={form.values.name}
-									onChange={(e) => form.setFieldValue('discord', e.target.value)}
+									value={form.values.label}
+									onChange={(e) => form.setFieldValue('label', e.target.value)}
 									className="col-span-8"
 									placeholder="value"
 								/>
@@ -170,4 +109,4 @@ const UserFilter = () => {
 	);
 };
 
-export default UserFilter;
+export default AllowlistFilter;

@@ -13,6 +13,7 @@ import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { validateCookie } from 'lib/cookie';
 import { TrashIcon } from '@heroicons/react/outline';
+import BlocklistFilter from 'components/Blocklist/BlocklistFilter';
 
 export const getServerSideProps: GetStaticProps = async (context: any) => {
 	return validateCookie(context, async () => {
@@ -23,7 +24,30 @@ export const getServerSideProps: GetStaticProps = async (context: any) => {
 			if (context?.query?.page) page = context?.query?.page - 1;
 		}
 
+		let where = {};
+
+		if (context.query.address) {
+			where = {
+				...where,
+
+				address: {
+					[context.query.address_condition ?? 'equals']: context.query.address,
+				},
+			};
+		}
+
+		if (context.query.note) {
+			where = {
+				...where,
+
+				note: {
+					[context.query.note_condition ?? 'equals']: context.query.note,
+				},
+			};
+		}
+
 		const records = await prisma.blocklist.findMany({
+			where,
 			skip: page ? page * Config.ItemsPerPage : 0,
 			take: Config.ItemsPerPage,
 		});
@@ -91,6 +115,10 @@ const BlockList = ({ records, total }) => {
 			}
 		>
 			<PageHeader title="Blocklist" />
+
+			<div className="px-3 mb-5">
+				<BlocklistFilter />
+			</div>
 
 			<Table striped highlightOnHover>
 				<thead>

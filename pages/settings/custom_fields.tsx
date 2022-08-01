@@ -6,7 +6,7 @@ import Config from 'lib/config';
 import { Badge, Button, Table } from '@mantine/core';
 import Link from 'next/link';
 import { isEmpty } from 'lib/helpers';
-import { PlusIcon, TrashIcon } from '@heroicons/react/outline';
+import { PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/outline';
 import Pagination from 'components/UI/pagination/Pagination';
 import { validateCookie } from 'lib/cookie';
 import Heading from 'components/UI/Heading';
@@ -61,7 +61,7 @@ const Settings = ({ records, total }) => {
 
 			<div className="space-y-5">
 				<div className="grid place-items-end">
-					<Link href={'/settings/custom_fields/create'} as={'/settings/custom_fields/create'}>
+					<Link href={'/settings/custom_fields/create'} passHref>
 						<a className="text-base bg-dark-700 dark:hover:bg-gray-800 px-4 py-2 rounded dark:text-gray-500 dark:hover:text-gray-100 flex items-center">
 							<PlusIcon className="w-4 h-4 mr-2" />
 							New Field
@@ -91,13 +91,10 @@ const Settings = ({ records, total }) => {
 									</td>
 									<td>{record.required ? 'Yes' : '-'}</td>
 
-									<td className="space-x-5">
-										<Link
-											as={`/settings/custom_fields/edit/${record.option_id}`}
-											href={`/settings/custom_fields/edit/${record.option_id}`}
-										>
-											<a className="cursor-pointer text-gray-500 hover:text-gray-900 dark:hover:text-gray-100">
-												Edit
+									<td className="space-x-5 flex items-center">
+										<Link passHref href={`/settings/custom_fields/edit/${record.option_id}`}>
+											<a className="text-gray-500 hover:text-gray-900 dark:hover:text-gray-100">
+												<PencilIcon className="w-4 h-4" />
 											</a>
 										</Link>
 
