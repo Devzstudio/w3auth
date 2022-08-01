@@ -21,6 +21,7 @@ const NFTCard = ({ label, chain, contract, icon = null, id }) => {
 				<h4 className="flex items-center text-gray-400 col-span-2">
 					<img
 						className="w-4 h-4 mr-2 rounded-full"
+						alt=""
 						src={icon ? icon : `/assets/crypto_icons/${chain.toLocaleLowerCase()}.svg`}
 					/>
 					{chain.toUpperCase()}

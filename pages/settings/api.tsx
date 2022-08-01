@@ -5,7 +5,7 @@ import PageHeader from 'components/PageHeader';
 import prisma from 'lib/prisma';
 import { GetStaticProps } from 'next';
 import { broofa, getSettings } from 'lib/helpers';
-import { useForm } from '@mantine/hooks';
+import { useForm } from '@mantine/form';
 import useRequest from 'hooks/useRequests';
 import { useEffect } from 'react';
 import toast from 'react-hot-toast';
@@ -37,7 +37,7 @@ const SettingsPage = ({ records }) => {
 		initialValues: {
 			enable_api: settings.enable_api,
 			api_key: settings.api_key,
-			api_ip_whitelist: settings.api_ip_whitelist,
+			api_ip_whitelist: settings.api_ip_whitelist ? settings.api_ip_whitelist : '',
 		},
 	});
 
@@ -46,6 +46,8 @@ const SettingsPage = ({ records }) => {
 			toast.success('Updated settings');
 		}
 	}, [response]);
+
+	console.log(form);
 
 	return (
 		<SettingsWrapper>

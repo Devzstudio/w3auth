@@ -14,7 +14,7 @@ class ProgressBar extends React.Component<Props> {
 		color: '#00aaff',
 		startPosition: 0.3,
 		stopDelayMs: 200,
-		height: 1,
+		height: 3,
 	};
 
 	timer: any = null;

@@ -5,7 +5,7 @@ import { GetStaticProps } from 'next';
 import prisma from 'lib/prisma';
 import { getSettings } from 'lib/helpers';
 import useRequest from 'hooks/useRequests';
-import { useForm } from '@mantine/hooks';
+import { useForm } from '@mantine/form';
 import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { Button } from '@mantine/core';

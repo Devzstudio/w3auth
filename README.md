@@ -62,3 +62,4 @@ Demo code: https://github.com/Devzstudio/w3auth_demo
 [HashNode](https://hashnode.com/)
 [NextJs](https://nextjs.org/)
 [Prisma](prisma.io)
+[Alchemy](https://www.alchemy.com)

@@ -27,6 +27,7 @@ export default async function verifyHandler(req: NextApiRequest, res: NextApiRes
 
     const chain = detectChain(wallet_address)
 
+    // Feat: Make sure chain is enabled
 
     if (!signature || signature == "" || signed_message == "") {
         return res.json({

@@ -1,7 +1,7 @@
 import { Button, Table, Textarea, TextInput } from '@mantine/core';
 import CardWrapper from 'components/UI/card/CardWrapper';
 import PageHeader from 'components/PageHeader';
-import { useForm } from '@mantine/hooks';
+import { useForm } from '@mantine/form';
 import { useRouter } from 'next/router';
 import useRequest from 'hooks/useRequests';
 import { useEffect, useState } from 'react';
