@@ -1,6 +1,7 @@
 # Todo
 
 -   logout user when 401 status code is returned
+-   selecting date on filter hide the popover (on click outside trigger?)
 
 # Phase 2
 

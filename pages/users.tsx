@@ -9,7 +9,7 @@ import { Button } from '@mantine/core';
 
 import { useRouter } from 'next/router';
 import Config from 'lib/config';
-import { isEmpty } from 'lib/helpers';
+import { isEmpty, whereCondition } from 'lib/helpers';
 import Pagination from 'components/UI/pagination/Pagination';
 import useRequest from 'hooks/useRequests';
 import { useEffect, useState } from 'react';
@@ -27,65 +27,26 @@ export const getServerSideProps: GetStaticProps = async (context: any) => {
 			if (context?.query?.page) page = context?.query?.page - 1;
 		}
 
-		let where = {};
+		const where = whereCondition({
+			context,
+			fieldMapping: {
+				telegram: 'telegram_username',
+				twitter: 'twitter_username',
+				discrod: 'discord_username',
+			},
 
-		if (context.query.address) {
-			where = {
-				...where,
-				user_address: {
-					some: {
-						wallet_address: {
-							[context.query.address_condition ?? 'equals']: context.query.address,
+			relationCondition: {
+				address: {
+					user_address: {
+						some: {
+							wallet_address: {
+								[context.query.address_condition ?? 'equals']: context.query.address,
+							},
 						},
 					},
 				},
-			};
-		}
-
-		if (context.query.email) {
-			where = {
-				...where,
-				email: {
-					[context.query.email_condition ?? 'equals']: context.query.email,
-				},
-			};
-		}
-
-		if (context.query.name) {
-			where = {
-				...where,
-				name: {
-					[context.query.name_condition ?? 'equals']: context.query.name,
-				},
-			};
-		}
-
-		if (context.query.name) {
-			where = {
-				...where,
-				discord_username: {
-					[context.query.discord_condition ?? 'equals']: context.query.discord,
-				},
-			};
-		}
-
-		if (context.query.name) {
-			where = {
-				...where,
-				telegram_username: {
-					[context.query.telegram_condition ?? 'equals']: context.query.telegram,
-				},
-			};
-		}
-
-		if (context.query.name) {
-			where = {
-				...where,
-				twitter_username: {
-					[context.query.twitter_condition ?? 'equals']: context.query.twitter,
-				},
-			};
-		}
+			},
+		});
 
 		const records = await prisma.users.findMany({
 			skip: page ? page * Config.ItemsPerPage : 0,

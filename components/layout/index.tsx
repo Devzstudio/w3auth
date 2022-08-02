@@ -5,6 +5,7 @@ import {
 	HomeIcon,
 	InformationCircleIcon,
 	MoonIcon,
+	ReceiptRefundIcon,
 	SunIcon,
 	UsersIcon,
 } from '@heroicons/react/outline';
@@ -26,6 +27,11 @@ const NavigationLinks = [
 		name: 'Users',
 		link: '/users',
 		icon: <UsersIcon className="w-4 h-4 mr-2" />,
+	},
+	{
+		name: 'Sign-in logs',
+		link: '/users/logs',
+		icon: <ReceiptRefundIcon className="w-4 h-4 mr-2" />,
 	},
 	{
 		name: 'Allowlist',

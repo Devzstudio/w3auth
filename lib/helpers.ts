@@ -72,3 +72,64 @@ export const broofa = () => {
         return v.toString(16);
     });
 }
+
+
+export const urlParams = (routerParams) => {
+    let urlQuery = '';
+
+    Object.keys(routerParams).forEach((key) => {
+        urlQuery += `${key}=${routerParams[key]}&`;
+    });
+
+    return urlQuery;
+}
+
+export const urlParamsWithoutCondition = (values) => {
+    let urlQuery = '';
+
+    Object.keys(values).forEach((key) => {
+        if (values[key]) {
+            if (key.includes('_')) {
+                const conditionsSplit = key.split('_');
+                if (urlQuery.includes(conditionsSplit[0])) {
+                    urlQuery += `${key}=${values[key]}&`;
+                }
+            } else {
+                urlQuery += `${key}=${values[key]}&`;
+            }
+        }
+    });
+
+    return urlQuery;
+}
+
+
+export const whereCondition = ({ context, fieldMapping = {}, relationCondition = {} }) => {
+    let where;
+
+    Object.keys(context.query).forEach(query => {
+        if (!['page'].includes(query) && !query.includes('_condition')) {
+
+            if (relationCondition[query]) {
+                where = {
+                    ...where,
+                    ...relationCondition[query]
+                };
+            }
+            else {
+
+                let queryCondition = context.query[`${query}_condition`] ?? 'equals'
+
+                where = {
+                    ...where,
+                    [fieldMapping[query] ?? query]: {
+                        [queryCondition]: context.query[query],
+                    },
+                };
+            }
+        }
+    }
+    )
+
+    return where;
+}

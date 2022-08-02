@@ -2,6 +2,7 @@ import { FilterIcon } from '@heroicons/react/outline';
 import FilterBadge from 'components/Users/FilterBadge';
 import { useState } from 'react';
 import { Popover, Button } from '@mantine/core';
+import { DatePicker } from '@mantine/dates';
 
 import { useForm } from '@mantine/form';
 
@@ -11,16 +12,20 @@ import CollapseOption from 'components/UI/CollapseOption';
 import FilterCondition from 'components/UI/FilterCondition';
 import { urlParamsWithoutCondition } from 'lib/helpers';
 
-const BlocklistFilter = () => {
+const LogsFilter = () => {
 	const [opened, setOpened] = useState(false);
 	const router = useRouter();
 
 	const form = useForm({
 		initialValues: {
-			address: '',
-			address_condition: 'equals',
-			note: '',
-			note_condition: 'equals',
+			browser: '',
+			ip: '',
+			country: '',
+			created_at: null,
+			created_at_condition: 'equals',
+			browser_condition: 'equals',
+			ip_condition: 'equals',
+			country_condition: 'equals',
 		},
 	});
 
@@ -65,27 +70,54 @@ const BlocklistFilter = () => {
 						</div>
 
 						<div className="mt-3">
-							<CollapseOption name="Address">
+							<CollapseOption name="Browser">
 								<FilterCondition
-									value={form.values.address_condition}
-									onChange={(val) => form.setFieldValue('address_condition', val)}
+									value={form.values.browser_condition}
+									onChange={(val) => form.setFieldValue('browser_condition', val)}
 								/>
 								<TextInput
-									value={form.values.address}
-									onChange={(e) => form.setFieldValue('address', e.target.value)}
+									value={form.values.browser}
+									onChange={(e) => form.setFieldValue('browser', e.target.value)}
 									className="col-span-8"
 									placeholder="value"
 								/>
 							</CollapseOption>
 
-							<CollapseOption name="Note">
+							<CollapseOption name="IP">
 								<FilterCondition
-									value={form.values.note_condition}
-									onChange={(val) => form.setFieldValue('note_condition', val)}
+									value={form.values.ip_condition}
+									onChange={(val) => form.setFieldValue('ip_condition', val)}
+								/>
+
+								<TextInput
+									value={form.values.ip}
+									onChange={(e) => form.setFieldValue('ip', e.target.value)}
+									className="col-span-8"
+									placeholder="value"
+								/>
+							</CollapseOption>
+
+							<CollapseOption name="Country">
+								<FilterCondition
+									value={form.values.country_condition}
+									onChange={(val) => form.setFieldValue('country_condition', val)}
 								/>
 								<TextInput
-									value={form.values.note}
-									onChange={(e) => form.setFieldValue('note', e.target.value)}
+									value={form.values.country}
+									onChange={(e) => form.setFieldValue('country', e.target.value)}
+									className="col-span-8"
+									placeholder="value"
+								/>
+							</CollapseOption>
+
+							<CollapseOption name="Created at">
+								<FilterCondition
+									value={form.values.created_at_condition}
+									onChange={(val) => form.setFieldValue('created_at_condition', val)}
+								/>
+								<DatePicker
+									value={form.values.created_at}
+									onChange={(e) => form.setFieldValue('created_at', e)}
 									className="col-span-8"
 									placeholder="value"
 								/>
@@ -98,4 +130,4 @@ const BlocklistFilter = () => {
 	);
 };
 
-export default BlocklistFilter;
+export default LogsFilter;

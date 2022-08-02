@@ -5,7 +5,7 @@ import Config from 'lib/config';
 import { GetStaticProps } from 'next';
 import prisma from 'lib/prisma';
 import dayjs from 'dayjs';
-import { isEmpty } from 'lib/helpers';
+import { isEmpty, whereCondition } from 'lib/helpers';
 import Pagination from 'components/UI/pagination/Pagination';
 import { useRouter } from 'next/router';
 import useRequest from 'hooks/useRequests';
@@ -24,27 +24,9 @@ export const getServerSideProps: GetStaticProps = async (context: any) => {
 			if (context?.query?.page) page = context?.query?.page - 1;
 		}
 
-		let where = {};
-
-		if (context.query.address) {
-			where = {
-				...where,
-
-				address: {
-					[context.query.address_condition ?? 'equals']: context.query.address,
-				},
-			};
-		}
-
-		if (context.query.note) {
-			where = {
-				...where,
-
-				note: {
-					[context.query.note_condition ?? 'equals']: context.query.note,
-				},
-			};
-		}
+		const where = whereCondition({
+			context,
+		});
 
 		const records = await prisma.blocklist.findMany({
 			where,
