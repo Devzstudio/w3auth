@@ -40,6 +40,20 @@ export default async function nonceHandler(req: NextApiRequest, res: NextApiResp
     const settings = getSettings(settingsData);
 
     /*
+    *   IP blocklist check
+    */
+
+    if (settings.ip_blocklist != "" && req.headers['cf-connecting-ip']) {
+        const userIp = req.headers['cf-connecting-ip'];
+        const ipList = settings.ip_blocklist.split(",")
+
+        if (ipList.includes(userIp)) {
+            return oops(res, Lang.IP_BLOCKLIST);
+        }
+    }
+
+
+    /*
     *   Country blocklist check
     */
 

@@ -87,6 +87,15 @@ async function main() {
         },
     })
 
+    await prisma.settings.upsert({
+        where: { name: 'ip_blocklist' },
+        update: {},
+        create: {
+            name: 'ip_blocklist',
+            value: '',
+        },
+    })
+
 
     await prisma.settings.upsert({
         where: { name: 'blockpass_clientid' },

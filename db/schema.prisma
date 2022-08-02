@@ -43,7 +43,7 @@ model user_logins {
   browser       String?
   ip            String?
   country       String?
-  created_at    DateTime? @db.Timestamptz(6)
+  created_at    DateTime? @default(now()) @db.Timestamptz(6)
   users         users?    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@index([user_id], map: "idx_user_logins")

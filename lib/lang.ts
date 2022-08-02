@@ -10,6 +10,7 @@ const Lang = {
     EXPIRED_NONCE: "Expired sign-in. Try again",
     INCORRECT_CRON_PASSWORD: "Incorrect cron password",
     COUNTRY_BLOCKLIST: "Signing in from your country is prohibited.",
+    IP_BLOCKLIST: "Signing in from your country is prohibited.",
     INVALID_API_SECRET: "Invalid API Key / Secret",
     WALLET_LINKED_SUCCESSFULLY: "Your wallet were successfully connected.",
     WALLET_ALREADY_LINKED: "You have already linked this wallet address to your account.",

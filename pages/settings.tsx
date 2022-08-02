@@ -1,5 +1,5 @@
 import SettingsWrapper from 'components/Settings/SettingsWrapper';
-import { Button, Code, Switch, Textarea } from '@mantine/core';
+import { Button, Code, MultiSelect, Switch, Textarea } from '@mantine/core';
 import CardWrapper from 'components/UI/card/CardWrapper';
 import PageHeader from 'components/PageHeader';
 import prisma from 'lib/prisma';
@@ -26,6 +26,7 @@ export const getServerSideProps: GetStaticProps = async (context: any) => {
 						'custom_jwt_claim',
 						'log_user_logins',
 						'country_blocklist',
+						'ip_blocklist',
 					],
 				},
 			},
@@ -52,7 +53,8 @@ const SettingsPage = ({ records }) => {
 
 	const form = useForm({
 		initialValues: {
-			country_blocklist: settings.country_blocklist.split(','),
+			ip_blocklist: settings.ip_blocklist ? settings.ip_blocklist.split(',') : [],
+			country_blocklist: settings.country_blocklist ? settings.country_blocklist.split(',') : [],
 			custom_jwt_claim: settings.custom_jwt_claim,
 			unlink_wallet: settings.unlink_wallet,
 			log_user_logins: settings.log_user_logins,
@@ -82,6 +84,7 @@ const SettingsPage = ({ records }) => {
 							settings: {
 								...form.values,
 								country_blocklist: form.values.country_blocklist.join(','),
+								ip_blocklist: form.values.ip_blocklist.join(','),
 							},
 						});
 					}}
@@ -124,6 +127,26 @@ const SettingsPage = ({ records }) => {
 							label="Country Blocklist"
 							value={form.values.country_blocklist}
 							onChange={(val) => form.setFieldValue('country_blocklist', val)}
+						/>
+
+						<MultiSelect
+							label="IP Blocklist"
+							data={form.values.ip_blocklist.map((i) => {
+								return { value: i, label: i };
+							})}
+							value={form.values.ip_blocklist.map((i) => i)}
+							placeholder="Enter IP"
+							onChange={(val) => {
+								form.setFieldValue('ip_blocklist', val);
+							}}
+							searchable
+							creatable
+							getCreateLabel={(query) => `+ Create ${query}`}
+							onCreate={(query) => {
+								const item = { value: query, label: query };
+								form.setFieldValue('ip_blocklist', [...form.values.ip_blocklist, query]);
+								return item;
+							}}
 						/>
 
 						<div className="grid md:grid-cols-2 gap-5">

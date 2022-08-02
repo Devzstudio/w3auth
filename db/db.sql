@@ -128,7 +128,7 @@ CREATE TABLE "public"."user_logins" (
     "browser" text,
     "ip" text,
     "country" text,
-    "created_at" timestamptz,
+    "created_at" timestamptz DEFAULT now(),
     PRIMARY KEY ("user_login_id")
 );
 
@@ -164,6 +164,7 @@ INSERT INTO "public"."settings" ("name", "value") VALUES
 ('blockpass_apikey', ''),
 ('blockpass_clientid', ''),
 ('country_blocklist', ',AF'),
+('ip_blocklist', ''),
 ('custom_jwt_claim', '{
   "user-id": "[USER_ID]",
   "email": "[USER_EMAIL]"
