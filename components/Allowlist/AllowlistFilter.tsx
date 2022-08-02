@@ -9,6 +9,7 @@ import { TextInput } from '@mantine/core';
 import { useRouter } from 'next/router';
 import CollapseOption from 'components/UI/CollapseOption';
 import FilterCondition from 'components/UI/FilterCondition';
+import { urlParamsWithoutCondition } from 'lib/helpers';
 
 const AllowlistFilter = () => {
 	const [opened, setOpened] = useState(false);
@@ -50,21 +51,9 @@ const AllowlistFilter = () => {
 							<h4 className="font-medium">Filters</h4>
 
 							<Button
+								size="xs"
 								onClick={() => {
-									let urlQuery = '';
-
-									Object.keys(form.values).forEach((key) => {
-										if (form.values[key]) {
-											if (key.includes('_')) {
-												const conditionsSplit = key.split('_');
-												if (urlQuery.includes(conditionsSplit[0])) {
-													urlQuery += `${key}=${form.values[key]}&`;
-												}
-											} else {
-												urlQuery += `${key}=${form.values[key]}&`;
-											}
-										}
-									});
+									const urlQuery = urlParamsWithoutCondition(form.values);
 
 									router.push(`?${urlQuery}`);
 									setOpened(false);

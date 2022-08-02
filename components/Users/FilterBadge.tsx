@@ -1,6 +1,6 @@
 import { XIcon } from '@heroicons/react/outline';
 import { ActionIcon, Badge } from '@mantine/core';
-import { shortenAddress } from 'lib/helpers';
+import { shortenAddress, urlParams } from 'lib/helpers';
 import { useRouter } from 'next/router';
 
 const FilterBadge = () => {
@@ -23,11 +23,7 @@ const FilterBadge = () => {
 										delete routerParams[key];
 										delete routerParams[`${key}_condition`];
 
-										let urlQuery = '';
-
-										Object.keys(routerParams).forEach((key) => {
-											urlQuery += `${key}=${routerParams[key]}&`;
-										});
+										const urlQuery = urlParams(routerParams);
 
 										router.push('?' + urlQuery);
 									}}

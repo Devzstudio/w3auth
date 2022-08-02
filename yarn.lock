@@ -761,6 +761,13 @@
     "@radix-ui/react-scroll-area" "1.0.0"
     react-textarea-autosize "8.3.4"
 
+"@mantine/dates@^5.0.2":
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/@mantine/dates/-/dates-5.0.2.tgz#c5b2a08b18d717891200103e46d254925d0b4c05"
+  integrity sha512-t3O1TfYoINrX9y9zArbzA90I+SOc+5HR8za/rOaDl9UMCO+uxl9cgiek+B0GSsL0FQRZzE7pDpbltexzUvKvfg==
+  dependencies:
+    "@mantine/utils" "5.0.2"
+
 "@mantine/form@^5.0.2":
   version "5.0.2"
   resolved "https://registry.yarnpkg.com/@mantine/form/-/form-5.0.2.tgz#9d13fcdddd9f7bdd6c164cc78b53d29cd86d2db3"

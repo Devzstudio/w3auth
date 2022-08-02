@@ -15,6 +15,7 @@
     "@emotion/server": "^11.10.0",
     "@heroicons/react": "^1.0.6",
     "@mantine/core": "^5.0.2",
+    "@mantine/dates": "^5.0.2",
     "@mantine/form": "^5.0.2",
     "@mantine/hooks": "^5.0.2",
     "@mantine/next": "^5.0.2",

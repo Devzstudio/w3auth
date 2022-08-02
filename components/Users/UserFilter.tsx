@@ -2,6 +2,7 @@ import { FilterIcon } from '@heroicons/react/outline';
 import FilterBadge from 'components/Users/FilterBadge';
 import { useState } from 'react';
 import { Popover, Button } from '@mantine/core';
+import { DatePicker } from '@mantine/dates';
 
 import { useForm } from '@mantine/form';
 
@@ -9,6 +10,7 @@ import { TextInput } from '@mantine/core';
 import { useRouter } from 'next/router';
 import CollapseOption from 'components/UI/CollapseOption';
 import FilterCondition from 'components/UI/FilterCondition';
+import { urlParamsWithoutCondition } from 'lib/helpers';
 
 const UserFilter = () => {
 	const [opened, setOpened] = useState(false);
@@ -22,6 +24,10 @@ const UserFilter = () => {
 			telegram: '',
 			discord: '',
 			twitter: '',
+			last_login: null,
+			created_at: null,
+			last_login_condition: 'equals',
+			created_at_condition: 'equals',
 			address_condition: 'equals',
 			email_condition: 'equals',
 			name_condition: 'equals',
@@ -58,21 +64,9 @@ const UserFilter = () => {
 							<h4 className="font-medium">Filters</h4>
 
 							<Button
+								size="xs"
 								onClick={() => {
-									let urlQuery = '';
-
-									Object.keys(form.values).forEach((key) => {
-										if (form.values[key]) {
-											if (key.includes('_')) {
-												const conditionsSplit = key.split('_');
-												if (urlQuery.includes(conditionsSplit[0])) {
-													urlQuery += `${key}=${form.values[key]}&`;
-												}
-											} else {
-												urlQuery += `${key}=${form.values[key]}&`;
-											}
-										}
-									});
+									const urlQuery = urlParamsWithoutCondition(form.values);
 
 									router.push(`?${urlQuery}`);
 									setOpened(false);
@@ -119,6 +113,32 @@ const UserFilter = () => {
 								<TextInput
 									value={form.values.name}
 									onChange={(e) => form.setFieldValue('name', e.target.value)}
+									className="col-span-8"
+									placeholder="value"
+								/>
+							</CollapseOption>
+
+							<CollapseOption name="Created at">
+								<FilterCondition
+									value={form.values.created_at_condition}
+									onChange={(val) => form.setFieldValue('created_at_condition', val)}
+								/>
+								<DatePicker
+									value={form.values.created_at}
+									onChange={(e) => form.setFieldValue('created_at', e)}
+									className="col-span-8"
+									placeholder="value"
+								/>
+							</CollapseOption>
+
+							<CollapseOption name="Last login">
+								<FilterCondition
+									value={form.values.last_login_condition}
+									onChange={(val) => form.setFieldValue('last_login_condition', val)}
+								/>
+								<DatePicker
+									value={form.values.last_login}
+									onChange={(e) => form.setFieldValue('last_login', e)}
 									className="col-span-8"
 									placeholder="value"
 								/>
