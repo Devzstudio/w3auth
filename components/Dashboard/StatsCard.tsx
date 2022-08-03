@@ -1,4 +1,9 @@
-const StatsCard = ({ label, value }) => {
+interface IStatsCard {
+	label?: string;
+	value?: string;
+}
+
+const StatsCard = ({ label, value }: IStatsCard) => {
 	return (
 		<div className="bg-gray-100 dark:bg-dark-900 rounded p-5 col-span-3">
 			<div className="flex justify-between items-center">

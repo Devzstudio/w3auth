@@ -15,9 +15,18 @@ import { useAuth } from 'context/auth.context';
 import useIsAuthenticated from 'hooks/auth/useIsAuthenticated';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import React from 'react';
 import useDarkMode from 'use-dark-mode';
 
-const NavigationLinks = [
+interface INavLink {
+	name?: string;
+	link?: string;
+	icon?: React.ReactNode;
+}
+
+type NavigationLinksType = INavLink[];
+
+const NavigationLinks: NavigationLinksType = [
 	{
 		name: 'Dashboard',
 		link: '/dashboard',
@@ -50,7 +59,7 @@ const NavigationLinks = [
 	},
 ];
 
-const Layout = ({ children }) => {
+const Layout = ({ children }: { children: React.ReactNode }) => {
 	const { auth } = useAuth();
 	const darkMode = useDarkMode(true, {
 		classNameDark: 'dark',
@@ -118,7 +127,7 @@ const Layout = ({ children }) => {
 				</div>
 			</header>
 			<div className="mx-auto max-w-screen-xl px-4 sm:px-6 relative mt-5 ">
-				<main>{children}</main>
+				<main className="pb-5">{children}</main>
 			</div>
 		</div>
 	);

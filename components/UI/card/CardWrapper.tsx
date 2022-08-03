@@ -4,7 +4,7 @@ import { PlusIcon } from '@heroicons/react/outline';
 const CardWrapper = ({ children, label, create = null, options = null, noMargin = false }) => {
 	return (
 		<div
-			className={`bg-white shadow dark:bg-dark-800 rounded pt-5 ${
+			className={`bg-white shadow dark:bg-dark-800 rounded pt-5 mb-10 ${
 				(label && label.includes('Create')) || (label && label.includes('Edit')) ? 'md:w-1/2' : ''
 			}`}
 		>
