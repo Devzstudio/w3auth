@@ -1,7 +1,7 @@
 import { FilterIcon } from '@heroicons/react/outline';
 import FilterBadge from 'components/Users/FilterBadge';
 import { useState } from 'react';
-import { Popover, Button } from '@mantine/core';
+import { Popover, Button, Checkbox } from '@mantine/core';
 import { DatePicker } from '@mantine/dates';
 
 import { useForm } from '@mantine/form';
@@ -11,6 +11,7 @@ import { useRouter } from 'next/router';
 import CollapseOption from 'components/UI/CollapseOption';
 import FilterCondition from 'components/UI/FilterCondition';
 import { urlParamsWithoutCondition } from 'lib/helpers';
+import ConfigChains from 'lib/chains';
 
 const UserFilter = () => {
 	const [opened, setOpened] = useState(false);
@@ -18,6 +19,7 @@ const UserFilter = () => {
 
 	const form = useForm({
 		initialValues: {
+			chain: [],
 			address: '',
 			email: '',
 			name: '',
@@ -89,6 +91,34 @@ const UserFilter = () => {
 									className="col-span-8"
 									placeholder="value"
 								/>
+							</CollapseOption>
+							<CollapseOption name="Chain">
+								<div className="grid grid-cols-2 gap-2">
+									{ConfigChains.map((chain) => {
+										return (
+											<Checkbox
+												color="violet"
+												size="xs"
+												checked={form.values.chain.includes(chain.symbol.toLocaleLowerCase())}
+												label={chain.symbol}
+												onChange={() => {
+													const symbol = chain.symbol.toLocaleLowerCase();
+
+													const dataExist = form.values.chain.includes(symbol);
+
+													if (dataExist) {
+														form.setFieldValue(
+															'chain',
+															form.values.chain.filter((c) => c !== symbol)
+														);
+													} else {
+														form.setFieldValue('chain', [...form.values.chain, symbol]);
+													}
+												}}
+											/>
+										);
+									})}
+								</div>
 							</CollapseOption>
 
 							<CollapseOption name="Email">

@@ -62,7 +62,7 @@ const Settings = ({ records, total }) => {
 			<div className="space-y-5">
 				<div className="grid place-items-end">
 					<Link href={'/settings/team/create'} passHref>
-						<a className="text-base bg-dark-700 dark:hover:bg-gray-800 px-4 py-2 rounded dark:text-gray-500 dark:hover:text-gray-100 flex items-center">
+						<a className="text-base text-white bg-gray-500 dark:text-gray-100 dark:bg-dark-500 hover:bg-gray-600 px-4 py-2 rounded  dark:hover:text-gray-100 flex items-center">
 							<PlusIcon className="w-4 h-4 mr-2" />
 							New Team Member
 						</a>

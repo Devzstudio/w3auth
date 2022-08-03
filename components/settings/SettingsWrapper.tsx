@@ -73,7 +73,7 @@ const SettingsWrapper = ({ children }) => {
 				))}
 			</nav>
 
-			<div className="col-span-10">{children}</div>
+			<div className="col-span-10 pb-14">{children}</div>
 		</div>
 	);
 };

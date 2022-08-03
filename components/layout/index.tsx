@@ -104,7 +104,13 @@ const Layout = ({ children }) => {
 								Documentation
 							</a>
 
-							<Button onClick={() => darkMode.toggle()} variant="subtle" compact color="gray">
+							<Button
+								className={` text-gray-500 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-200 dark:hover:bg-dark-700 cursor-pointer`}
+								onClick={() => darkMode.toggle()}
+								variant="subtle"
+								compact
+								color="gray"
+							>
 								{darkMode.value ? <SunIcon className="w-4 h-4" /> : <MoonIcon className="w-4 h-4" />}
 							</Button>
 						</div>
