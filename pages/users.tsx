@@ -45,6 +45,15 @@ export const getServerSideProps: GetStaticProps = async (context: any) => {
 						},
 					},
 				},
+				chain: {
+					user_address: {
+						some: {
+							chain: {
+								in: context.query.chain,
+							},
+						},
+					},
+				},
 			},
 		});
 

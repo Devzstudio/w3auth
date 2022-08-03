@@ -59,7 +59,12 @@ const Layout = ({ children }) => {
 	useIsAuthenticated();
 
 	return (
-		<div className="bg-gray-100 dark:bg-dark-900 text-gray-100 min-h-screen">
+		<div className="bg-gray-100 dark:bg-dark-900 text-gray-500 dark:text-gray-100 min-h-screen">
+			{process.env.NEXT_PUBLIC_DEMO && (
+				<div className="text-center py-1 border-b text-xs dark:border-gray-800 text-gray-500 dark:text-gray-300 ">
+					This is a public demo. Do not enter sensitive information.
+				</div>
+			)}
 			<header className={`${auth.token ? 'border-b dark:border-b-2' : ''} md:px-5 pt-5 dark:border-dark-800`}>
 				<div className="mx-auto max-w-screen-xl md:px-4 sm:px-6 relative">
 					<nav className="flex justify-between">
@@ -99,7 +104,13 @@ const Layout = ({ children }) => {
 								Documentation
 							</a>
 
-							<Button onClick={() => darkMode.toggle()} variant="subtle" compact color="gray">
+							<Button
+								className={` text-gray-500 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-200 dark:hover:bg-dark-700 cursor-pointer`}
+								onClick={() => darkMode.toggle()}
+								variant="subtle"
+								compact
+								color="gray"
+							>
 								{darkMode.value ? <SunIcon className="w-4 h-4" /> : <MoonIcon className="w-4 h-4" />}
 							</Button>
 						</div>

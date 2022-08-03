@@ -14,7 +14,7 @@ const CardWrapper = ({ children, label, create = null, options = null, noMargin 
 				<div className="flex items-center space-x-5">
 					{create && (
 						<Link href={create.link} passHref>
-							<a className="text-base bg-gray-500 dark:text-gray-100 dark:bg-dark-500 hover:bg-gray-600 px-4 py-2 rounded  dark:hover:text-gray-100 flex items-center">
+							<a className="text-base text-white bg-gray-500 dark:text-gray-100 dark:bg-dark-500 hover:bg-gray-600 px-4 py-2 rounded  dark:hover:text-gray-100 flex items-center">
 								<PlusIcon className="w-4 h-4 mr-2" />
 								{create.label ?? 'New Record'}
 							</a>

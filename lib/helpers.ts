@@ -95,7 +95,12 @@ export const urlParamsWithoutCondition = (values) => {
                     urlQuery += `${key}=${values[key]}&`;
                 }
             } else {
-                urlQuery += `${key}=${values[key]}&`;
+                if (typeof values[key] == "object") {
+                    urlQuery += `${key}=${values[key].join(",")}&`;
+                }
+                else {
+                    urlQuery += `${key}=${values[key]}&`;
+                }
             }
         }
     });
