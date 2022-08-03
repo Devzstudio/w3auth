@@ -97,6 +97,7 @@ const UserFilter = () => {
 									{ConfigChains.map((chain) => {
 										return (
 											<Checkbox
+												key={chain.symbol}
 												color="violet"
 												size="xs"
 												checked={form.values.chain.includes(chain.symbol.toLocaleLowerCase())}
