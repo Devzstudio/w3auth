@@ -37,7 +37,7 @@ export const getUserToken = async (user, customClaims = {}) => {
     }
 
 
-    const customClaim = JSON.parse(settings.value.replaceAll("[USER_ID]", user.id).replaceAll("[USER_EMAIL]", user.email).replaceAll("[USER_NAME]", user.name).replaceAll("[USER_KYC_STATUS]", user.kyc_verified).replaceAll("[USER_KYC_PROCESS_ID]", user.kyc_processed_id)).replaceAll("[USER_WALLETS]", userWallets)
+    const customClaim = JSON.parse(settings.value.replace(/[USER_ID]/g, user.id).replace(/[USER_EMAIL]/g, user.email).replace(/[USER_NAME]/g, user.name).replace(/[USER_KYC_STATUS]/g, user.kyc_verified).replace(/[USER_KYC_PROCESS_ID]/g, user.kyc_processed_id).replace(/[USER_WALLETS]/g, userWallets))
 
 
     const token = jwt.sign(
