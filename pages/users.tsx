@@ -136,6 +136,7 @@ const Users = ({ records, total }) => {
 									<div className="flex items-center space-x-3">
 										{user.twitter_username && (
 											<a
+												rel="noopener noreferrer"
 												className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
 												target={'_BLANK'}
 												href={`https://twitter.com/${user.twitter_username}`}
@@ -157,6 +158,7 @@ const Users = ({ records, total }) => {
 
 										{user.telegram_username && (
 											<a
+												rel="noopener noreferrer"
 												className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 telegram_send"
 												target={'_BLANK'}
 												href={`https://web.telegram.org/k/#@${user.telegram_username}`}
