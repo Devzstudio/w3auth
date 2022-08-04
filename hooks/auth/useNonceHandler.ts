@@ -138,7 +138,8 @@ const useNonceHandler = ({ account }) => {
                     if (router.query.redirect_to) {
                         router.push(router.query.redirect_to as string);
                     } else {
-                        router.push('/dashboard');
+                        if (router.asPath == "/")
+                            router.push('/dashboard');
                     }
                 }
             }

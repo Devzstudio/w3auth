@@ -1,4 +1,4 @@
-import { FilterIcon } from '@heroicons/react/outline';
+import { FilterIcon, XIcon } from '@heroicons/react/outline';
 import FilterBadge from 'components/Users/FilterBadge';
 import { useState } from 'react';
 import { Popover, Button } from '@mantine/core';
@@ -11,6 +11,7 @@ import { useRouter } from 'next/router';
 import CollapseOption from 'components/UI/CollapseOption';
 import FilterCondition from 'components/UI/FilterCondition';
 import { urlParamsWithoutCondition } from 'lib/helpers';
+import dayjs from 'dayjs';
 
 const LogsFilter = () => {
 	const [opened, setOpened] = useState(false);
@@ -37,14 +38,14 @@ const LogsFilter = () => {
 				position="bottom-start"
 				shadow="md"
 				opened={opened}
-				closeOnClickOutside
+				closeOnClickOutside={false}
 				onChange={(val) => setOpened(val)}
 			>
 				<Popover.Target>
 					<Button
 						className="text-gray-500 hover:text-gray-100"
 						color="violet"
-						onClick={() => setOpened(true)}
+						onClick={() => setOpened(!opened)}
 					>
 						<FilterIcon className="w-4 h-4 mr-2" />
 						Filters
@@ -54,19 +55,30 @@ const LogsFilter = () => {
 					<section className="text-gray-500 dark:text-gray-100 ">
 						<div className="flex justify-between items-center px-4 py-2">
 							<h4 className="font-medium">Filters</h4>
+							<div className="flex items-center">
+								<Button
+									size="xs"
+									onClick={() => {
+										const urlQuery = urlParamsWithoutCondition(form.values);
 
-							<Button
-								size="xs"
-								onClick={() => {
-									const urlQuery = urlParamsWithoutCondition(form.values);
+										router.push(`?${urlQuery}`);
+										setOpened(false);
+									}}
+									variant="subtle"
+								>
+									Apply Filter
+								</Button>
 
-									router.push(`?${urlQuery}`);
-									setOpened(false);
-								}}
-								variant="subtle"
-							>
-								Apply Filter
-							</Button>
+								<Button
+									className={` text-gray-500 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-200 dark:hover:bg-dark-700 cursor-pointer`}
+									onClick={() => setOpened(false)}
+									variant="subtle"
+									compact
+									color="gray"
+								>
+									<XIcon className="w-3 h-3" />
+								</Button>
+							</div>
 						</div>
 
 						<div className="mt-3">
@@ -116,8 +128,8 @@ const LogsFilter = () => {
 									onChange={(val) => form.setFieldValue('created_at_condition', val)}
 								/>
 								<DatePicker
-									value={form.values.created_at}
-									onChange={(e) => form.setFieldValue('created_at', e)}
+									value={form.values.created_at ? new Date(form.values.created_at) : null}
+									onChange={(e) => form.setFieldValue('created_at', dayjs(e).format('YYYY-MM-DD'))}
 									className="col-span-8"
 									placeholder="value"
 								/>

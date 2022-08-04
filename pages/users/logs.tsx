@@ -50,7 +50,6 @@ export const getServerSideProps: GetStaticProps = async (context: any) => {
 const Logs = ({ records, total }) => {
 	const logs = JSON.parse(records);
 
-	console.log(logs);
 	const { loading, response, post } = useRequest({ url: '/api/console/users/clear_list' });
 	const router = useRouter();
 
@@ -117,7 +116,7 @@ const Logs = ({ records, total }) => {
 
 					{isEmpty(logs) && (
 						<tr>
-							<td colSpan={4}>There are no records.</td>
+							<td colSpan={5}>There are no records.</td>
 						</tr>
 					)}
 				</tbody>

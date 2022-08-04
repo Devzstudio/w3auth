@@ -27,3 +27,12 @@ a {
 .documentation_link {
   margin-left: auto !important;
 }
+
+.telegram_send{
+  transform: rotate(-40deg);
+}
+
+.telegram_send svg{
+  width: 15px;
+  height: 15px;
+}

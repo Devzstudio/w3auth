@@ -89,17 +89,19 @@ export const urlParamsWithoutCondition = (values) => {
 
     Object.keys(values).forEach((key) => {
         if (values[key]) {
-            if (key.includes('_')) {
-                const conditionsSplit = key.split('_');
+            if (key.includes('_condition')) {
+                const conditionsSplit = key.split('_condition');
                 if (urlQuery.includes(conditionsSplit[0])) {
                     urlQuery += `${key}=${values[key]}&`;
                 }
             } else {
-                if (typeof values[key] == "object") {
-                    urlQuery += `${key}=${values[key].join(",")}&`;
-                }
-                else {
-                    urlQuery += `${key}=${values[key]}&`;
+                if (values[key] && values[key] != "") {
+                    if (typeof values[key] == "object") {
+                        urlQuery += `${key}=${values[key].join(",")}&`;
+                    }
+                    else {
+                        urlQuery += `${key}=${values[key]}&`;
+                    }
                 }
             }
         }
@@ -128,7 +130,7 @@ export const whereCondition = ({ context, fieldMapping = {}, relationCondition =
                 where = {
                     ...where,
                     [fieldMapping[query] ?? query]: {
-                        [queryCondition]: context.query[query],
+                        [queryCondition]: ['created_at', 'last_login', 'updated_at'].includes(query) ? new Date(context.query[query]) : context.query[query],
                     },
                 };
             }
@@ -137,4 +139,14 @@ export const whereCondition = ({ context, fieldMapping = {}, relationCondition =
     )
 
     return where;
+}
+
+
+export const walletExplore = (chain, address) => {
+    if (chain == "eth") return `https://debank.com/profile/${address}`
+    if (chain == "sol") return `https://solscan.io/account/${address}`
+    if (chain == "dot") return `https://polkadot.subscan.io/account/${address}`
+    if (chain == "flow") return `https://flowscan.org/account/${address}`
+    if (chain == "near") return `https://explorer.near.org/accounts/${address}`
+    return null
 }
