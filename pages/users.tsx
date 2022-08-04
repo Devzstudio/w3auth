@@ -7,16 +7,18 @@ import { GetStaticProps } from 'next';
 import dayjs from 'dayjs';
 import { Button } from '@mantine/core';
 
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useRouter } from 'next/router';
 import Config from 'lib/config';
 import { isEmpty, whereCondition } from 'lib/helpers';
 import Pagination from 'components/UI/pagination/Pagination';
 import useRequest from 'hooks/useRequests';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { validateCookie } from 'lib/cookie';
 import WalletAddress from 'components/UI/WalletAddress';
 import UserFilter from 'components/Users/UserFilter';
+import { DiscordLogoIcon, PaperPlaneIcon, TwitterLogoIcon } from '@radix-ui/react-icons';
 
 export const getServerSideProps: GetStaticProps = async (context: any) => {
 	return validateCookie(context, async () => {
@@ -106,6 +108,7 @@ const Users = ({ records, total }) => {
 					<tr>
 						<th>Address</th>
 						<th>Name</th>
+						<th>Social</th>
 						<th>Email</th>
 						<th>Created at</th>
 						<th>Last Active</th>
@@ -121,6 +124,7 @@ const Users = ({ records, total }) => {
 										<WalletAddress
 											chain={user.user_address[0]?.chain}
 											address={user.user_address[0]?.wallet_address}
+											shortAddress
 										/>
 									) : (
 										'-'
@@ -128,7 +132,47 @@ const Users = ({ records, total }) => {
 								</td>
 
 								<td>{user.name ?? '-'}</td>
-								<td>{user.email ?? '-'}</td>
+								<td>
+									<div className="flex items-center space-x-3">
+										{user.twitter_username && (
+											<a
+												rel="noopener noreferrer"
+												className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
+												target={'_BLANK'}
+												href={`https://twitter.com/${user.twitter_username}`}
+											>
+												<TwitterLogoIcon />
+											</a>
+										)}
+
+										{user.discord_username && (
+											<CopyToClipboard
+												text={user.discord_username}
+												onCopy={() => toast.success('Copied')}
+											>
+												<span className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 cursor-copy">
+													<DiscordLogoIcon />
+												</span>
+											</CopyToClipboard>
+										)}
+
+										{user.telegram_username && (
+											<a
+												rel="noopener noreferrer"
+												className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 telegram_send"
+												target={'_BLANK'}
+												href={`https://web.telegram.org/k/#@${user.telegram_username}`}
+											>
+												<PaperPlaneIcon />
+											</a>
+										)}
+									</div>
+								</td>
+								<td>
+									<CopyToClipboard text={user.email} onCopy={() => toast.success('Copied')}>
+										<span className="cursor-copy">{user.email ?? '-'}</span>
+									</CopyToClipboard>
+								</td>
 								<td>{dayjs(user.created_at).format('DD MMM YYYY')}</td>
 								<td>{user.last_login ? dayjs(user.last_login).format('DD MMM YYYY') : '-'}</td>
 								<td className="space-x-5">
@@ -174,7 +218,7 @@ const Users = ({ records, total }) => {
 					})}
 					{isEmpty(users_list) && (
 						<tr>
-							<td colSpan={6}>There are no records.</td>
+							<td colSpan={7}>There are no records.</td>
 						</tr>
 					)}
 				</tbody>

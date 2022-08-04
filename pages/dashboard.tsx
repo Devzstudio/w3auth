@@ -5,8 +5,11 @@ import PageHeader from 'components/PageHeader';
 import prisma from 'lib/prisma';
 import { GetStaticProps } from 'next';
 import Link from 'next/link';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { validateCookie } from 'lib/cookie';
 import WalletAddress from 'components/UI/WalletAddress';
+import dayjs from 'dayjs';
+import toast from 'react-hot-toast';
 
 export const getServerSideProps: GetStaticProps = async (context) => {
 	return validateCookie(context, async () => {
@@ -38,7 +41,7 @@ export const getServerSideProps: GetStaticProps = async (context) => {
 		const todaysUsers = await prisma.users.count({
 			where: {
 				created_at: {
-					gt: new Date(),
+					gte: new Date(dayjs().format('YYYY-MM-DD')),
 				},
 			},
 		});
@@ -74,10 +77,14 @@ export default function Dashboard({
 			<CardWrapper label="Dashboard">
 				<div className="px-4">
 					<div className="grid md:grid-cols-12 gap-5">
-						<StatsCard value={userCount} label="Total Users" />
-						<StatsCard value={todaysUsers} label="New users today" />
-						<StatsCard value={allowlistCount} label="Allowlist" />
-						<StatsCard value={blocklistCount} label="Blocklist" />
+						<StatsCard value={userCount} label="Total Users" link="/users" />
+						<StatsCard
+							value={todaysUsers}
+							label="New users today"
+							link={`/users?created_at=${dayjs().format('YYYY-MM-DD')}&created_at_condition=gte&`}
+						/>
+						<StatsCard value={allowlistCount} label="Allowlist" link="/users/allowlist" />
+						<StatsCard value={blocklistCount} label="Blocklist" link="/users/blocklist" />
 					</div>
 				</div>
 
@@ -111,7 +118,14 @@ export default function Dashboard({
 												</td>
 
 												<td>{user.name ?? '-'}</td>
-												<td>{user.email ?? '-'}</td>
+												<td>
+													<CopyToClipboard
+														text={user.email}
+														onCopy={() => toast.success('Copied')}
+													>
+														<span className="cursor-copy">{user.email ?? '-'}</span>
+													</CopyToClipboard>
+												</td>
 												<td className="space-x-5">
 													<Link href={`/users/details/${user.id}`} passHref>
 														<a className="cursor-pointer text-gray-500 hover:text-gray-900 dark:hover:text-gray-100">

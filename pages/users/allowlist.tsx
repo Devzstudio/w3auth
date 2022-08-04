@@ -15,6 +15,7 @@ import { validateCookie } from 'lib/cookie';
 import GatingStatus from 'components/UI/GatingStatus';
 import { TrashIcon } from '@heroicons/react/outline';
 import AllowlistFilter from 'components/Allowlist/AllowlistFilter';
+import WalletAddress from 'components/UI/WalletAddress';
 
 export const getServerSideProps: GetStaticProps = async (context: any) => {
 	return validateCookie(context, async () => {
@@ -132,7 +133,9 @@ const Allowlist = ({ records, total, settings }) => {
 					{users_list.map((user) => {
 						return (
 							<tr key={user.allowlist_id}>
-								<td>{user.address}</td>
+								<td>
+									<WalletAddress address={user.address} chain={user.chain} />
+								</td>
 								<td>{user.label}</td>
 
 								<td>{dayjs(user.created_at).format('DD MMM YYYY')}</td>

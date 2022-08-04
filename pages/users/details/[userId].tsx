@@ -4,15 +4,16 @@ import PageHeader from 'components/PageHeader';
 import { GetStaticProps } from 'next';
 import prisma from 'lib/prisma';
 import dayjs from 'dayjs';
-import { isEmpty, shortenAddress } from 'lib/helpers';
+import { isEmpty, shortenAddress, walletExplore } from 'lib/helpers';
 import { validateCookie } from 'lib/cookie';
 import { ChainLogo } from 'lib/chains';
 import { useRouter } from 'next/router';
-import { PencilAltIcon, TrashIcon } from '@heroicons/react/outline';
+import { EyeIcon, PencilAltIcon, TrashIcon } from '@heroicons/react/outline';
 import useRequest from 'hooks/useRequests';
 import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import Link from 'next/link';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 export const getServerSideProps: GetStaticProps = async (context: any) => {
 	return validateCookie(context, async () => {
@@ -40,11 +41,31 @@ export const getServerSideProps: GetStaticProps = async (context: any) => {
 	});
 };
 
-const TableField = ({ label, value }) => {
+const TableField = ({ label, value, copy = false, link = '' }) => {
 	return (
 		<tr>
 			<td>{label}</td>
-			<td>{value}</td>
+			<td>
+				{copy ? (
+					<>
+						<CopyToClipboard text={value} onCopy={() => toast.success('Copied')}>
+							<span className="cursor-copy">{value} </span>
+						</CopyToClipboard>
+					</>
+				) : (
+					<>
+						{link ? (
+							<>
+								<a href={link} target="_BLANK" rel="noreferrer noopener">
+									{value}
+								</a>
+							</>
+						) : (
+							<>{value}</>
+						)}
+					</>
+				)}
+			</td>
 		</tr>
 	);
 };
@@ -112,17 +133,29 @@ const Users = ({ record, customFields }) => {
 						</div>
 						<Table striped>
 							<tbody>
-								<TableField label="#" value={user.id} />
-								<TableField label="Email" value={user.email} />
+								<TableField label="#" value={user.id} copy />
+								<TableField label="Email" value={user.email} copy />
 								<TableField label="Blocked" value={user.is_blocked ? 'Yes' : 'No'} />
 								<TableField label="Created at" value={dayjs(user.created_at).format('DD MMMM YYYY')} />
 								<TableField
 									label="Last active"
 									value={user.last_login ? dayjs(user.last_login).format('DD MMMM YYYY') : '-'}
 								/>
-								<TableField label="Twitter username" value={user.twitter_username} />
-								<TableField label="Telegram username" value={user.telegram_username} />
-								<TableField label="Discord username" value={user.discord_username} />
+								<TableField
+									label="Twitter username"
+									value={user.twitter_username ?? '-'}
+									link={user.twitter_username ? `https://twitter.com/${user.twitter_username}` : ''}
+								/>
+								<TableField
+									label="Telegram username"
+									value={user.telegram_username ?? '-'}
+									link={
+										user.telegram_username
+											? `https://web.telegram.org/k/#@${user.telegram_username}`
+											: ''
+									}
+								/>
+								<TableField label="Discord username" value={user.discord_username ?? '-'} copy />
 								<TableField label="KYC Processed Id" value={user.kyc_processed_id ?? '-'} />
 							</tbody>
 						</Table>
@@ -181,14 +214,36 @@ const Users = ({ record, customFields }) => {
 												<div className="flex items-center">
 													<img
 														src={ChainLogo[wallet.chain.toUpperCase()]}
-														className="w-4 h-4 mr-2"
+														className="w-4 h-4 mr-2 rounded-full"
 														alt=""
 													/>
 													{wallet.chain.toUpperCase()}
 												</div>
 											</td>
-											<td>{wallet.wallet_address}</td>
 											<td>
+												<CopyToClipboard
+													text={wallet.wallet_address}
+													onCopy={() => toast.success('Copied')}
+												>
+													<span className="cursor-copy">{wallet.wallet_address}</span>
+												</CopyToClipboard>
+											</td>
+											<td>
+												<Button
+													component="a"
+													href={walletExplore(
+														wallet.chain.toLocaleLowerCase(),
+														wallet.wallet_address
+													)}
+													target="_BLANK"
+													size="xs"
+													variant="subtle"
+													color="gray"
+													className="cursor-pointer text-gray-500 hover:text-gray-900 dark:hover:text-gray-100"
+												>
+													<EyeIcon className="w-4 h-4" />
+												</Button>
+
 												{user.user_address.length > 1 && (
 													<Button
 														size="xs"

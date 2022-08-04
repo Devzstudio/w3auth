@@ -13,6 +13,7 @@ const ChainCard = ({ label, checked, onChange, icon = null }: IChainCard) => {
 			<div className="flex justify-between items-center">
 				<h4 className="flex items-center text-gray-400">
 					<img
+						alt=""
 						className="w-4 h-4 mr-2 rounded-full"
 						src={icon ? icon : `/assets/crypto_icons/${label.toLocaleLowerCase()}.svg`}
 					/>

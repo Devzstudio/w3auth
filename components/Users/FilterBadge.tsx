@@ -36,7 +36,7 @@ const FilterBadge = () => {
 								</ActionIcon>
 							}
 						>
-							{key} {router.query[`${key}_condition`]} :{' '}
+							{key.split('_').join(' ')} {router.query[`${key}_condition`]} :{' '}
 							{key === 'address' ? shortenAddress(router.query[key]) : router.query[key]}
 						</Badge>
 					);

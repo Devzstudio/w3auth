@@ -47,8 +47,6 @@ const SettingsPage = ({ records }) => {
 		}
 	}, [response]);
 
-	console.log(form);
-
 	return (
 		<SettingsWrapper>
 			<PageHeader title="API" />

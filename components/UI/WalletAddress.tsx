@@ -1,12 +1,24 @@
 import { ChainLogo } from 'lib/chains';
-import { shortenAddress } from 'lib/helpers';
+import { shortenAddress, walletExplore } from 'lib/helpers';
+import toast from 'react-hot-toast';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { Tooltip } from '@mantine/core';
 
-const WalletAddress = ({ address, chain, hideChainLogo = false, shortAddress = false }) => {
+const WalletAddress = ({ address, chain = null, hideChainLogo = false, shortAddress = false }) => {
+	// if(chain == null) detech chain
+
 	return (
 		<div className="flex items-center">
-			{chain && !hideChainLogo && <img src={ChainLogo[chain.toUpperCase()]} className="w-4 h-4 mr-2" alt="" />}
-
-			{shortAddress ? shortenAddress(address) : address}
+			<Tooltip position="top-start" label={`${address}`} withArrow>
+				<a href={walletExplore(chain, address)} target="_BLANK" rel="noreferrer noopener">
+					{chain && !hideChainLogo && (
+						<img src={ChainLogo[chain.toUpperCase()]} className="w-4 h-4 mr-2 rounded-full" alt="" />
+					)}
+				</a>
+			</Tooltip>
+			<CopyToClipboard text={address} onCopy={() => toast.success('Copied')}>
+				<span className="cursor-copy">{shortAddress ? shortenAddress(address) : address}</span>
+			</CopyToClipboard>
 		</div>
 	);
 };

@@ -30,7 +30,7 @@ const ConnectOptionsHandler = ({ account, chain, openAccountModal, openChainModa
 							onClick={openConnectModal}
 							compact
 							variant="subtle"
-							className="text-sm dark:text-gray-500 dark:hover:text-gray-100 hover:bg-dark-700 px-3 py-1.5 rounded cursor-pointer"
+							className="text-sm text-gray-500 hover:text-gray-900 hover:bg-gray-200 dark:text-gray-500 dark:hover:text-gray-100 dark:hover:bg-dark-700 px-3 py-1.5 rounded cursor-pointer"
 						>
 							Connect Wallet
 						</Button>
