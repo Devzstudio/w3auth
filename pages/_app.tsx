@@ -38,7 +38,7 @@ function MyApp({ Component, pageProps }) {
 					</AuthProvider>
 				</WagmiConfig>
 			</MantineProvider>
-			<Toaster />
+			<Toaster containerClassName="text-sm" />
 			<ProgressBar color="#7950f2" />
 		</>
 	);

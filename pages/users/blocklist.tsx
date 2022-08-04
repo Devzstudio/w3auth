@@ -14,6 +14,7 @@ import toast from 'react-hot-toast';
 import { validateCookie } from 'lib/cookie';
 import { TrashIcon } from '@heroicons/react/outline';
 import BlocklistFilter from 'components/Blocklist/BlocklistFilter';
+import WalletAddress from 'components/UI/WalletAddress';
 
 export const getServerSideProps: GetStaticProps = async (context: any) => {
 	return validateCookie(context, async () => {
@@ -115,7 +116,9 @@ const BlockList = ({ records, total }) => {
 					{users_list.map((user) => {
 						return (
 							<tr key={user.blocklist_id}>
-								<td>{user.address} </td>
+								<td>
+									<WalletAddress address={user.address} chain={user.chain} />
+								</td>
 								<td>{user.note}</td>
 
 								<td>{dayjs(user.created_at).format('DD MMM YYYY')}</td>

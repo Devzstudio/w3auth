@@ -13,7 +13,7 @@ import Config from 'lib/config';
 import { isEmpty, whereCondition } from 'lib/helpers';
 import Pagination from 'components/UI/pagination/Pagination';
 import useRequest from 'hooks/useRequests';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { validateCookie } from 'lib/cookie';
 import WalletAddress from 'components/UI/WalletAddress';

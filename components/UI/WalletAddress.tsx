@@ -4,7 +4,9 @@ import toast from 'react-hot-toast';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Tooltip } from '@mantine/core';
 
-const WalletAddress = ({ address, chain, hideChainLogo = false, shortAddress = false }) => {
+const WalletAddress = ({ address, chain = null, hideChainLogo = false, shortAddress = false }) => {
+	// if(chain == null) detech chain
+
 	return (
 		<div className="flex items-center">
 			<Tooltip position="top-start" label={`${address}`} withArrow>

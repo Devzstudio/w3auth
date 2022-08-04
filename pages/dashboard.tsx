@@ -5,9 +5,11 @@ import PageHeader from 'components/PageHeader';
 import prisma from 'lib/prisma';
 import { GetStaticProps } from 'next';
 import Link from 'next/link';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { validateCookie } from 'lib/cookie';
 import WalletAddress from 'components/UI/WalletAddress';
 import dayjs from 'dayjs';
+import toast from 'react-hot-toast';
 
 export const getServerSideProps: GetStaticProps = async (context) => {
 	return validateCookie(context, async () => {
@@ -116,7 +118,14 @@ export default function Dashboard({
 												</td>
 
 												<td>{user.name ?? '-'}</td>
-												<td>{user.email ?? '-'}</td>
+												<td>
+													<CopyToClipboard
+														text={user.email}
+														onCopy={() => toast.success('Copied')}
+													>
+														<span className="cursor-copy">{user.email ?? '-'}</span>
+													</CopyToClipboard>
+												</td>
 												<td className="space-x-5">
 													<Link href={`/users/details/${user.id}`} passHref>
 														<a className="cursor-pointer text-gray-500 hover:text-gray-900 dark:hover:text-gray-100">

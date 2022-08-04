@@ -19,6 +19,7 @@ DROP TABLE IF EXISTS "public"."allowlist";
 -- Table Definition
 CREATE TABLE "public"."allowlist" (
     "allowlist_id" uuid NOT NULL DEFAULT uuid_generate_v4(),
+    "chain" text,
     "address" text,
     "label" text,
     "created_at" timestamptz DEFAULT now(),
@@ -30,10 +31,11 @@ DROP TABLE IF EXISTS "public"."blocklist";
 
 -- Table Definition
 CREATE TABLE "public"."blocklist" (
+    "blocklist_id" uuid NOT NULL DEFAULT uuid_generate_v4(),
+    "chain" text,
     "address" text,
     "note" text,
     "created_at" timestamptz DEFAULT now(),
-    "blocklist_id" uuid NOT NULL DEFAULT uuid_generate_v4(),
     PRIMARY KEY ("blocklist_id")
 );
 
@@ -56,9 +58,9 @@ DROP TABLE IF EXISTS "public"."nft_gating";
 -- Table Definition
 CREATE TABLE "public"."nft_gating" (
     "id" uuid NOT NULL DEFAULT uuid_generate_v4(),
+    "label" text,
     "chain" text,
     "contract_address" text,
-    "label" text,
     PRIMARY KEY ("id")
 );
 
@@ -88,8 +90,8 @@ DROP TABLE IF EXISTS "public"."token_gating";
 -- Table Definition
 CREATE TABLE "public"."token_gating" (
     "id" uuid NOT NULL DEFAULT uuid_generate_v4(),
-    "contract_address" text,
     "chain" text,
+    "contract_address" text,
     "value" numeric,
     PRIMARY KEY ("id")
 );
@@ -101,8 +103,8 @@ DROP TABLE IF EXISTS "public"."user_address";
 CREATE TABLE "public"."user_address" (
     "user_address_id" uuid NOT NULL DEFAULT uuid_generate_v4(),
     "user_id" uuid,
-    "wallet_address" text,
     "chain" text,
+    "wallet_address" text,
     PRIMARY KEY ("user_address_id")
 );
 
@@ -112,9 +114,9 @@ DROP TABLE IF EXISTS "public"."user_custom_field";
 -- Table Definition
 CREATE TABLE "public"."user_custom_field" (
     "field_id" uuid NOT NULL DEFAULT uuid_generate_v4(),
+    "user_id" uuid,
     "option_id" uuid,
     "value" text,
-    "user_id" uuid,
     PRIMARY KEY ("field_id")
 );
 
@@ -140,16 +142,16 @@ CREATE TABLE "public"."users" (
     "id" uuid NOT NULL DEFAULT uuid_generate_v4(),
     "name" text,
     "nonce" text,
-    "created_at" timestamptz DEFAULT now(),
     "email" text,
     "kyc_verified" bool DEFAULT false,
     "discord_username" text,
     "telegram_username" text,
     "twitter_username" text,
     "is_blocked" bool DEFAULT false,
-    "last_login" timestamptz,
     "kyc_processed_id" text,
     "note" text,
+    "last_login" timestamptz,
+    "created_at" timestamptz DEFAULT now(),
     PRIMARY KEY ("id")
 );
 

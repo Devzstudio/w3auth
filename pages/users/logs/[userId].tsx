@@ -14,6 +14,8 @@ import useRequest from 'hooks/useRequests';
 import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/router';
+import countryFlag from 'data/CountryFlag';
+import Logs from 'components/Logs';
 
 export const getServerSideProps: GetStaticProps = async (context: any) => {
 	return validateCookie(context, async () => {
@@ -75,37 +77,7 @@ const LogsActivity = ({ records, total }) => {
 		>
 			<PageHeader title="Sign-in logs" />
 
-			<Table className="mt-5" striped highlightOnHover>
-				<thead>
-					<tr>
-						<th>Browser</th>
-						<th>IP</th>
-						<th>Country</th>
-						<th>Created at</th>
-					</tr>
-				</thead>
-				<tbody>
-					{logs.map((record) => {
-						return (
-							<tr key={record.id}>
-								<td>
-									<BrowserIcon name={record.browser} />
-								</td>
-								<td>{record.ip} </td>
-								<td>{record.country} </td>
-								<td>{dayjs(record.created_at).format('DD MMM YYYY h:m a')}</td>
-							</tr>
-						);
-					})}
-
-					{isEmpty(logs) && (
-						<tr>
-							<td colSpan={4}>There are no records.</td>
-						</tr>
-					)}
-				</tbody>
-			</Table>
-			<Pagination total={total} />
+			<Logs logs={logs} total={total} userRecords={false} hideFilter />
 		</CardWrapper>
 	);
 };

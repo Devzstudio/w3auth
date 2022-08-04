@@ -89,6 +89,7 @@ model allowlist {
   address      String?
   label        String?
   created_at   DateTime? @default(now()) @db.Timestamptz(6)
+  chain        String?
 
   @@index([address], map: "idx_allowlist")
 }
@@ -98,6 +99,7 @@ model blocklist {
   note         String?
   created_at   DateTime? @default(now()) @db.Timestamptz(6)
   blocklist_id String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  chain        String?
 
   @@index([address], map: "idx_blocklist")
 }
