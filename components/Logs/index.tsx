@@ -9,7 +9,7 @@ import Link from 'next/link';
 import toast from 'react-hot-toast';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-const Logs = ({ logs, total, userRecords = true, hideFilter }) => {
+const Logs = ({ logs, total, userRecords = true, hideFilter = false }) => {
 	return (
 		<>
 			{!hideFilter && (

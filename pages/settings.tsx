@@ -154,7 +154,7 @@ const SettingsPage = ({ records }) => {
 								minRows={5}
 								label="Custom JWT Claim"
 								value={form.values.custom_jwt_claim}
-								onChange={(val) => form.setFieldValue('custom_jwt_claim', val)}
+								onChange={(e) => form.setFieldValue('custom_jwt_claim', e.target.value)}
 							/>
 							<div className=" text-gray-500">
 								<p className="text-sm mb-2 block">Example</p>
