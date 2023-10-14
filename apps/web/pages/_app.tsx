@@ -1,4 +1,4 @@
-import Head from 'node_modules/next/head';
+import Head from 'next/head';
 import Layout from 'components/Layout/index';
 import { Toaster } from 'react-hot-toast';
 

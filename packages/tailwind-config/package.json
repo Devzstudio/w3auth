@@ -1,0 +1,25 @@
+{
+  "name": "@w3auth/tailwind-config",
+  "description": "Tailwindcss config for web3auth",
+  "version": "0.0.1",
+  "main": "index.ts",
+  "types": "index.ts",
+  "devDependencies": {
+    "tailwindcss": "^3.3.3"
+  },
+  "dependencies": {
+    "@tailwindcss/forms": "^0.5.6",
+    "@tailwindcss/typography": "^0.5.9",
+    "tailwind-scrollbar-hide": "^1.1.7",
+    "tailwindcss-radix": "^2.8.0"
+  },
+  "author": "",
+  "homepage": "",
+  "keywords": [
+    "tailwind",
+    "tailwindcss"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}
